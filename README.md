@@ -20,7 +20,11 @@ Additional public datasets:
 - consider time delay in data publications
 - also possible: scrape own additional data from e.g. Robert Koch Institut
 
+**TODO**
 
+- Konkrete Fragen formulieren
+- Welche Daten brauchen wir, um Fragen zu beantworten?
+- Aufgabenteilung
 
 **GitHub Basics**
 
