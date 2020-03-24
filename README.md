@@ -13,3 +13,4 @@ Ideas:
 - Comparison of effects of different actions/policies on basis of 3 - 4 countries (e.g. US federal states)
 - socio-demographics
 - consider time delay in data publications
+- also possible: scrape own additional data from e.g. Robert Koch Institut
