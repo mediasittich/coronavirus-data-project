@@ -2,7 +2,7 @@
 
 Dataset: https://github.com/RamiKrispin/coronavirus
 
-Ideas:
+**Ideas:**
 
 - Describe data with maps
 - Inspect trends in different countries global/Germany/... (death rates, etc)
@@ -14,3 +14,9 @@ Ideas:
 - socio-demographics
 - consider time delay in data publications
 - also possible: scrape own additional data from e.g. Robert Koch Institut
+
+
+
+**GitHub Basics**
+
+https://uoftcoders.github.io/studyGroup/lessons/git/collaboration/lesson/
