@@ -25,6 +25,7 @@ Additional public datasets:
 - Konkrete Fragen formulieren
 - Welche Daten brauchen wir, um Fragen zu beantworten?
 - Aufgabenteilung
+- Infektionsraten berechnen
 
 **GitHub Basics**
 
