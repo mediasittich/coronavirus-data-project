@@ -25,3 +25,19 @@ Additional public datasets:
 **GitHub Basics**
 
 https://uoftcoders.github.io/studyGroup/lessons/git/collaboration/lesson/
+
+**Project Structure**
+
+```
+.
+├── R
+│   ├── data <- downloaded datasets
+│   ├── munge <- pre-processed data
+│   ├── plots <- image files
+│   └── src <- R scripts
+└── README.md
+```
+
+
+
+
