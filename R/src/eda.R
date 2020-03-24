@@ -19,8 +19,8 @@ data("coronavirus")
 
 ####################################### Inspect dataset ############################################
 
-# copy dataset to working data frame
-df <- coronavirus
+# copy dataset to working data frame & convert empty cells to NAs
+df <- coronavirus %>% mutate_if(is.character, list(~na_if(., "")))
 
 # convert Province.State, Country.State, type from character to factor
 df <- mutate_if(df, is.character, as.factor)
@@ -28,11 +28,12 @@ df <- mutate_if(df, is.character, as.factor)
 str(df)
 summary(df)
 
-missing_col <- sapply(df, function(x) sum(is.na(x))) / nrow(df)
+missing_col <- sapply(df, function(x) sum(is.na(x) )) / nrow(df)
 missing_col[missing_col > 0]
 
 ###################################### Summary of dataset ##########################################
 
+# Examples from GitHub repo
 df %>%
   group_by(Country.Region, type) %>%
   summarise(total_cases = sum(cases)) %>%
