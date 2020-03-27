@@ -12,6 +12,7 @@ setwd("./")
 #....................................... Load packages ..............................................
 library(dplyr)
 library(tidyr)
+library(plotly)
 
 #.................................. Load data from package ..........................................
 library(coronavirus)
@@ -47,6 +48,9 @@ df %>%
   summarise(total_cases = sum(cases)) %>%
   pivot_wider(names_from = type, values_from = total_cases) %>%
   arrange(-confirmed)
+
+
+
 
 
 

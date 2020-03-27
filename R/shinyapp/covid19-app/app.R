@@ -1,19 +1,47 @@
 library(shiny)
+library(plotly)
 
 
 # Define UI
 ui <- fluidPage(
-    sliderInput(inputId = "num",
-                label = "Choose a number",
-                value = 25, min = 1, max = 100),
-    plotOutput("hist")
+    
+    titlePanel(("Corona Virus (COVID-19) Project")),
+    
+    # Selector fields for user input
+    fluidRow(
+        
+        # Country/Region selector dropdown
+        column(
+            width = 4,
+            selectizeInput("country", label = h5("Country/Region"), choices = NULL, width = "100%")
+        ),
+        # State/Province selector dropdown
+        column(
+            width = 4,
+            selectizeInput("state", label = h5("State/Province"), choices = NULL, width = "100%")
+        ),
+        # Type selector dropdown
+        column(
+            width = 4,
+            checkboxGroupInput(
+                "types", label = h5("Case Types"),
+                choices = c("Confirmed", "Death", "Recovered"),
+                selected = c("Confirmed", "Death", "Recovered"),
+                width = "100%"
+            )
+        )
+        
+    ),
+    
+    # Plot to display cumulated cases
+    fluidRow(
+        plotlyOutput("cumulativeMetrics")
+    )
 )
 
 
 # Define server logic
-server <- function(input, output) {
-    output$hist <- renderPlot({ hist(rnorm(input$num)) })
-}
+server <- function(input, output) {}
 
 
 # Run the app
