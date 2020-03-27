@@ -1,0 +1,10 @@
+name: covid19-app
+title:
+username:
+account: regina-galambos
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2007750
+bundleId: 2932734
+url: https://regina-galambos.shinyapps.io/covid19-app/
+when: 1585326101.06498
