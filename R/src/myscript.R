@@ -12,11 +12,14 @@ setwd("./")
 #....................................... Load packages ..............................................
 library(dplyr)
 library(tidyr)
+library(lubridate)
 library(plotly)
 
 #.................................. Load data from package ..........................................
 library(coronavirus)
 data("coronavirus")
+
+update_datasets()
 
 ####################################### Inspect dataset ############################################
 
@@ -50,12 +53,32 @@ df %>%
   arrange(-confirmed)
 
 
+germany <- df %>%
+  filter(Country.Region == "Germany" & type == "confirmed") %>%
+  select(Country.Region, Province.State, date, cases, type) #%>%
+  #summarise(total = sum(cases)) #%>%
+  #pivot_wider(names_from = type, values_from = total)
 
+germany <- germany %>%
+  mutate(cumsum = cumsum(cases))
 
+library(ggplot2)
+library(scales)
 
+ggplot(germany, aes(date, cumsum)) +
+  geom_point() +
+  scale_y_log10(
+    breaks = trans_breaks("log10", function(x) 10^x)
+  ) +
+  annotation_logticks(sides = "bl") +
+  labs(x = "Date", y = "Cumulative number of registered Covid-19 infections")
+  #scale_y_continuous(trans = log_trans(),
+  #  breaks = trans_breaks("log", function(x) exp(x)),
+  #  labels = trans_format("log", math_format(e^.x))) + 
+  #annotation_logticks() 
 
 # UN data
-read.csv("../data/SYB62_1_201907_Polutation, Surface Area and Density.csv")
+# read.csv("../data/SYB62_1_201907_Polutation, Surface Area and Density.csv")
 
 
 
