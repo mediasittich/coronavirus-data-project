@@ -5,6 +5,8 @@ account: regina-galambos
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2007750
-bundleId: 2932734
+bundleId: 2937580
 url: https://regina-galambos.shinyapps.io/covid19-app/
-when: 1585326101.06498
+when: 1585436402.56829
+asMultiple: FALSE
+asStatic: FALSE
