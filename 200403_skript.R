@@ -221,7 +221,19 @@ plot_cumulative_by_time_recovered = df_states%>%
   geom_line()
 
 ## Plot: by continent
+countries <- unique(df_states$Country.Region) # Countries from the corona dataframe.
+geo_data <- data.frame(country = countries) # as data.frane
 
+library(countrycode) # to get the iso2c code
+library(raster) # to merge the iso2c to the continent from ccodes()
+
+geo_data$continent <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso3c") # get iso2c
+
+geo_data = merge(geo_data, ccodes()[,c(2, 10)], by.x="continent", by.y="ISO3", all.x=T) # merge with ccodes()
+
+# Information does not exist for: Channel Islands, Diamond Princess, Kosovo, MS Zaandam, St Martin.
+# Get information manually: Channel Islands = Europe, Diamond Princess = NA, Kosovo = Europe, 
+# MS Zaandam = NA (Kreuzfahrtschiff), St Martin = North America.
 
 ## Plot: from 100 confirmed cases on. Replication rate.
 # generating a Dataframe for doubeling times
