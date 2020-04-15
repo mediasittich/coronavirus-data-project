@@ -130,7 +130,7 @@ summary(df_all)
 
 missing_col <- sapply(df_all, function(x) sum(is.na(x) )) / nrow(df_all)
 missing_col[missing_col > 0]
-
+rm(missing_col)
 
 ########################### Begin Descriptive Analysis #############################################
 
@@ -188,7 +188,7 @@ df_states = df_states%>%
   bind_rows(df_colonies)%>%
   bind_rows(df_canada)
 
-rm(df_provinces, df_colonies, df_canada) # tidy up
+rm(df_provinces, df_colonies, df_canada, df_all) # tidy up
 
   # In df_states the lat and long for  is now missing.
   # data is obtained manualle from https://github.com/MISP/misp-dashboard/blob/master/data/country_code_lat_long.json
@@ -227,13 +227,42 @@ geo_data <- data.frame(country = countries) # as data.frane
 library(countrycode) # to get the iso2c code
 library(raster) # to merge the iso2c to the continent from ccodes()
 
-geo_data$continent <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso3c") # get iso2c
+geo_data$ISO3 <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso3c") # get iso2c
+geo_data$ISO2 <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso2c")
 
-geo_data = merge(geo_data, ccodes()[,c(2, 10)], by.x="continent", by.y="ISO3", all.x=T) # merge with ccodes()
-
+geo_data = merge(geo_data, ccodes()[,c(2, 10)], by.x="ISO3", by.y="ISO3", all.x=T) # merge with ccodes()
+detach("package:raster", unload=TRUE) # need to unload, otherwise dplyr::select will not work.
+rm(countries)
 # Information does not exist for: Channel Islands, Diamond Princess, Kosovo, MS Zaandam, St Martin.
 # Get information manually: Channel Islands = Europe, Diamond Princess = NA, Kosovo = Europe, 
 # MS Zaandam = NA (Kreuzfahrtschiff), St Martin = North America.
+geo_data = geo_data%>%
+  rename("Country.Region" = "country",
+         "Continent" = "continent")
+geo_data$Continent[which(geo_data$Country.Region == "Channel Islands")] = "Europe"
+geo_data$Continent[which(geo_data$Country.Region == "Kosovo")] = "Europe"
+geo_data$Continent[which(geo_data$Country.Region == "St Martin")] = "North America"
+
+df_states = df_states%>%
+  left_join(geo_data, by = "Country.Region")
+rm(geo_data)
+
+plot_cumulative_by_time_by_continent_confirmed = df_states%>%
+  group_by(Country.Region, type, Continent)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  filter(type == "confirmed")%>%
+  filter(Country.Region != "US")%>%
+  #filter(Continent == "Africa" | Continent == "Europe")%>%
+  filter(cumulative >= 1)%>%
+    ggplot(aes(date, cumulative, group = Country.Region))+
+      geom_line(aes(color = Continent))+
+      #scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                    #labels = trans_format("log10", math_format(10^.x)))+
+      #annotation_logticks(side="l") +
+      theme_bw()+
+  facet_grid(rows = vars(Continent))
+
+plot_cumulative_by_time_by_continent_confirmed
 
 ## Plot: from 100 confirmed cases on. Replication rate.
 # generating a Dataframe for doubeling times
@@ -256,34 +285,88 @@ plot_days_to_double_confirmed = df_states%>%
   group_by(Country.Region, type)%>%
   filter(cumulative >= 100)%>%
   mutate(days = difftime(date, min(date), units = "days"))%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
   filter(type == "confirmed")%>%
     ggplot()+
-      geom_path(aes(days, cumulative, group = Country.Region), lineend = "round", color='grey50')+
-      xlim(0, 50)+
+      geom_path(aes(days, cumulative, group = Country.Region), lineend = "round", color='grey50', na.rm = TRUE)+
+      xlim(0, 30)+
       scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                     labels = trans_format("log10", math_format(10^.x)))+
       annotation_logticks(side="l") +
       labs(x =" Days since 100 confirmed cases", y ="Cumulative number of confirmed cases",
            titel = "Confirmed Cases") +
       theme_bw()+
-    geom_line(data = df_doubling_time, aes(time_days, value, group = `Days to double`, color=`Days to double`),
+      geom_line(data = df_doubling_time, aes(time_days, value, group = `Days to double`, color=`Days to double`),
               size = 1.5, linetype = 5)+
-  scale_color_viridis_d()
+      scale_color_viridis_d()+
+      facet_grid(cols = vars(Continent))
 
-plot_days_to_double_confirmed #warning message ist due to the restriction on days [0, x]
+plot_days_to_double_confirmed 
+
+## Calculate time to double on a day-to-day basis
+
+df_states_wider = df_states%>%
+  select(Country.Region, date, type, cumulative)%>%
+  pivot_wider(names_from = c(Country.Region, type), values_from = cumulative)
+
+time_to_double = matrix(data = NA, nrow = (dim(df_states_wider)[1]-1), ncol=(dim(df_states_wider)[2]-1))
+dim(time_to_double)
+
+for (i in 1:ncol(time_to_double)){
+  i = i+1
+  for (j in 1:nrow(time_to_double)){
+    k = j+1
+    if (df_states_wider[k,i] == df_states_wider[j,i]){
+      dt = NA
+      time_to_double[j, (i-1)] = dt
+    } else {
+      dt = log(2)/log(as.numeric(df_states_wider[k,i]/df_states_wider[j,i]))
+      time_to_double[j, (i-1)] = dt
+    }
+  }
+}
+rm(i, j, k, dt)
+last_date = matrix(data = NA, nrow = 1, ncol=(dim(df_states_wider)[2]-1)) # for the last date, there is no doubling time calculable 
+time_to_double = rbind(last_date, time_to_double)
+rm(last_date)
+
+dates =  df_states_wider%>%
+  select(date)%>%
+  as.vector()
+time_to_double = cbind(dates, time_to_double)
+
+colnames.df_states_wider = colnames(df_states_wider)
+colnames(time_to_double) = colnames.df_states_wider
+rm(colnames.df_states_wider, df_states_wider)
+
+df_time_to_double = as.data.frame(time_to_double)
+
+df_time_to_double = df_time_to_double%>%
+  pivot_longer(-date, names_to = c("Country.Region", "type"), names_sep = "_", values_to = "dt")
+
+df_time_to_double = df_time_to_double%>%
+  mutate(growth.rate = (log(2)/dt)*100)
+  
+df_states = df_states%>%
+  left_join(y = df_time_to_double, by = c("Country.Region", "type", "date"))
+rm(df_time_to_double)
+
+df_states = df_states%>%
+  group_by(Country.Region, type)%>%
+  mutate(mov.average = rollmean(growth.rate, 7,align='right',na.rm=TRUE, fill=TRUE))
 
 
+plot_time_to_double = df_states%>%
+  filter(type == "confirmed")%>%
+  filter(cumulative >= 100)%>%
+  #filter(Continent == "Europe")%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" | Country.Region != "China")%>%
+  filter(mov.average != Inf)%>% # if no case gets recorded, the growth.rate == Inf
+  filter(growth.rate >= 0)%>% # some confirmed events got corrected and given as neg. value
+    ggplot(aes(x = date, y = mov.average, group = Country.Region))+
+    #ylim(0, 300)+
+    geom_line(aes(color = Continent))+
+    facet_grid(col = vars(Continent))
 
-
-
-
-
-
-
-
-
-
-
-
-
+plot_time_to_double
 
