@@ -186,39 +186,54 @@ df_states = df_all %>%
 df_states = df_states%>%
   bind_rows(df_provinces)%>%
   bind_rows(df_colonies)%>%
-  bind_rows(df_canada)
-
+  bind_rows(df_canada)%>%
+  select(-Lat, -Long)
 rm(df_provinces, df_colonies, df_canada, df_all) # tidy up
 
   # In df_states the lat and long for  is now missing.
   # data is obtained manualle from https://github.com/MISP/misp-dashboard/blob/master/data/country_code_lat_long.json
 
-df_states$Lat[which(df_states$Country.Region == "Australia")] = -27.0000
-df_states$Lat[which(df_states$Country.Region == "Australia")] = 133.0000
+ # df_states$Lat[which(df_states$Country.Region == "Australia")] = -27.0000
+ # df_states$Long[which(df_states$Country.Region == "Australia")] = 133.0000
 
-df_states$Lat[which(df_states$Country.Region == "Canada")] = 60.0000
-df_states$Lat[which(df_states$Country.Region == "Canada")] = -95.0000
+ # df_states$Lat[which(df_states$Country.Region == "Canada")] = 60.0000
+ # df_states$Long[which(df_states$Country.Region == "Canada")] = -95.0000
 
-df_states$Lat[which(df_states$Country.Region == "China")] = 35.0000
-df_states$Lat[which(df_states$Country.Region == "China")] = 105.0000
+ # df_states$Lat[which(df_states$Country.Region == "China")] = 35.0000
+ # df_states$Long[which(df_states$Country.Region == "China")] = 105.0000
 
 
 ## Plot: Cummulative cases and types vs date for all countries
 plot_cumulative_by_time_confirmed = df_states%>%
   group_by(Country.Region, type)%>%
   filter(type == "confirmed")%>%
+  #filter(cumulative >=1)%>%
     ggplot(aes(date, cumulative, fill = Country.Region))+
-      geom_line()
+      geom_line()+
+      labs(x = "Cumulative number of confirmed cases")+
+      #scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+      #labels = trans_format("log10", math_format(10^.x)))+
+      #annotation_logticks(side="l") +
+      theme_bw()
+plot_cumulative_by_time_confirmed
+
 plot_cumulative_by_time_death = df_states%>%
   group_by(Country.Region, type)%>%
   filter(type == "death")%>%
-  ggplot(aes(date, cumulative, fill = Country.Region))+
-  geom_line()
+    ggplot(aes(date, cumulative, fill = Country.Region))+
+      geom_line()+
+      labs(x = "Cumulative number of death cases")+
+      theme_bw()
+plot_cumulative_by_time_death
+
 plot_cumulative_by_time_recovered = df_states%>%
   group_by(Country.Region, type)%>%
   filter(type == "recovered")%>%
-  ggplot(aes(date, cumulative, fill = Country.Region))+
-  geom_line()
+    ggplot(aes(date, cumulative, fill = Country.Region))+
+      geom_line()+
+      labs(x = "Cumulative number of recovered cases")+
+      theme_bw()
+plot_cumulative_by_time_recovered
 
 ## Plot: by continent
 countries <- unique(df_states$Country.Region) # Countries from the corona dataframe.
@@ -260,7 +275,7 @@ plot_cumulative_by_time_by_continent_confirmed = df_states%>%
                     #labels = trans_format("log10", math_format(10^.x)))+
       #annotation_logticks(side="l") +
       theme_bw()+
-  facet_grid(rows = vars(Continent))
+  facet_grid(cols = vars(Continent))
 
 plot_cumulative_by_time_by_continent_confirmed
 
@@ -353,20 +368,54 @@ rm(df_time_to_double)
 
 df_states = df_states%>%
   group_by(Country.Region, type)%>%
-  mutate(mov.average = rollmean(growth.rate, 7,align='right',na.rm=TRUE, fill=TRUE))
+  mutate(growth.rate.mean = rollmean(growth.rate, 7,align = 'right',na.rm =  TRUE, fill = TRUE))%>%
+  mutate(cases.mean = rollmean(cases, 7,align = 'right', na.rm = TRUE, fill = TRUE))
 
+
+plot_growth_rate = df_states%>%
+  filter(type == "confirmed")%>%
+  filter(cumulative >= 100)%>%
+  #filter(Continent == "Europe")%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  filter(growth.rate != Inf)%>% # if no case gets recorded, the growth.rate == Inf
+  filter(growth.rate >= 0)%>% # some confirmed events got corrected and given as neg. value
+    ggplot(aes(x = date, y = growth.rate, group = Country.Region))+
+    #ylim(0, 300)+
+    geom_line(aes(color = Continent))+
+    theme_bw()+
+    labs(x = "Date", y = "day-to-day growth rate")+
+    facet_grid(col = vars(Continent))
+plot_growth_rate
 
 plot_time_to_double = df_states%>%
   filter(type == "confirmed")%>%
   filter(cumulative >= 100)%>%
   #filter(Continent == "Europe")%>%
-  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" | Country.Region != "China")%>%
-  filter(mov.average != Inf)%>% # if no case gets recorded, the growth.rate == Inf
-  filter(growth.rate >= 0)%>% # some confirmed events got corrected and given as neg. value
-    ggplot(aes(x = date, y = mov.average, group = Country.Region))+
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" & Country.Region != "China")%>%
+  filter(dt != Inf)%>% # if no case gets recorded, the growth.rate == Inf
+  filter(dt >= 0)%>% # some confirmed events got corrected and given as neg. value
+    ggplot(aes(x = date, y = dt, group = Country.Region))+
     #ylim(0, 300)+
     geom_line(aes(color = Continent))+
+    theme_bw()+
+    labs(x = "Date", y = "day-to-day doubling time")+
     facet_grid(col = vars(Continent))
-
 plot_time_to_double
+
+plot_growth_rate_rollmean = df_states%>%
+  filter(type == "confirmed")%>%
+  filter(cumulative >= 100)%>%
+  #filter(Continent == "Europe")%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  filter(growth.rate != Inf)%>% # if no case gets recorded, the growth.rate == Inf
+  filter(dt >= 0)%>% # some confirmed events got corrected and given as neg. value
+  ggplot(aes(x = date, y = growth.rate.mean, group = Country.Region))+
+  #ylim(0, 300)+
+  geom_line(aes(color = Continent))+
+  theme_bw()+
+  labs(x = "Date", y = "7-Day rolling mean of growth rate")
+  #facet_grid(col = vars(Continent))
+
+
+  
 
