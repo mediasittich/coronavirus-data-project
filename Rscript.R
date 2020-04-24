@@ -108,7 +108,9 @@ library(tidyr)
 library(lubridate)
 library(plotly)
 library(viridis)
-library(coronavirus) #
+library(coronavirus)
+library(psych)
+library(zoo)
 data("coronavirus")
 
 ####################################### Inspect dataset ############################################
@@ -190,19 +192,18 @@ df_states = df_states%>%
   select(-Lat, -Long)
 rm(df_provinces, df_colonies, df_canada, df_all) # tidy up
 
-  # In df_states the lat and long for  is now missing.
-  # data is obtained manualle from https://github.com/MISP/misp-dashboard/blob/master/data/country_code_lat_long.json
-
- # df_states$Lat[which(df_states$Country.Region == "Australia")] = -27.0000
- # df_states$Long[which(df_states$Country.Region == "Australia")] = 133.0000
-
- # df_states$Lat[which(df_states$Country.Region == "Canada")] = 60.0000
- # df_states$Long[which(df_states$Country.Region == "Canada")] = -95.0000
-
- # df_states$Lat[which(df_states$Country.Region == "China")] = 35.0000
- # df_states$Long[which(df_states$Country.Region == "China")] = 105.0000
+# This df_world data.frame containf the cumulative world data
+df_world = df_states%>%
+  select(Country.Region, date, cases, type)%>%
+  pivot_wider(names_from = c(Country.Region), values_from = cases)%>% #changing Country.Region to Variables
+  ungroup()%>%
+  mutate(cases.world = rowSums(.[3:ncol(.)]))%>% #Sum above all countries
+  select(date, type, cases.world)%>%
+  group_by(type)%>%
+  mutate(cumulative.world = cumsum(cases.world)) # Cumulative sum over time
 
 
+###-----------------------------------------------------------------------------------------
 ## Plot: Cummulative cases and types vs date for all countries
 plot_cumulative_by_time_confirmed = df_states%>%
   group_by(Country.Region, type)%>%
@@ -324,98 +325,60 @@ df_states_wider = df_states%>%
   select(Country.Region, date, type, cumulative)%>%
   pivot_wider(names_from = c(Country.Region, type), values_from = cumulative)
 
-time_to_double = matrix(data = NA, nrow = (dim(df_states_wider)[1]-1), ncol=(dim(df_states_wider)[2]-1))
-dim(time_to_double)
+growth.factor = matrix(data = NA, nrow = (dim(df_states_wider)[1]-1), ncol=(dim(df_states_wider)[2]-1))
+dim(growth.factor)
 
-for (i in 1:ncol(time_to_double)){
+for (i in 1:ncol(growth.factor)){
   i = i+1
-  for (j in 1:nrow(time_to_double)){
+  for (j in 1:nrow(growth.factor)){
     k = j+1
-    if (df_states_wider[k,i] == df_states_wider[j,i]){
-      dt = NA
-      time_to_double[j, (i-1)] = dt
-    } else {
-      dt = log(2)/log(as.numeric(df_states_wider[k,i]/df_states_wider[j,i]))
-      time_to_double[j, (i-1)] = dt
-    }
+    gf = as.numeric(df_states_wider[k,i]/df_states_wider[j,i])
+    growth.factor[j, (i-1)] = gf
   }
 }
-rm(i, j, k, dt)
+rm(i, j, k, gf)
+
 last_date = matrix(data = NA, nrow = 1, ncol=(dim(df_states_wider)[2]-1)) # for the last date, there is no doubling time calculable 
-time_to_double = rbind(last_date, time_to_double)
+growth.factor = rbind(last_date, growth.factor)
 rm(last_date)
 
 dates =  df_states_wider%>%
   select(date)%>%
   as.vector()
-time_to_double = cbind(dates, time_to_double)
+growth.factor = cbind(dates, growth.factor)
 
 colnames.df_states_wider = colnames(df_states_wider)
-colnames(time_to_double) = colnames.df_states_wider
+colnames(growth.factor) = colnames.df_states_wider
 rm(colnames.df_states_wider, df_states_wider)
 
-df_time_to_double = as.data.frame(time_to_double)
+df_growth.factor = as.data.frame(growth.factor)
 
-df_time_to_double = df_time_to_double%>%
-  pivot_longer(-date, names_to = c("Country.Region", "type"), names_sep = "_", values_to = "dt")
-
-df_time_to_double = df_time_to_double%>%
-  mutate(growth.rate = (log(2)/dt)*100)
+df_growth.factor = df_growth.factor%>%
+  pivot_longer(-date, names_to = c("Country.Region", "type"), names_sep = "_", values_to = "gf")
   
 df_states = df_states%>%
-  left_join(y = df_time_to_double, by = c("Country.Region", "type", "date"))
-rm(df_time_to_double)
+  left_join(y = df_growth.factor, by = c("Country.Region", "type", "date"))
+rm(df_growth.factor)
+
+# df_states now contains the growth facter. From this the 7 day rolling geometric mean will be calculated.
+df_states$gf[which(is.nan(df_states$gf))] = NA
+df_states$gf[which(is.infinite(df_states$gf))] = NA
 
 df_states = df_states%>%
   group_by(Country.Region, type)%>%
-  mutate(growth.rate.mean = rollmean(growth.rate, 7,align = 'right',na.rm =  TRUE, fill = TRUE))%>%
-  mutate(cases.mean = rollmean(cases, 7,align = 'right', na.rm = TRUE, fill = TRUE))
-
+  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right")) # geometric rolling mean of past 7 days.
 
 plot_growth_rate = df_states%>%
   filter(type == "confirmed")%>%
-  filter(cumulative >= 100)%>%
+  filter(cumulative >= 50)%>%
   #filter(Continent == "Europe")%>%
-  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
-  filter(growth.rate != Inf)%>% # if no case gets recorded, the growth.rate == Inf
-  filter(growth.rate >= 0)%>% # some confirmed events got corrected and given as neg. value
-    ggplot(aes(x = date, y = growth.rate, group = Country.Region))+
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" & Country.Region != "China")%>%
+  #filter(growth.factor.mean != Inf)%>% # if no case gets recorded, the growth.rate == Inf
+  #filter(growth.rate >= 0)%>% # some confirmed events got corrected and given as neg. value
+    ggplot(aes(x = date, y = growth.factor.mean, group = Country.Region))+
     #ylim(0, 300)+
     geom_line(aes(color = Continent))+
     theme_bw()+
     labs(x = "Date", y = "day-to-day growth rate")+
     facet_grid(col = vars(Continent))
 plot_growth_rate
-
-plot_time_to_double = df_states%>%
-  filter(type == "confirmed")%>%
-  filter(cumulative >= 100)%>%
-  #filter(Continent == "Europe")%>%
-  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" & Country.Region != "China")%>%
-  filter(dt != Inf)%>% # if no case gets recorded, the growth.rate == Inf
-  filter(dt >= 0)%>% # some confirmed events got corrected and given as neg. value
-    ggplot(aes(x = date, y = dt, group = Country.Region))+
-    #ylim(0, 300)+
-    geom_line(aes(color = Continent))+
-    theme_bw()+
-    labs(x = "Date", y = "day-to-day doubling time")+
-    facet_grid(col = vars(Continent))
-plot_time_to_double
-
-plot_growth_rate_rollmean = df_states%>%
-  filter(type == "confirmed")%>%
-  filter(cumulative >= 100)%>%
-  #filter(Continent == "Europe")%>%
-  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
-  filter(growth.rate != Inf)%>% # if no case gets recorded, the growth.rate == Inf
-  filter(dt >= 0)%>% # some confirmed events got corrected and given as neg. value
-  ggplot(aes(x = date, y = growth.rate.mean, group = Country.Region))+
-  #ylim(0, 300)+
-  geom_line(aes(color = Continent))+
-  theme_bw()+
-  labs(x = "Date", y = "7-Day rolling mean of growth rate")
-  #facet_grid(col = vars(Continent))
-
-
-  
-
