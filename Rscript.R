@@ -366,14 +366,15 @@ df_states$gf[which(is.infinite(df_states$gf))] = NA
 
 df_states = df_states%>%
   group_by(Country.Region, type)%>%
-  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right")) # geometric rolling mean of past 7 days.
+  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right"))%>% # geometric rolling mean of past 7 days.
+  mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
 ### -------------------------------------------------------------------------------------------------------------------
 # Calculating growth factor for df_world
 df_world = df_world%>%
   group_by(type)%>%
   mutate(gf = cumulative.world/lag(cumulative.world, n=1))%>%
-  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right")) # geometric rolling mean of past 7 days.
-
+  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right"))%>% # geometric rolling mean of past 7 days.
+  mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
 df_world$Country.Region = "World" # necessary for adding to a plot that contains Country.Region as variable
 
 # subbsetting the data.frame df_world by type
