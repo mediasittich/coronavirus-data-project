@@ -2,4 +2,4 @@
 \beamer@sectionintoc {2}{Daten}{4}{0}{2}
 \beamer@sectionintoc {3}{Weltweit}{5}{0}{3}
 \beamer@sectionintoc {4}{Wachstumsraten}{6}{0}{4}
-\beamer@sectionintoc {5}{L\IeC {\"a}ndervergleich}{8}{0}{5}
+\beamer@sectionintoc {5}{L\IeC {\"a}ndervergleich}{9}{0}{5}
