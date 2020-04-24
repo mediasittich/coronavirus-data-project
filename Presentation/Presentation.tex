@@ -1,0 +1,105 @@
+\documentclass{beamer}
+
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{tabularx}
+
+\usetheme{CambridgeUS}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% New Environment for a plain box
+\newenvironment{boxeded}
+    {\begin{center}
+    \begin{tabular}{|p{\textwidth}|}
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+%-----------------------------------------------------------------------------------------------------------------
+
+% Die Präsentation dient dem Praxisprojekt: COVID-19 und wurde von Regina Galambos und Lorenz Mihatsch erstellt.
+
+% Folgende Inhalte sollen besprochen werden: 
+% 1: Datenstruktur und -erhebung erläutern:
+% 1.1) Probleme der Erhebung: Recoding policy, testing policy.
+% 2: Fallzahlen Weltweit als Timescale und als Weltkarte bezogen auf 100k Einwohner
+% 3: Wachstumsraten der Fallzahlen
+% 4: Ländervergleich. Zentrieren um Tag der Abriegelung irgendeiner Art.
+
+
+
+
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Presentation information: title, author.....
+
+\title[Praxisprojekt: COVID-19]{Analyse der COVID-19 Fallzahlen}
+\subtitle{Praxisprojekt}
+\author[R.Galambos, L.Mihatsch]{Regina Galambos, Lorenz Mihatsch\\
+	\includegraphics[width=0.22\textwidth]{LMU.pdf}\\
+	{\small Projektpartner: Andr\'{e} Klima}}
+%-----------------------------------------------------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Begin of presentation.
+
+%Title page
+\begin{document}
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% Table of contents
+\begin{frame}
+   \frametitle{Inhaltsangabe}
+   \tableofcontents
+ \end{frame}
+ 
+ 
+ % Einführung
+ %-----------------------------------------------------------------------------------------------------------------
+ \section{Einführung}
+ \begin{frame}
+ 	\frametitle{COVID-19 Pandemie}
+	Kommentar: Pandemie erklären. Datenerhebung der John Hopkins Universität.
+	Weg App erwähnen mit Interaktiven Graphiken und dem Link.
+ \end{frame}
+ \section{Daten}
+  
+ \begin{frame}
+ 	\frametitle{Daten}
+	Erklärungen zum Datensatz und Abruf der Daten über RamiKrispin
+	Weitere Teildatensätze: Kontinente, Population und Länderfläche.
+	Klar machen, dass es sich um Reported Cases handelt.
+ \end{frame}
+ 
+ \section{Weltweit}
+ \begin{frame}
+ 	\frametitle{Kumulative Daten weltweit}
+	Kommentar: Cumulative Daten der Welt als Timeline. Graphik mit Cases, Death und Recovered.
+	Aus Zeitlichen Gründen wird "Recovered" aus der Präsentation weggelassen.
+	Plot der Kumulativen Fallzahlen ab 100 Fälle mit den Linien der Verdoppelungszeiten?
+ \end{frame}
+ 
+\section{Wachstumsraten}
+\begin{frame}
+\frametitle{Wachstumsraten}
+	Kommentar: Plot aller Länder. Wachstumsraten, Verdoppelungszeit
+	Geom. Mean erklären.
+\end{frame}
+
+ \section{Ländervergleich}
+\begin{frame}
+\frametitle{Infektionsmaßnahmen}
+	Kommentar: Beispiel Plot von South Korea um Problematik der Zentrierung zu erläutern. Wachstumsraten bzw. Verdoppelungszeit zentriert um die Einführung der Maßnahmen.
+\end{frame}
+ 
+\end{document}
