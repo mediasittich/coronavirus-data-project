@@ -318,9 +318,8 @@ plot_days_to_double_confirmed = df_states%>%
       facet_grid(cols = vars(Continent))
 
 plot_days_to_double_confirmed 
-
-## Calculate time to double on a day-to-day basis
-
+### -------------------------------------------------------------------------------------------------------------------
+## Calculate growth factor on a day-to-day basis for df_states
 df_states_wider = df_states%>%
   select(Country.Region, date, type, cumulative)%>%
   pivot_wider(names_from = c(Country.Region, type), values_from = cumulative)
@@ -360,13 +359,21 @@ df_states = df_states%>%
   left_join(y = df_growth.factor, by = c("Country.Region", "type", "date"))
 rm(df_growth.factor)
 
-# df_states now contains the growth facter. From this the 7 day rolling geometric mean will be calculated.
+# df_states now contains the growth facter. 
+# From this the 7 day rolling geometric mean will be calculated.
 df_states$gf[which(is.nan(df_states$gf))] = NA
 df_states$gf[which(is.infinite(df_states$gf))] = NA
 
 df_states = df_states%>%
   group_by(Country.Region, type)%>%
   mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right")) # geometric rolling mean of past 7 days.
+### -------------------------------------------------------------------------------------------------------------------
+# Calculating growth factor for df_world
+df_world = df_world%>%
+  group_by(type)%>%
+  mutate(gf = cumulative.world/lag(cumulative.world, n=1))%>%
+  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right")) # geometric rolling mean of past 7 days.
+### -------------------------------------------------------------------------------------------------------------------
 
 plot_growth_rate = df_states%>%
   filter(type == "confirmed")%>%
@@ -377,8 +384,8 @@ plot_growth_rate = df_states%>%
   #filter(growth.rate >= 0)%>% # some confirmed events got corrected and given as neg. value
     ggplot(aes(x = date, y = growth.factor.mean, group = Country.Region))+
     #ylim(0, 300)+
-    geom_line(aes(color = Continent))+
+    geom_line()+
     theme_bw()+
-    labs(x = "Date", y = "day-to-day growth rate")+
-    facet_grid(col = vars(Continent))
+    labs(x = "Date", y = "day-to-day growth rate")
+    #facet_grid(col = vars(Continent))
 plot_growth_rate
