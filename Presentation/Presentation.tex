@@ -69,17 +69,39 @@
  \section{Einführung}
  \begin{frame}
  	\frametitle{COVID-19 Pandemie}
-	Kommentar: Pandemie erklären. Datenerhebung der John Hopkins Universität.
-	Weg App erwähnen mit Interaktiven Graphiken und dem Link.
+ 	\begin{enumerate}
+ 		\item COVID-19 ist ein Erkrankung die durch das SARS-CoV-2 Virus ausgelöst wird.
+ 		\item Die Erkranung ist erstmalig im Dezember 2019 in Wuhan (China) aufgetreten, der genaue Ursprung ist jedoch noch immer unbekannt.
+ 		\item Erster Fall in Deutschland am 28. Januar in Stockdorf.
+ 		\item Am 11.März wurde die ursprüngliche Epidemie als Pandemie eingestuft.
+ 		\item Am 22. März einigten sich Bund und Länder auf eine umfassende Beschränung sozialer Kontakte.
+ 	\end{enumerate}
  \end{frame}
  \section{Daten}
   
  \begin{frame}
- 	\frametitle{Daten}
-	Erklärungen zum Datensatz und Abruf der Daten über RamiKrispin
-	Weitere Teildatensätze: Kontinente, Population und Länderfläche.
-	Klar machen, dass es sich um Reported Cases handelt.
-	Umgang mit Diamond Pincess und MS Zaandam erklären: Rauslassen.
+ 	\frametitle{Datesätze}
+ 	\begin{enumerate}
+ 		\item Falldaten einzelner Länder
+ 		\begin{itemize}
+ 			\item Datensatz des \emph{Centers of Systems Science and Engineering} der John Hopkins University. 
+ 			\item Täglich von \emph{RamiKrispin} auf GitHub aktualisiert und als long-Format zu Verfügung gestellt. \url{https://github.com/RamiKrispin/coronavirus}
+ 		\end{itemize}
+ 		\item Demographische Daten
+ 		\begin{itemize}
+ 			\item Datenbank der Weltbank. Zugriff über \emph{webstat}-Package.
+ 		\end{itemize}
+ 	\end{enumerate}
+ 	\emph{Anmerkung}: Es handelt sich (nur) um die aufgezeichneten Fälle.
+ \end{frame}
+
+ \begin{frame}
+ 	\frametitle{Anmerkungen}
+ 	\begin{enumerate}
+ 		\item Diamond Princess und MS Zaandam wurden ausgeschlossen.
+ 		\item Die Anzahl an Cases beziehen sich meist auf 100.000 Personen.
+ 		\item Programmierung einer Web-Application: url!!!
+ 	\end{enumerate}
  \end{frame}
  
  \section{Weltweit}
@@ -179,6 +201,10 @@
 		\includegraphics[width = 270pt]{DT_deaths}
 	\end{figure}
 \end{frame}
+
+ \begin{frame}
+ 	\frametitle{Zwischenergebnis}
+ \end{frame}
 
 \section{Ländervergleich}
 \begin{frame}
