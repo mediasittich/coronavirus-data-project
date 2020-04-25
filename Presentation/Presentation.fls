@@ -315,6 +315,12 @@ INPUT ./GF_confirmed.pdf
 INPUT GF_deaths.pdf
 INPUT ./GF_deaths.pdf
 INPUT ./GF_deaths.pdf
+INPUT DT_confirmed.pdf
+INPUT ./DT_confirmed.pdf
+INPUT ./DT_confirmed.pdf
+INPUT DT_deaths.pdf
+INPUT ./DT_deaths.pdf
+INPUT ./DT_deaths.pdf
 OUTPUT Presentation.nav
 OUTPUT Presentation.toc
 OUTPUT Presentation.snm

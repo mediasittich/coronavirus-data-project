@@ -79,6 +79,7 @@
 	Erklärungen zum Datensatz und Abruf der Daten über RamiKrispin
 	Weitere Teildatensätze: Kontinente, Population und Länderfläche.
 	Klar machen, dass es sich um Reported Cases handelt.
+	Umgang mit Diamond Pincess und MS Zaandam erklären: Rauslassen.
  \end{frame}
  
  \section{Weltweit}
@@ -87,10 +88,10 @@
 	Kommentar: Cumulative Daten der Welt als Timeline. Graphik mit Cases, Death und Recovered.
 	Aus Zeitlichen Gründen wird "Recovered" aus der Präsentation weggelassen.
 	Plot der Kumulativen Fallzahlen ab 100 Fälle mit den Linien der Verdoppelungszeiten?
-	Umgang mit Diamond Pincess und MS Zaandam erklären: Rauslassen
+	
  \end{frame}
  
-\section{Wachstumsraten}
+\section{Wachstumsfaktoren}
 \begin{frame}
 \frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
 	\begin{boxeded}
@@ -114,7 +115,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Wachstumsraten}
+\frametitle{Wachstumsfaktoren}
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{GF_confirmed}
@@ -122,10 +123,37 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Wachstumsraten}
+\frametitle{Wachstumsfaktoren}
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{GF_deaths}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Verdopplungszeit}
+	Ausgehend von einem exponentielle Wachstum der Form $C_n = C_0 \cdot (\bar{x}_{n, geom})^{n}$ ergibt sie die "momentane" Verdopplunszeit $dt_i$ der Fallzahlen durch $$dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.$$
+	\pause
+	\emph{Herleitung}: 
+	\begin{align*} C_i \cdot (\bar{x}_{i, geom})^{dt_i} = 2 \cdot C_i 
+	 &\iff (\bar{x}_{i, geom})^{dt_i} = 2 \\
+	 &\iff dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Verdopplunsgzeit}
+	\begin{figure}
+		\centering
+		\includegraphics[width = 270pt]{DT_confirmed}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Verdopplungszeit}
+	\begin{figure}
+		\centering
+		\includegraphics[width = 270pt]{DT_deaths}
 	\end{figure}
 \end{frame}
 
@@ -133,6 +161,14 @@
 \begin{frame}
 \frametitle{Infektionsmaßnahmen}
 	Kommentar: Beispiel Plot von South Korea um Problematik der Zentrierung zu erläutern. Wachstumsraten bzw. Verdoppelungszeit zentriert um die Einführung der Maßnahmen.
+\end{frame}
+
+\begin{frame}
+\frametitle{Diskussion}
+	\begin{itemize}
+		\item Die Berechnung des \emph{geometrischen Mittels der Wachstumsfaktoren} und der \emph{Verdopplungzeit} beruht auf der Annahme eines exponentielle Wachstums. Zulässigkeit?
+		\item Weitere
+	\end{itemize}
 \end{frame}
  
 \end{document}

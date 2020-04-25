@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  25 APR 2020 10:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  25 APR 2020 12:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -900,18 +900,18 @@ df>] (./Presentation.toc) [2
 ] [5
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 102.
+LaTeX Font Info:    Try loading font information for U+msa on input line 103.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 102.
+LaTeX Font Info:    Try loading font information for U+msb on input line 103.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 102.
+line 103.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
@@ -923,22 +923,60 @@ thkerncmss.
 ] [8
 
 ]
-<GF_confirmed.pdf, id=124, 867.24pt x 614.295pt>
+<GF_confirmed.pdf, id=125, 794.97pt x 614.295pt>
 File: GF_confirmed.pdf Graphic file (type pdf)
 <use GF_confirmed.pdf>
-Package pdftex.def Info: GF_confirmed.pdf  used on input line 122.
-(pdftex.def)             Requested size: 270.0pt x 191.24496pt.
- [9
+Package pdftex.def Info: GF_confirmed.pdf  used on input line 123.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 123
+ []
+
+[9
 
  <./GF_confirmed.pdf>]
-<GF_deaths.pdf, id=137, 867.24pt x 614.295pt>
+<GF_deaths.pdf, id=138, 794.97pt x 614.295pt>
 File: GF_deaths.pdf Graphic file (type pdf)
 <use GF_deaths.pdf>
-Package pdftex.def Info: GF_deaths.pdf  used on input line 130.
-(pdftex.def)             Requested size: 270.0pt x 191.24496pt.
- [10
+Package pdftex.def Info: GF_deaths.pdf  used on input line 131.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 131
+ []
+
+[10
 
  <./GF_deaths.pdf>] [11
+
+] [12
+
+]
+<DT_confirmed.pdf, id=166, 794.97pt x 614.295pt>
+File: DT_confirmed.pdf Graphic file (type pdf)
+<use DT_confirmed.pdf>
+Package pdftex.def Info: DT_confirmed.pdf  used on input line 150.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 150
+ []
+
+[13
+
+ <./DT_confirmed.pdf>]
+<DT_deaths.pdf, id=180, 794.97pt x 614.295pt>
+File: DT_deaths.pdf Graphic file (type pdf)
+<use DT_deaths.pdf>
+Package pdftex.def Info: DT_deaths.pdf  used on input line 158.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 158
+ []
+
+[14
+
+ <./DT_deaths.pdf>] [15
+
+] [16
 
 ]
 \tf@nav=\write6
@@ -950,20 +988,19 @@ Package pdftex.def Info: GF_deaths.pdf  used on input line 130.
 \tf@snm=\write8
 \openout8 = `Presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 138.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 138.
-
-(./Presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 138.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 138.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 174.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 174.
+ (./Presentation.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 174.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 174.
 Package rerunfilecheck Info: File `Presentation.out' has not changed.
-(rerunfilecheck)             Checksum: C1ABCFE5E0267AE13F698C7AB828CFE8;233.
+(rerunfilecheck)             Checksum: 8DB01E1290794C0EAC2D44727A86C860;236.
  ) 
 Here is how much of TeX's memory you used:
- 17128 strings out of 492649
- 327423 string characters out of 6129621
+ 17183 strings out of 492649
+ 328632 string characters out of 6129621
  402746 words of memory out of 5000000
- 20591 multiletter control sequences out of 15000+600000
+ 20634 multiletter control sequences out of 15000+600000
  11345 words of font info for 41 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,61p,779b,572s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -977,10 +1014,10 @@ r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></us
 r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr
 /local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Presentation.pdf (11 pages, 204724 bytes).
+Output written on Presentation.pdf (16 pages, 272994 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 156 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
- 122 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 253 PDF objects out of 1000 (max. 8388607)
+ 200 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 500000)
+ 138 words of extra memory for PDF output out of 10000 (max. 10000000)
 
