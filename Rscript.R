@@ -243,8 +243,16 @@ geo_data <- data.frame(country = countries) # as data.frane
 library(countrycode) # to get the iso2c code
 library(raster) # to merge the iso2c to the continent from ccodes()
 
-geo_data$ISO3 <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso3c") # get iso2c
-geo_data$ISO2 <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso2c")
+geo_data$ISO3 <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso3c") # get iso3c
+geo_data$ISO2 <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso2c") # get iso3c
+geo_data$ISO3[which(geo_data$country == "Kosovo")] = "XKX"
+geo_data$ISO2[which(geo_data$country == "Kosovo")] = "XK"
+# ISO3 and IOS2 für Kosovo: https://www.wikidata.org/wiki/Q1246; abgerufen am 25.04.2019
+geo_data$ISO3[which(geo_data$country == "St Martin")] = "MAF"
+geo_data$ISO2[which(geo_data$country == "St Martin")] = "MF"
+# ISO3 and IOS2 für St Martin: https://www.iso.org/obp/ui/#iso:code:3166:MF; abgerufen am 25.04.2019
+# ISO for Channel Islands does not exist.
+# Warning message will be taken care of.
 
 geo_data = merge(geo_data, ccodes()[,c(2, 10)], by.x="ISO3", by.y="ISO3", all.x=T) # merge with ccodes()
 detach("package:raster", unload=TRUE) # need to unload, otherwise dplyr::select will not work.
@@ -260,8 +268,43 @@ geo_data$Continent[which(geo_data$Country.Region == "Kosovo")] = "Europe"
 geo_data$Continent[which(geo_data$Country.Region == "St Martin")] = "North America"
 
 df_states = df_states%>%
-  left_join(geo_data, by = "Country.Region")
+  left_join(geo_data, by = "Country.Region") # Warning message can be ignored
 rm(geo_data)
+
+## Getting the Population data for each country by ISO§
+library("wbstats") # to get population data from Worldbank
+
+countries_iso3 = unique(as.vector(df_states_wb$ISO3))
+pop_data = wb(country = countries_iso3, indicator = "SP.POP.TOTL", startdate = 2018, enddate = 2018) 
+# Population data from 2018 is being used. 2019 is not available, yet.
+# Not Information is available for the following ISO3: VAT,ESH,AIA,BES,FLK,GUF,GLP,MTQ,MYT,MSR,REU,BLM,SPM
+pop_data = pop_data%>% 
+  select(iso3c, value)%>%
+  rename("ISO3" = "iso3c",
+         "Population" = "value")
+
+pop_data = pop_data%>%
+  add_row(ISO3 = "VAT", Population = 453) %>% # https://de.wikipedia.org/wiki/Vatikanstadt#Bevölkerung; abgerufen am 25.04.2019
+  add_row(ISO3 = "ESH", Population = 597000) %>% # https://de.wikipedia.org/wiki/Westsahara; abgerufen am 25.04.2019
+  add_row(ISO3 = "AIA", Population = 13572) %>% # https://de.wikipedia.org/wiki/Anguilla; abgerufen am 25.04.2019
+  add_row(ISO3 = "BES", Population = 18413) %>% # https://de.wikipedia.org/wiki/Bonaire; abgerufen am 25.04.2019
+  add_row(ISO3 = "FLK", Population = 2922) %>% # https://de.wikipedia.org/wiki/Falklandinseln; abgerufen am 25.04.2019
+  add_row(ISO3 = "GUF", Population = 268700) %>% # https://de.wikipedia.org/wiki/Französisch-Guayana; abgerufen am 25.04.2019
+  add_row(ISO3 = "GLP", Population = 390253) %>% # https://de.wikipedia.org/wiki/Guadeloupe; abgerufen am 25.04.2019
+  add_row(ISO3 = "MTQ", Population = 372594) %>% # https://de.wikipedia.org/wiki/Martinique; abgerufen am 25.04.2019
+  add_row(ISO3 = "MYT", Population = 256518) %>% # https://de.wikipedia.org/wiki/Mayotte; abgerufen am 25.04.2019
+  add_row(ISO3 = "MSR", Population = 4922) %>% # https://de.wikipedia.org/wiki/Montserrat; abgerufen am 25.04.2019
+  add_row(ISO3 = "REU", Population = 853659) %>% # https://de.wikipedia.org/wiki/Réunion; abgerufen am 25.04.2019
+  add_row(ISO3 = "BLM", Population = 9961) %>% # https://de.wikipedia.org/wiki/Saint-Barthélemy_(Insel); abgerufen am 25.04.2019
+  add_row(ISO3 = "SPM", Population = 5997) %>% # https://de.wikipedia.org/wiki/Saint-Pierre_und_Miquelon; abgerufen am 25.04.2019
+  add_row(ISO3 = NA, Population = NA) # for Diamond Princess and MS Zaandam
+
+df_states = df_states%>%
+  left_join(pop_data, by = "ISO3") # Warning message can be ignored
+
+detach("package:wbstats", unload=TRUE) # cleaning
+rm(countries_iso3, pop_data) # cleaning
+
 
 plot_cumulative_by_time_by_continent_confirmed = df_states%>%
   group_by(Country.Region, type, Continent)%>%
@@ -385,16 +428,16 @@ df_world_death = df_world%>%
 df_world_recovered = df_world%>%
   filter(type == "recovered")
 
-### -------------------------------------------------------------------------------------------------------------------
+#### -------------------------------------------------------------------------------------------------------------------
+### Plots of GROWTH FACTORS
 ## Plot for growth factor of confirmed cases
-
 plot_growth.fractor_confirmed = df_states%>%
   filter(type == "confirmed")%>%
   filter(cumulative >= 50)%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" )%>%
     ggplot(aes(x = date, y = growth.factor.mean))+
     geom_line(aes(group = Country.Region), color = 'grey50')+
-    labs(title = "Recorded Cases", subtitle = "7-day rolling geometric mean of day-to-day growth factor of recorded confirmed cases", 
+    labs(title = "Growth factors: Recorded Cases", subtitle = "7-day rolling geometric mean growth factors of all countries with more than 50 cases recorded", 
          x = "Date", y = "growth factor")+
     theme_bw()+
     theme(plot.title = element_text(size = 25),
@@ -408,7 +451,7 @@ plot_growth.fractor_confirmed = plot_growth.fractor_confirmed+
             color = 'red', size = 1.5)+
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.5, label = "World"), color = 'red', size = 7)
 plot_growth.fractor_confirmed
-ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 27.94, height = 21.59, units = "cm")
+ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 11, height = 8.5, units = "in")
 
 ## Plot for growth factor of death cases
 plot_growth.fractor_death = df_states%>%
@@ -417,7 +460,7 @@ plot_growth.fractor_death = df_states%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" )%>%
   ggplot(aes(x = date, y = growth.factor.mean))+
   geom_line(aes(group = Country.Region), color = 'grey50')+
-    labs(title = "Recorded Deaths", subtitle = "7-day rolling geometric mean of day-to-day growth factor of recorded death cases", 
+    labs(title = "Growth factors: Recorded Deaths", subtitle = "7-day rolling geometric mean of growth factors of all countries with more than 20 deaths recorded", 
          x = "Date", y = "growth factor")+
     theme_bw()+
     theme(plot.title = element_text(size = 25),
@@ -431,9 +474,10 @@ plot_growth.fractor_death = plot_growth.fractor_death+
             color = 'black', size = 1.5)+
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'black', size = 7)
 plot_growth.fractor_death
-ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_death, width = 27.94, height = 21.59, units = "cm")
+ggsave("GF_deaths.pdf", plot = plot_growth.fractor_death, width = 11, height = 8.5, units = "in")
 
 ## Plot for growth factor of recovered cases
+{
 plot_growth.fractor_recovered = df_states%>%
     filter(type == "recovered")%>%
     filter(cumulative >= 30)%>%
@@ -448,7 +492,56 @@ plot_growth.fractor_recovered = df_states%>%
 # adding World growth.factor to the plot
   plot_growth.fractor_recovered = plot_growth.fractor_recovered+ 
     geom_line(data = df_world_recovered, aes(x = date, y = growth.factor.mean), 
-              color = 'red', size = 1.5)
+              color = 'blue', size = 1.5)
+}
+
+#### -------------------------------------------------------------------------------------------------------------------
+### Plots of DOUBLING TIMES
+## Plot for Doubling Times of confirmed cases
+plot_doubling.time_confirmed = df_states%>%
+  filter(type == "confirmed")%>%
+  filter(cumulative >= 50)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+    ggplot(aes(x = date, y = doubling.time.mean))+
+      geom_line(aes(group= Country.Region), color = 'grey50')+
+      ylim(0, 150)+
+      labs(title = "Doubling Times: Recorded Cases", subtitle = "7-day rolling geometric mean of doubling time of all countries with more than 50 cases recorded", 
+         x = "Date", y = "Days")+
+      theme_bw()+
+      theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
+plot_doubling.time_confirmed = plot_doubling.time_confirmed+
+  geom_line(data = df_world_confirmed, aes(x = date, y = doubling.time.mean), 
+            color = 'red', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'red', size = 7)
+plot_doubling.time_confirmed
+ggsave("DT_confirmed.pdf", plot = plot_doubling.time_confirmed, width = 11, height = 8.5, units = "in")
+
+## Plot for Doubling Times of confirmed death
+plot_doubling.time_deaths = df_states%>%
+  filter(type == "death")%>%
+  filter(cumulative >= 20)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = date, y = doubling.time.mean))+
+  geom_line(aes(group= Country.Region), color = 'grey50')+
+  ylim(0, 100)+
+  labs(title = "Doubling Times: Recorded Deaths", subtitle = "7-day rolling geometric mean of doubling time of all countries with more than 20 deaths recorded", 
+       x = "Date", y = "Days")+
+  theme_bw()+
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
+plot_doubling.time_deaths = plot_doubling.time_deaths+
+  geom_line(data = df_world_death, aes(x = date, y = doubling.time.mean), 
+            color = 'black', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'black', size = 7)
+plot_doubling.time_deaths
+ggsave("DT_deaths.pdf", plot = plot_doubling.time_deaths, width = 11, height = 8.5, units = "in")
 
 ### -------------------------------------------------------------------------------------------------------------------
 ## Plot for growth factor of confirmed cases centered at 50 confirmed cases
@@ -484,3 +577,13 @@ plot_growth.rate_recovered_centered20 = df_states%>%
   geom_line(aes(group = Country.Region), color = 'grey50')+
   theme_bw()+
   labs(x = "Date", y = "day-to-day growth rate")
+
+
+
+plot_cases_germany = df_states%>%
+  filter(Country.Region == "Germany")%>%
+    ggplot(aes(x = date, y = cases))+
+    geom_bar(stat = "identity")
+
+
+
