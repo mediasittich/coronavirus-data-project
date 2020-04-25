@@ -84,38 +84,61 @@
  
  \section{Weltweit}
  \begin{frame}
- 	\frametitle{Kumulative Daten weltweit}
+ 	\frametitle{COVID-19 weltweit}
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{Cases_world.pdf}
 	\end{figure}
  \end{frame}
+
+ \begin{frame}
+ 	\frametitle{COVID-19 weltweit}
+	Kommentar: Hier die Weltkarten.
+ \end{frame}
  
+ \begin{frame}
+ 	\frametitle{COVID-19 weltweit bestätigte Fälle}
+	\begin{figure}
+		\centering
+		\includegraphics[width = 270pt]{Cases_cumulative_confirmed.pdf}
+	\end{figure}
+ \end{frame}
+
+ \begin{frame}
+ 	\frametitle{COVID-19 weltweit bestätigte Todesfälle}
+	\begin{figure}
+		\centering
+		\includegraphics[width = 270pt]{Cases_cumulative_deaths.pdf}
+	\end{figure}
+ \end{frame}
+
+ \begin{frame}
+ 	\frametitle{Zuwischenergebnis}
+ \end{frame}
+
 \section{Wachstumsfaktoren}
 \begin{frame}
-\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
+	\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
 	\begin{boxeded}
-	\textbf{Definition 1} \textit{Wachstumsfaktor}\\
-	Sei $C_0, C_1, C_2, ...$ eine Zeitreihe von Fallzahlen zu den Zeitpunkten $0, 1, ..., n$. Dann ist für $i = 1, ..., n$ der i-te Wachstumsfactor $x_1$ gegeben durch $$ x_i = \frac{C_i}{C_{i-1}}.$$
+		\textbf{Definition 1} \textit{Wachstumsfaktor}\\
+		Sei $C_0, C_1, C_2, ...$ eine Zeitreihe von Fallzahlen zu den Zeitpunkten $0, 1, ..., n$. Dann ist für $i = 1, ..., n$ der i-te Wachstumsfactor $x_1$ gegeben durch $$ x_i = \frac{C_i}{C_{i-1}}.$$
 	\end{boxeded}
 
 	Die Fallzahlen $C_n$ zum Zeitpunkt $n$ sind gegeben durch $$C_n = C_0 \cdot x_1 \cdot x_2 \cdot ... \cdot x_n$$
 \end{frame}
 
 \begin{frame}
-\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
+	\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
 	\begin{boxeded}
-	\textbf{Definition 2} \textit{Geometrisches Mittel}\\
-	Das geometrische Mittel zu den Wachstumsfaktoren $x_1, x_2, ..., x_n$ ist gegeben durch $$\bar{x}_{geom} = (x_1 \cdot x_2 \cdot ... \cdot x_n)^{1/n}.$$ Daraus ergibt sich $C_n = C_0 \cdot x_1 \cdot x_2 \cdot ... \cdot x_n = C_0 \cdot (\bar{x}_{geom})^n$.
+		\textbf{Definition 2} \textit{Geometrisches Mittel}\\
+		Das geometrische Mittel zu den Wachstumsfaktoren $x_1, x_2, ..., x_n$ ist gegeben durch $$\bar{x}_{geom} = (x_1 \cdot x_2 \cdot ... \cdot x_n)^{1/n}.$$ Daraus ergibt sich $C_n = C_0 \cdot x_1 \cdot x_2 \cdot ... \cdot x_n = C_0 \cdot (\bar{x}_{geom})^n$.
 	\end{boxeded}
 	\pause
 	Wir betrachten im Folgenden den \emph{rolling geometric mean} der vergangenen 7 Tage. Dazu berechnen wir für jeden Zeitpunkt $i$ $$\bar{x}_{i, geom} = (x_i \cdot x_{i-1} \cdot x_{i-2} \cdot ... \cdot x_{i-6})^{1/7}.$$
-
-
 \end{frame}
 
 \begin{frame}
-\frametitle{Wachstumsfaktoren: Bestätigte Fälle}
+	\frametitle{Wachstumsfaktoren: Bestätigte Fälle}
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{GF_confirmed}
@@ -123,7 +146,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Wachstumsfaktoren: Todesfälle}
+	\frametitle{Wachstumsfaktoren: Todesfälle}
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{GF_deaths}
@@ -131,18 +154,18 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Verdopplungszeit}
+	\frametitle{Verdopplungszeit}
 	Ausgehend von einem exponentielle Wachstum der Form $C_n = C_0 \cdot (\bar{x}_{n, geom})^{n}$ ergibt sie die "momentane" Verdopplunszeit $dt_i$ der Fallzahlen durch $$dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.$$
 	\pause
 	\emph{Herleitung}: 
 	\begin{align*} C_i \cdot (\bar{x}_{i, geom})^{dt_i} = 2 \cdot C_i 
-	 &\iff (\bar{x}_{i, geom})^{dt_i} = 2 \\
-	 &\iff dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.
+		 &\iff (\bar{x}_{i, geom})^{dt_i} = 2 \\
+	 	&\iff dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.
 	\end{align*}
 \end{frame}
 
 \begin{frame}
-\frametitle{Verdopplungszeit: Bestätigte Fälle}
+	\frametitle{Verdopplungszeit: Bestätigte Fälle}
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{DT_confirmed}
@@ -150,21 +173,21 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Verdopplungszeit: Todesfälle}
+	\frametitle{Verdopplungszeit: Todesfälle}
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{DT_deaths}
 	\end{figure}
 \end{frame}
 
- \section{Ländervergleich}
+\section{Ländervergleich}
 \begin{frame}
-\frametitle{Infektionsmaßnahmen}
+	\frametitle{Infektionsmaßnahmen}
 	Kommentar: Beispiel Plot von South Korea um Problematik der Zentrierung zu erläutern. Wachstumsraten bzw. Verdoppelungszeit zentriert um die Einführung der Maßnahmen.
 \end{frame}
 
 \begin{frame}
-\frametitle{Diskussion}
+	\frametitle{Diskussion}
 	\begin{itemize}
 		\item Die Berechnung des \emph{geometrischen Mittels der Wachstumsfaktoren} und der \emph{Verdopplungzeit} beruht auf der Annahme eines exponentielle Wachstums. Zulässigkeit?
 		\item Weitere

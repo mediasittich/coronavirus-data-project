@@ -286,6 +286,12 @@ INPUT Presentation.toc
 INPUT Cases_world.pdf
 INPUT ./Cases_world.pdf
 INPUT ./Cases_world.pdf
+INPUT Cases_cumulative_confirmed.pdf
+INPUT ./Cases_cumulative_confirmed.pdf
+INPUT ./Cases_cumulative_confirmed.pdf
+INPUT Cases_cumulative_deaths.pdf
+INPUT ./Cases_cumulative_deaths.pdf
+INPUT ./Cases_cumulative_deaths.pdf
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm

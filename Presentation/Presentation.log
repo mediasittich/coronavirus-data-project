@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  25 APR 2020 18:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  25 APR 2020 18:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -909,84 +909,113 @@ Overfull \vbox (2.63795pt too high) detected at line 92
 
 [5
 
- <./Cases_world.pdf>]
-LaTeX Font Info:    Try loading font information for U+msa on input line 103.
+ <./Cases_world.pdf>] [6
+
+]
+<Cases_cumulative_confirmed.pdf, id=109, 794.97pt x 614.295pt>
+File: Cases_cumulative_confirmed.pdf Graphic file (type pdf)
+<use Cases_cumulative_confirmed.pdf>
+Package pdftex.def Info: Cases_cumulative_confirmed.pdf  used on input line 105
+.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 105
+ []
+
+[7
+
+ <./Cases_cumulative_confirmed.pdf>]
+<Cases_cumulative_deaths.pdf, id=123, 794.97pt x 614.295pt>
+File: Cases_cumulative_deaths.pdf Graphic file (type pdf)
+<use Cases_cumulative_deaths.pdf>
+Package pdftex.def Info: Cases_cumulative_deaths.pdf  used on input line 113.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 113
+ []
+
+[8
+
+ <./Cases_cumulative_deaths.pdf>] [9
+
+]
+LaTeX Font Info:    Try loading font information for U+msa on input line 128.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 103.
+LaTeX Font Info:    Try loading font information for U+msb on input line 128.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 103.
+line 128.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-) [6
+) [10
 
-] [7
-
-] [8
-
-]
-<GF_confirmed.pdf, id=131, 794.97pt x 614.295pt>
-File: GF_confirmed.pdf Graphic file (type pdf)
-<use GF_confirmed.pdf>
-Package pdftex.def Info: GF_confirmed.pdf  used on input line 123.
-(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
-
-Overfull \vbox (2.63795pt too high) detected at line 123
- []
-
-[9
-
- <./GF_confirmed.pdf>]
-<GF_deaths.pdf, id=144, 794.97pt x 614.295pt>
-File: GF_deaths.pdf Graphic file (type pdf)
-<use GF_deaths.pdf>
-Package pdftex.def Info: GF_deaths.pdf  used on input line 131.
-(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
-
-Overfull \vbox (2.63795pt too high) detected at line 131
- []
-
-[10
-
- <./GF_deaths.pdf>] [11
+] [11
 
 ] [12
 
 ]
-<DT_confirmed.pdf, id=172, 794.97pt x 614.295pt>
-File: DT_confirmed.pdf Graphic file (type pdf)
-<use DT_confirmed.pdf>
-Package pdftex.def Info: DT_confirmed.pdf  used on input line 150.
+<GF_confirmed.pdf, id=172, 794.97pt x 614.295pt>
+File: GF_confirmed.pdf Graphic file (type pdf)
+<use GF_confirmed.pdf>
+Package pdftex.def Info: GF_confirmed.pdf  used on input line 146.
 (pdftex.def)             Requested size: 270.0pt x 208.64194pt.
 
-Overfull \vbox (2.63795pt too high) detected at line 150
+Overfull \vbox (2.63795pt too high) detected at line 146
  []
 
 [13
 
- <./DT_confirmed.pdf>]
-<DT_deaths.pdf, id=186, 794.97pt x 614.295pt>
-File: DT_deaths.pdf Graphic file (type pdf)
-<use DT_deaths.pdf>
-Package pdftex.def Info: DT_deaths.pdf  used on input line 158.
+ <./GF_confirmed.pdf>]
+<GF_deaths.pdf, id=186, 794.97pt x 614.295pt>
+File: GF_deaths.pdf Graphic file (type pdf)
+<use GF_deaths.pdf>
+Package pdftex.def Info: GF_deaths.pdf  used on input line 154.
 (pdftex.def)             Requested size: 270.0pt x 208.64194pt.
 
-Overfull \vbox (2.63795pt too high) detected at line 158
+Overfull \vbox (2.63795pt too high) detected at line 154
  []
 
 [14
 
- <./DT_deaths.pdf>] [15
+ <./GF_deaths.pdf>] [15
 
 ] [16
+
+]
+<DT_confirmed.pdf, id=213, 794.97pt x 614.295pt>
+File: DT_confirmed.pdf Graphic file (type pdf)
+<use DT_confirmed.pdf>
+Package pdftex.def Info: DT_confirmed.pdf  used on input line 173.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 173
+ []
+
+[17
+
+ <./DT_confirmed.pdf>]
+<DT_deaths.pdf, id=226, 794.97pt x 614.295pt>
+File: DT_deaths.pdf Graphic file (type pdf)
+<use DT_deaths.pdf>
+Package pdftex.def Info: DT_deaths.pdf  used on input line 181.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+
+Overfull \vbox (2.63795pt too high) detected at line 181
+ []
+
+[18
+
+ <./DT_deaths.pdf>] [19
+
+] [20
 
 ]
 \tf@nav=\write6
@@ -998,19 +1027,19 @@ Overfull \vbox (2.63795pt too high) detected at line 158
 \tf@snm=\write8
 \openout8 = `Presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 174.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 174.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 197.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 197.
  (./Presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 174.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 174.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 197.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 197.
 Package rerunfilecheck Info: File `Presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 8DB01E1290794C0EAC2D44727A86C860;236.
  ) 
 Here is how much of TeX's memory you used:
- 17188 strings out of 492649
- 328750 string characters out of 6129621
+ 17214 strings out of 492649
+ 329261 string characters out of 6129621
  402746 words of memory out of 5000000
- 20638 multiletter control sequences out of 15000+600000
+ 20654 multiletter control sequences out of 15000+600000
  11345 words of font info for 41 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,61p,779b,572s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1024,10 +1053,10 @@ r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></us
 r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr
 /local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Presentation.pdf (16 pages, 278768 bytes).
+Output written on Presentation.pdf (20 pages, 366303 bytes).
 PDF statistics:
- 260 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
- 38 named destinations out of 1000 (max. 500000)
- 143 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 302 PDF objects out of 1000 (max. 8388607)
+ 238 compressed objects within 3 object streams
+ 46 named destinations out of 1000 (max. 500000)
+ 153 words of extra memory for PDF output out of 10000 (max. 10000000)
 
