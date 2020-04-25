@@ -408,7 +408,7 @@ plot_growth.fractor_confirmed = plot_growth.fractor_confirmed+
             color = 'red', size = 1.5)+
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.5, label = "World"), color = 'red', size = 7)
 plot_growth.fractor_confirmed
-ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 26.84639, height = 25.71750, units = "cm")
+ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 27.94, height = 21.59, units = "cm")
 
 ## Plot for growth factor of death cases
 plot_growth.fractor_death = df_states%>%
@@ -431,6 +431,7 @@ plot_growth.fractor_death = plot_growth.fractor_death+
             color = 'black', size = 1.5)+
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'black', size = 7)
 plot_growth.fractor_death
+ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_death, width = 27.94, height = 21.59, units = "cm")
 
 ## Plot for growth factor of recovered cases
 plot_growth.fractor_recovered = df_states%>%
