@@ -304,7 +304,6 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncms
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
 INPUT Cases_world.pdf
 INPUT ./Cases_world.pdf
 INPUT ./Cases_world.pdf
@@ -333,6 +332,7 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathker
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
 INPUT GF_confirmed.pdf
 INPUT ./GF_confirmed.pdf
 INPUT ./GF_confirmed.pdf
