@@ -114,7 +114,7 @@ library(zoo)
 data("coronavirus")
 
 ####################################### Inspect dataset ############################################
-
+setwd("/Users/lorenzmihatsch/Desktop/Statistik/Corona/Presentation")
 # copy dataset to working data frame & convert empty cells to NAs
 df_all <- coronavirus %>% mutate_if(is.character, list(~na_if(., "")))
 df_ir <- covid_iran %>% mutate_if(is.character, list(~na_if(., "")))
@@ -387,44 +387,53 @@ df_world_recovered = df_world%>%
 
 ### -------------------------------------------------------------------------------------------------------------------
 ## Plot for growth factor of confirmed cases
-{
+
 plot_growth.fractor_confirmed = df_states%>%
   filter(type == "confirmed")%>%
   filter(cumulative >= 50)%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" )%>%
     ggplot(aes(x = date, y = growth.factor.mean))+
     geom_line(aes(group = Country.Region), color = 'grey50')+
+    labs(title = "Recorded Cases", subtitle = "7-day rolling geometric mean of day-to-day growth factor of recorded confirmed cases", 
+         x = "Date", y = "growth factor")+
     theme_bw()+
-    labs(x = "Date", y = "day-to-day growth rate")
-plot_growth.fractor_confirmed
+    theme(plot.title = element_text(size = 25),
+          plot.subtitle = element_text(size = 15),
+          axis.title = element_text(size = 15),
+          axis.text = element_text(size = 15))
 
 # adding World growth.factor to the plot
 plot_growth.fractor_confirmed = plot_growth.fractor_confirmed+ 
   geom_line(data = df_world_confirmed, aes(x = date, y = growth.factor.mean), 
-            color = 'red', size = 1.5)
-}
+            color = 'red', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 1.5, label = "World"), color = 'red', size = 7)
+plot_growth.fractor_confirmed
+ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 26.84639, height = 25.71750, units = "cm")
 
 ## Plot for growth factor of death cases
-{
 plot_growth.fractor_death = df_states%>%
   filter(type == "death")%>%
   filter(cumulative >= 20)%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" )%>%
   ggplot(aes(x = date, y = growth.factor.mean))+
   geom_line(aes(group = Country.Region), color = 'grey50')+
-  theme_bw()+
-  labs(x = "Date", y = "day-to-day growth rate")
-plot_growth.fractor_death
+    labs(title = "Recorded Deaths", subtitle = "7-day rolling geometric mean of day-to-day growth factor of recorded death cases", 
+         x = "Date", y = "growth factor")+
+    theme_bw()+
+    theme(plot.title = element_text(size = 25),
+          plot.subtitle = element_text(size = 15),
+          axis.title = element_text(size = 15),
+          axis.text = element_text(size = 15))
 
 # adding World growth.factor to the plot
 plot_growth.fractor_death = plot_growth.fractor_death+ 
   geom_line(data = df_world_death, aes(x = date, y = growth.factor.mean), 
-            color = 'red', size = 1.5)
-}
+            color = 'black', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'black', size = 7)
+plot_growth.fractor_death
 
 ## Plot for growth factor of recovered cases
-{
-  plot_growth.fractor_recovered = df_states%>%
+plot_growth.fractor_recovered = df_states%>%
     filter(type == "recovered")%>%
     filter(cumulative >= 30)%>%
     filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" )%>%
@@ -435,11 +444,10 @@ plot_growth.fractor_death = plot_growth.fractor_death+
     labs(x = "Date", y = "day-to-day growth rate")
   plot_growth.fractor_death
   
-  # adding World growth.factor to the plot
+# adding World growth.factor to the plot
   plot_growth.fractor_recovered = plot_growth.fractor_recovered+ 
     geom_line(data = df_world_recovered, aes(x = date, y = growth.factor.mean), 
               color = 'red', size = 1.5)
-}
 
 ### -------------------------------------------------------------------------------------------------------------------
 ## Plot for growth factor of confirmed cases centered at 50 confirmed cases
@@ -475,6 +483,3 @@ plot_growth.rate_recovered_centered20 = df_states%>%
   geom_line(aes(group = Country.Region), color = 'grey50')+
   theme_bw()+
   labs(x = "Date", y = "day-to-day growth rate")
-
-
-
