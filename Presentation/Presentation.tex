@@ -13,7 +13,7 @@
 % New Environment for a plain box
 \newenvironment{boxeded}
     {\begin{center}
-    \begin{tabular}{|p{\textwidth}|}
+    \begin{tabular}{|p{0.9\textwidth}|}
     \hline\\
     }
     { 
@@ -92,10 +92,25 @@
  
 \section{Wachstumsraten}
 \begin{frame}
-\frametitle{Wachstumsraten}
-	Kommentar: Berechnung der Wachstumsraten erklären, rolling geometric mean erklären,
-	Verdopplungzeit Formel erklären erklären
-	Plot aller Länder mit world daten
+\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
+	\begin{boxeded}
+	\textbf{Definition 1} \textit{Wachstumsfaktor}\\
+	Sei $C_0, C_1, C_2, ...$ eine Zeitreihe von Fallzahlen zu den Zeitpunkten $0, 1, ..., n$. Dann ist für $i = 1, ..., n$ der i-te Wachstumsfactor $x_1$ gegeben durch $$ x_i = \frac{C_i}{C_{i-1}}.$$
+	\end{boxeded}
+
+	Die Fallzahlen $C_n$ zum Zeitpunkt $n$ sind gegeben durch $$C_n = C_0 \cdot x_1 \cdot x_2 \cdot ... \cdot x_n$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
+	\begin{boxeded}
+	\textbf{Definition 2} \textit{Geometrisches Mittel}\\
+	Das geometrische Mittel zu den Wachstumsfaktoren $x_1, x_2, ..., x_n$ ist gegeben durch $$\bar{x}_{geom} = (x_1 \cdot x_2 \cdot ... \cdot x_n)^{1/n}.$$ Daraus ergibt sich $C_n = C_0 \cdot x_1 \cdot x_2 \cdot ... \cdot x_n = C_0 \cdot (\bar{x}_{geom})^n$.
+	\end{boxeded}
+	\pause
+	Wir betrachten im Folgenden den \emph{rolling geometric mean} der vergangenen 7 Tage. Dazu berechnen wir für jeden Zeitpunkt $i$ $$\bar{x}_{i, geom} = (x_i \cdot x_{i-1} \cdot x_{i-2} \cdot ... \cdot x_{i-6})^{1/7}.$$
+
+
 \end{frame}
 
 \begin{frame}
