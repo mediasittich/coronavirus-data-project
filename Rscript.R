@@ -341,13 +341,21 @@ plot_cumulative_confirmed = df_states%>%
       scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
                     labels = scales::trans_format("log10", scales::math_format(10^.x)))+
       annotation_logticks(side="l") +
-      theme_bw()
+      labs(title = "Confirmed Cases", subtitle = "Cumulative number of recorded cases per 100k people with min. of 1 case recorded", 
+       x = "Date", y = "Cases")+
+      theme_bw()+
+      theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
   #facet_grid(cols = vars(Continent))
 
 plot_cumulative_confirmed = plot_cumulative_confirmed+
-  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')
+  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "world"), color = 'red', size = 7)
 
 plot_cumulative_confirmed
+ggsave("Cases_cumulative_confirmed.pdf", plot = plot_cumulative_confirmed, width = 11, height = 8.5, units = "in")
 
 plot_cumulative_death = df_states%>%
   group_by(Country.Region, type, Continent)%>%
@@ -361,14 +369,22 @@ plot_cumulative_death = df_states%>%
   scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
                 labels = scales::trans_format("log10", scales::math_format(10^.x)))+
   annotation_logticks(side="l") +
-  theme_bw()
+  theme_bw()+
+  labs(title = "Confirmed Deaths", subtitle = "Cumulative number of recorded deaths per 100k people with min. of 1 case recorded", 
+       x = "Date", y = "Cases")+
+  theme_bw()+
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
 #facet_grid(cols = vars(Continent))
 
 plot_cumulative_death = plot_cumulative_death+
-  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')
+  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 2*10^(-3), label = "world"), color = 'black', size = 7)
 
 plot_cumulative_death
-
+ggsave("Cases_cumulative_deaths.pdf", plot = plot_cumulative_death, width = 11, height = 8.5, units = "in")
 
 ## Plot: from 100 confirmed cases on. Replication rate.
 # generating a Dataframe for doubeling times
