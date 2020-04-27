@@ -192,7 +192,7 @@ df_states = df_states%>%
   select(-Lat, -Long)
 rm(df_provinces, df_colonies, df_canada, df_all) # tidy up
 
-# This df_world data.frame containf the cumulative world data
+# This df_world data.frame contains the cumulative world data
 df_world = df_states%>%
   select(Country.Region, date, cases, type)%>%
   pivot_wider(names_from = c(Country.Region), values_from = cases)%>% #changing Country.Region to Variables
@@ -274,7 +274,7 @@ rm(geo_data)
 ## Getting the Population data for each country by ISO§
 library("wbstats") # to get population data from Worldbank
 
-countries_iso3 = unique(as.vector(df_states_wb$ISO3))
+countries_iso3 = unique(as.vector(df_states$ISO3))
 pop_data = wb(country = countries_iso3, indicator = "SP.POP.TOTL", startdate = 2018, enddate = 2018) 
 # Population data from 2018 is being used. 2019 is not available, yet.
 # Not Information is available for the following ISO3: VAT,ESH,AIA,BES,FLK,GUF,GLP,MTQ,MYT,MSR,REU,BLM,SPM
@@ -312,9 +312,9 @@ df_states = df_states%>%
 ### -------------------------------------------------------------------------------------------------------------------
 ## Plot for World Data:
 plot_world = ggplot()+
-  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
-  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
-  geom_line(data = df_world_recovered, aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
+  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
+  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
+  geom_line(data = df_world_recovered, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
   labs(title = "World", subtitle = "Cumulative number of recorded cases per 100k people", 
        x = "Date", y = "Cases")+
   theme_bw()+
@@ -323,9 +323,9 @@ plot_world = ggplot()+
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))+
   
-  geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'red', size = 7)+
-  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'blue', size = 7)+
-  geom_text(aes(x = as.Date("2020-04-15"), y = 3.5, label = "Deaths"), color = 'black', size = 7)
+  geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'blue', size = 7)+
+  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'black', size = 7)+
+  geom_text(aes(x = as.Date("2020-04-15"), y = 3.5, label = "Deaths"), color = 'red', size = 7)
 plot_world
 ggsave("Cases_world.pdf", plot = plot_world, width = 11, height = 8.5, units = "in")
 
@@ -350,10 +350,17 @@ plot_cumulative_confirmed = df_states%>%
         axis.text = element_text(size = 15))
   #facet_grid(cols = vars(Continent))
 
+df_china_confirmed = df_states%>%
+  filter(Country.Region == "China")%>%
+  filter(type == "confirmed")%>%
+  filter(cumulative >= 1)
+ 
 plot_cumulative_confirmed = plot_cumulative_confirmed+
-  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "world"), color = 'red', size = 7)
-
+  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "World"), color = 'blue', size = 7)+
+  geom_line(data = df_china_confirmed, aes(x = date, y = cumulative100k), size = 0.6, color = 'blue')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 5, label = "China"), color = 'blue', size = 7)
+  
 plot_cumulative_confirmed
 ggsave("Cases_cumulative_confirmed.pdf", plot = plot_cumulative_confirmed, width = 11, height = 8.5, units = "in")
 
@@ -379,9 +386,16 @@ plot_cumulative_death = df_states%>%
         axis.text = element_text(size = 15))
 #facet_grid(cols = vars(Continent))
 
+df_china_confirmed = df_states%>%
+  filter(Country.Region == "China")%>%
+  filter(type == "death")%>%
+  filter(cumulative >= 1)
+
 plot_cumulative_death = plot_cumulative_death+
-  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 2*10^(-3), label = "world"), color = 'black', size = 7)
+  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 2*10^(-3), label = "World"), color = 'red', size = 7)+
+  geom_line(data = df_china_confirmed, aes(x = date, y = cumulative100k), size = 0.6, color = 'red')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "China"), color = 'red', size = 7)
 
 plot_cumulative_death
 ggsave("Cases_cumulative_deaths.pdf", plot = plot_cumulative_death, width = 11, height = 8.5, units = "in")
@@ -515,8 +529,8 @@ plot_growth.fractor_confirmed = df_states%>%
 # adding World growth.factor to the plot
 plot_growth.fractor_confirmed = plot_growth.fractor_confirmed+ 
   geom_line(data = df_world_confirmed, aes(x = date, y = growth.factor.mean), 
-            color = 'red', size = 1.5)+
-  geom_text(aes(x = as.Date("2020-01-28"), y = 1.5, label = "World"), color = 'red', size = 7)
+            color = 'blue', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 1.5, label = "World"), color = 'blue', size = 7)
 plot_growth.fractor_confirmed
 ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 11, height = 8.5, units = "in")
 
@@ -538,8 +552,8 @@ plot_growth.fractor_death = df_states%>%
 # adding World growth.factor to the plot
 plot_growth.fractor_death = plot_growth.fractor_death+ 
   geom_line(data = df_world_death, aes(x = date, y = growth.factor.mean), 
-            color = 'black', size = 1.5)+
-  geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'black', size = 7)
+            color = 'red', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'red', size = 7)
 plot_growth.fractor_death
 ggsave("GF_deaths.pdf", plot = plot_growth.fractor_death, width = 11, height = 8.5, units = "in")
 
@@ -582,8 +596,8 @@ plot_doubling.time_confirmed = df_states%>%
 
 plot_doubling.time_confirmed = plot_doubling.time_confirmed+
   geom_line(data = df_world_confirmed, aes(x = date, y = doubling.time.mean), 
-            color = 'red', size = 1.5)+
-  geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'red', size = 7)
+            color = 'blue', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'blue', size = 7)
 plot_doubling.time_confirmed
 ggsave("DT_confirmed.pdf", plot = plot_doubling.time_confirmed, width = 11, height = 8.5, units = "in")
 
@@ -605,8 +619,8 @@ plot_doubling.time_deaths = df_states%>%
 
 plot_doubling.time_deaths = plot_doubling.time_deaths+
   geom_line(data = df_world_death, aes(x = date, y = doubling.time.mean), 
-            color = 'black', size = 1.5)+
-  geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'black', size = 7)
+            color = 'red', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'red', size = 7)
 plot_doubling.time_deaths
 ggsave("DT_deaths.pdf", plot = plot_doubling.time_deaths, width = 11, height = 8.5, units = "in")
 
