@@ -1,5 +1,5 @@
-\beamer@sectionintoc {1}{Einf\IeC {\"u}hrung}{3}{0}{1}
+\beamer@sectionintoc {1}{Einführung}{3}{0}{1}
 \beamer@sectionintoc {2}{Daten}{4}{0}{2}
 \beamer@sectionintoc {3}{Weltweit}{6}{0}{3}
 \beamer@sectionintoc {4}{Wachstumsfaktoren}{11}{0}{4}
-\beamer@sectionintoc {5}{L\IeC {\"a}ndervergleich}{21}{0}{5}
+\beamer@sectionintoc {5}{Ländervergleich}{21}{0}{5}
