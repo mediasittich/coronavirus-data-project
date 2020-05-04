@@ -50,7 +50,7 @@
 \headcommand {\beamer@framepages {26}{26}}
 \headcommand {\beamer@sectionpages {16}{26}}
 \headcommand {\beamer@subsectionpages {16}{26}}
-\headcommand {\sectionentry {5}{Einfluss von Social Distancing auf Infektions\IeC {\"u}bertragung}{27}{Einfluss von Social Distancing auf Infektions\IeC {\"u}bertragung}{0}}
+\headcommand {\sectionentry {5}{Einfluss von \emph {Social Distancing} auf Infektionszahlen}{27}{Einfluss von \emph {Social Distancing} auf Infektionszahlen}{0}}
 \headcommand {\slideentry {5}{0}{1}{27/27}{}{0}}
 \headcommand {\beamer@framepages {27}{27}}
 \headcommand {\beamer@sectionpages {27}{27}}
@@ -62,10 +62,8 @@
 \headcommand {\beamer@framepages {29}{29}}
 \headcommand {\slideentry {6}{0}{3}{30/30}{}{0}}
 \headcommand {\beamer@framepages {30}{30}}
-\headcommand {\slideentry {6}{0}{4}{31/31}{}{0}}
-\headcommand {\beamer@framepages {31}{31}}
-\headcommand {\beamer@partpages {1}{31}}
-\headcommand {\beamer@subsectionpages {28}{31}}
-\headcommand {\beamer@sectionpages {28}{31}}
-\headcommand {\beamer@documentpages {31}}
-\headcommand {\gdef \inserttotalframenumber {24}}
+\headcommand {\beamer@partpages {1}{30}}
+\headcommand {\beamer@subsectionpages {28}{30}}
+\headcommand {\beamer@sectionpages {28}{30}}
+\headcommand {\beamer@documentpages {30}}
+\headcommand {\gdef \inserttotalframenumber {23}}
