@@ -310,13 +310,35 @@ df_states = df_states%>%
   mutate(cumulative100k = (cumulative/Population)*100000)
 
 ### -------------------------------------------------------------------------------------------------------------------
+# Calculating growth factor for df_world
+df_world = df_world%>%
+  group_by(type)%>%
+  mutate(gf = cumulative.world/lag(cumulative.world, n=1))%>%
+  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right"))%>% # geometric rolling mean of past 7 days.
+  mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
+df_world$Country.Region = "World" # necessary for adding to a plot that contains Country.Region as variable
+
+# Weltbevölkerung im Jahr 2018: 7,594 Mrd.; https://data.worldbank.org/region/world; abgerufen am 25.04,2019
+df_world = df_world%>%
+  mutate(cumulative100k = cumulative.world/(7.594*10^9)*100000)
+
+# subbsetting the data.frame df_world by type
+df_world_confirmed = df_world%>%
+  filter(type == "confirmed")
+df_world_death = df_world%>%
+  filter(type == "death")
+df_world_recovered = df_world%>%
+  filter(type == "recovered")
+
+
+### -------------------------------------------------------------------------------------------------------------------
 ## Plot for World Data:
 plot_world = ggplot()+
   geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
   geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
   geom_line(data = df_world_recovered, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
-  labs(title = "World", subtitle = "Cumulative number of recorded cases per 100k people", 
-       x = "Date", y = "Cases")+
+  labs(title = "World", subtitle = "Cumulative number of recorded cases per 100k people on linear scale", 
+       x = "Date", y = "Cases per 100k")+
   theme_bw()+
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
@@ -328,6 +350,27 @@ plot_world = ggplot()+
   geom_text(aes(x = as.Date("2020-04-15"), y = 3.5, label = "Deaths"), color = 'red', size = 7)
 plot_world
 ggsave("Cases_world.pdf", plot = plot_world, width = 11, height = 8.5, units = "in")
+
+plot_world_log = ggplot()+
+  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
+  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
+  geom_line(data = df_world_recovered, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
+  labs(title = "World", subtitle = "Cumulative number of recorded cases per 100k people on log scale", 
+       x = "Date", y = "Cases per 100k")+
+  theme_bw()+
+  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x)))+
+  annotation_logticks(side="l") +
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))+
+  
+  geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'blue', size = 7)+
+  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'black', size = 7)+
+  geom_text(aes(x = as.Date("2020-04-15"), y = 3.5, label = "Deaths"), color = 'red', size = 7)
+plot_world_log
+ggsave("Cases_world_log.pdf", plot = plot_world_log, width = 11, height = 8.5, units = "in")
 
 plot_cumulative_confirmed = df_states%>%
   group_by(Country.Region, type, Continent)%>%
@@ -356,10 +399,11 @@ df_china_confirmed = df_states%>%
   filter(cumulative >= 1)
  
 plot_cumulative_confirmed = plot_cumulative_confirmed+
+  geom_line(data = df_china_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 5, label = "China"), color = 'black', size = 7)+
   geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "World"), color = 'blue', size = 7)+
-  geom_line(data = df_china_confirmed, aes(x = date, y = cumulative100k), size = 0.6, color = 'blue')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 5, label = "China"), color = 'blue', size = 7)
+  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "World"), color = 'blue', size = 7)
+  
   
 plot_cumulative_confirmed
 ggsave("Cases_cumulative_confirmed.pdf", plot = plot_cumulative_confirmed, width = 11, height = 8.5, units = "in")
@@ -392,10 +436,11 @@ df_china_confirmed = df_states%>%
   filter(cumulative >= 1)
 
 plot_cumulative_death = plot_cumulative_death+
+  geom_line(data = df_china_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
+  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "China"), color = 'black', size = 7)+
   geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 2*10^(-3), label = "World"), color = 'red', size = 7)+
-  geom_line(data = df_china_confirmed, aes(x = date, y = cumulative100k), size = 0.6, color = 'red')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "China"), color = 'red', size = 7)
+  geom_text(aes(x = as.Date("2020-02-03"), y = 2*10^(-3), label = "World"), color = 'red', size = 7)
+  
 
 plot_cumulative_death
 ggsave("Cases_cumulative_deaths.pdf", plot = plot_cumulative_death, width = 11, height = 8.5, units = "in")
@@ -488,26 +533,7 @@ df_states = df_states%>%
   group_by(Country.Region, type)%>%
   mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right"))%>% # geometric rolling mean of past 7 days.
   mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
-### -------------------------------------------------------------------------------------------------------------------
-# Calculating growth factor for df_world
-df_world = df_world%>%
-  group_by(type)%>%
-  mutate(gf = cumulative.world/lag(cumulative.world, n=1))%>%
-  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right"))%>% # geometric rolling mean of past 7 days.
-  mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
-df_world$Country.Region = "World" # necessary for adding to a plot that contains Country.Region as variable
 
-# Weltbevölkerung im Jahr 2018: 7,594 Mrd.; https://data.worldbank.org/region/world; abgerufen am 25.04,2019
-df_world = df_world%>%
-  mutate(cumulative100k = cumulative.world/(7.594*10^9)*100000)
-
-# subbsetting the data.frame df_world by type
-df_world_confirmed = df_world%>%
-  filter(type == "confirmed")
-df_world_death = df_world%>%
-  filter(type == "death")
-df_world_recovered = df_world%>%
-  filter(type == "recovered")
 
 #### -------------------------------------------------------------------------------------------------------------------
 ### Plots of GROWTH FACTORS

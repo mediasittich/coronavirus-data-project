@@ -309,6 +309,9 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathker
 INPUT Cases_world.pdf
 INPUT ./Cases_world.pdf
 INPUT ./Cases_world.pdf
+INPUT Cases_world_log.pdf
+INPUT ./Cases_world_log.pdf
+INPUT ./Cases_world_log.pdf
 INPUT map_confirmed.pdf
 INPUT ./map_confirmed.pdf
 INPUT ./map_confirmed.pdf
