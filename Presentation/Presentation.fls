@@ -352,10 +352,9 @@ INPUT ./DT_confirmed.pdf
 INPUT DT_deaths.pdf
 INPUT ./DT_deaths.pdf
 INPUT ./DT_deaths.pdf
-INPUT responses_countries.pdf
-INPUT ./responses_countries.pdf
-INPUT ./responses_countries.pdf
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi8.tfm
+INPUT korea.pdf
+INPUT ./korea.pdf
+INPUT ./korea.pdf
 OUTPUT Presentation.nav
 OUTPUT Presentation.toc
 OUTPUT Presentation.snm
