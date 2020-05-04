@@ -79,7 +79,7 @@
  		\item Am 11. März wurde die ursprüngliche Epidemie (\emph{Def.} örtlich begrenztes Auftreten einer ansteckenden Krankheit) von der WHO als Pandemie (\emph{Def.} nicht mehr örtlich begrenztes Auftreten) eingestuft.
  		\item Am 22. März einigten sich Bund und Länder auf eine umfassende Beschränkung sozialer Kontakte.
  		\pause
- 		\item \textbf{Welchen Einfluss hat Einschränkungen sozialer Kontakte auf die Verbreitung der COVID-19 Erkrankung?}
+ 		\item \textbf{Welchen Einfluss haben Einschränkungen sozialer Kontakte auf die Verbreitung der COVID-19 Erkrankung?}
  	\end{enumerate}
  \end{frame}
  \section{Daten}
@@ -96,12 +96,14 @@
  		\end{itemize}
  		\item Demographie: Kontinentzugehörigkeit und Populationsdaten von 2018
  		\begin{itemize}
- 			\item Datenbank der Weltbank und der UN. Zugriff über das R-package \emph{wbstat}.
+ 			\item Datenbank der Weltbank und der UN. Zugriff über das R-package \emph{wbstat} und \emph{JohnSnowLabs} über \url{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}.
  		\end{itemize}
  	\pause
- 		\item Politische Maßnahmen
+ 		\item Politische Maßnahmen zur Eindämmung der Infektionsübertragung
  		\begin{itemize}
- 			\item Manuelle Recherche.
+ 			\item \emph{Government Response Tracker} Datesatz der \emph{University of Oxford}.
+ 			\item Zusammentragung von Daten zu pol. Maßnahmen der einzelnen Länder aus verschiedenen Quellen.
+ 			\item \url{https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker}
  		\end{itemize}
  	\end{enumerate} 
  \end{frame}
@@ -111,11 +113,10 @@
  	\begin{enumerate}
  		\item Es handelt sich ``nur'' um die aufgezeichneten Fälle und Todefälle. (max. untere Schranke)
  		\item Starke Unterschiede in der Aufzeichnungs- und Testpolitik einzelner Länder, was einen direkten Ländervergleich schwer möglich macht. 
- 		\item Diamond Princess und MS Zaandam wurden ausgeschlossen, keine Land eindeutig zuortenbar. 
+ 		\item Die Kreuzfahrtschiffe Diamond Princess, Grand Princess und MS Zaandam wurden ausgeschlossen, keine Land eindeutig zuortenbar. 
  		\item Die Zahlen der Fälle und Todesfälle beziehen sich meist auf 100.000 Personen.
- 		\item Analyse endet am 15. April 2020.
+ 		\item Analyse endet am 27. April 2020.
  		\pause
- 		\vspace{1cm}
  		\item Programmierung einer Web-Application: url!!!
  		\item Abbildungen sind auf Englisch da sie sich an ein ggf. internationales Publikum richten.
  	\end{enumerate}
@@ -127,14 +128,6 @@
 	\begin{figure}
 		\centering
 		\includegraphics[width = 270pt]{Cases_world.pdf}
-	\end{figure}
- \end{frame}
-
- \begin{frame}
- 	\frametitle{COVID-19 weltweit}
-	\begin{figure}
-		\centering
-		\includegraphics[width = 270pt]{Cases_world_log.pdf}
 	\end{figure}
  \end{frame}
 
@@ -168,6 +161,12 @@
 
  \begin{frame}
  	\frametitle{Zwischenergebnis}
+ 	\begin{itemize}
+ 		\item Aktuell (27. April 2020) sind weltweit etwa 40 Fälle und 3 Todesfälle pro 100k Einwohner gemeldet.
+ 		\item Durch logarithmische Darstellung sind zwei Infektionswellen erkennbar.  Die erste Infektionswelle ist durch China dominiert.
+ 		\item Geographisch besonderd Europa und die USA bestroffen. 
+ 		\item Für die meisten afrikanischen Staaten sind kaum Fälle gemeldet.
+ 	\end{itemize}
  \end{frame}
 
 \section{Wachstumsfaktoren der kumulativen Fälle und Todesfälle}
@@ -175,10 +174,11 @@
 	\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
 	\begin{boxeded}
 		\textbf{Definition 1} \textit{Wachstumsfaktor}\\
-		Sei $C_0, C_1, C_2, ...$ eine Zeitreihe von Fallzahlen zu den Zeitpunkten $0, 1, ..., n$. Dann ist für $i = 1, ..., n$ der i-te Wachstumsfactor $x_1$ gegeben durch $$ x_i = \frac{C_i}{C_{i-1}}.$$
+		Sei $C_0, C_1, C_2, ...$ eine Zeitreihe von kumulativen Fallzahlen zu den Zeitpunkten $0, 1, ..., n$. Dann ist für $i = 1, ..., n$ der i-te Wachstumsfactor $x_1$ gegeben durch $$ x_i = \frac{C_i}{C_{i-1}}.$$
+		Dadruch ergeben sich die kum. Fallzahlen zum Zeitpunkt $n$ durch $C_n = C_0 \cdot x_1 \cdot x_2 \cdot ... \cdot x_n$.
 	\end{boxeded}
 
-	Die Fallzahlen $C_n$ zum Zeitpunkt $n$ sind gegeben durch $$C_n = C_0 \cdot x_1 \cdot x_2 \cdot ... \cdot x_n$$
+	\emph{Beispiel}: Deutschland $C_{01.03.} = 130; C_{02.03.}= 159 \Rightarrow x_{02.03.}=\frac{159}{130}=1.22$
 \end{frame}
 
 \begin{frame}
@@ -211,11 +211,10 @@
 	\frametitle{Verdopplungszeit}
 	Ausgehend von einem exponentielle Wachstum der Form $C_n = C_0 \cdot (\bar{x}_{n, geom})^{n}$ ergibt sie die "momentane" Verdopplunszeit $dt_i$ der Fallzahlen durch $$dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.$$
 	\pause
-	\emph{Herleitung}: 
-	\begin{align*} C_i \cdot (\bar{x}_{i, geom})^{dt_i} = 2 \cdot C_i 
-		 &\iff (\bar{x}_{i, geom})^{dt_i} = 2 \\
-	 	&\iff dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.
-	\end{align*}
+	\emph{Beispiel}: Erinnerung: Wachstumsfaktor von Deutschland am 02. März 2020 $$x_{02.03.} = 1.22 \Rightarrow dt_{02.03.} = \frac{ln(2)}{ln(1.22)} = 3.49$$ 
+	\pause
+	Bei einem Wachstum mit Faktor 1.22 würde sich die Anzahl an Fällen also alle 3.49 Tage verdoppeln.
+	
 \end{frame}
 
 \begin{frame}
@@ -236,22 +235,56 @@
 
  \begin{frame}
  	\frametitle{Zwischenergebnis}
+ 	\begin{itemize}
+ 		\item Unter der Annahme eines exponentiellen Wachstums lassen sich kumulativen Fällen und Todesfällen über die Berechnung von Wachstumsfaktoren und Verdopplungszeiten direkt miteinander vergleichen. 
+ 		\item Aktuell (27. April 2020) besteht ein Wachtungsfaktor der kumulativen Fälle von etwa 1.03, was einer Verdopplungszeit von etwa 24 Tagen entspricht.
+ 		\item Der lokale Minimum der Wachstumsfaktoren (bzw. lokales Maximum der Verdopplungszeit) der weltweiten Fälle liegt etwa eine Woche vor dem lokalen Minimun der Wachtumsfaktoren der weltweiten Todesfälle.
+ 		\item Mitte-Ende März tritt sowohl bei den Wachstumsfaktoren von Fällen und Todesfällen ein lokales Maximum der Wachtumgsfaktoren (bzw. lokales Minimum der Verdopplungszeit) auf.
+ 	\end{itemize}
  \end{frame}
 
-\section{Ländervergleich}
+\section{Einfluss von Social Distancing auf Infektionsübertragung}
 \begin{frame}
 	\frametitle{Infektionsmaßnahmen}
 	\centering
 	\includegraphics[width = 270pt]{responses_countries}
 \end{frame}
-
+\section{Diskussion}
 \begin{frame}
 	\frametitle{Diskussion}
 	\begin{itemize}
 		\item Die Berechnung des \emph{geometrischen Mittels der Wachstumsfaktoren} und der \emph{Verdopplungzeiten} beruhen auf der Annahme eines exponentielle Wachstums. Zulässigkeit?
 		\item Starke Unterschiede in der Strenge der Ausgangsbeschränkungen einzelner Länder.
 		\item Verschiedene Maßnahmen machen Gruppierung nur schwer möglich.
+		\item Keine Ursache-Wirkungsbeziehung-Schluss möglich.
 	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Ende}
+		\centering
+		\textbf{Vielen Herzlichen Dank für Ihre Aufmerksamkeit!}
+\end{frame}
+\begin{frame}
+	\frametitle{Referenzen}
+	\begin{itemize}
+	\item R-Packages
+	\item RamiKrispin
+	\item Oxford
+	\item JHU
+	\item UN Weltbank
+	\end{itemize}
+\end{frame}
+
  
+\begin{frame}
+	\frametitle{Herleitung der Verdopplungszeit}
+	Ausgehend von einem exponentielle Wachstum der Form $C_n = C_0 \cdot (\bar{x}_{n, geom})^{n}$ ergibt sie die "momentane" Verdopplunszeit $dt_i$ der Fallzahlen durch $$dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.$$
+	\emph{Herleitung}: 
+	\begin{align*} C_i \cdot (\bar{x}_{i, geom})^{dt_i} = 2 \cdot C_i 
+		 &\iff (\bar{x}_{i, geom})^{dt_i} = 2 \\
+	 	&\iff dt_i = \frac{ln(2)}{ln(\bar{x}_{i, geom})}.
+	\end{align*}
+\end{frame}
+
 \end{document}

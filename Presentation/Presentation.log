@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  4 MAY 2020 13:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  4 MAY 2020 18:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -883,7 +883,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 tionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (./Presentation.nav)
-<LMU.pdf, id=40, 597.23125pt x 845.1575pt>
+<LMU.pdf, id=44, 597.23125pt x 845.1575pt>
 File: LMU.pdf Graphic file (type pdf)
 <use LMU.pdf>
 Package pdftex.def Info: LMU.pdf  used on input line 61.
@@ -902,125 +902,125 @@ df>] (./Presentation.toc) [2
 ] [4
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 107.
+LaTeX Font Info:    Try loading font information for U+msa on input line 109.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 107.
+LaTeX Font Info:    Try loading font information for U+msb on input line 109.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 107.
+line 109.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-) [5
+)
+Overfull \vbox (4.21825pt too high) detected at line 109
+ []
 
-] [6
+[5
 
-] [7
+]
+Overfull \vbox (4.21825pt too high) detected at line 109
+ []
+
+[6
+
+]
+Overfull \vbox (4.21825pt too high) detected at line 109
+ []
+
+[7
 
 ] [8
 
 ] [9
 
 ]
-<Cases_world.pdf, id=136, 794.97pt x 614.295pt>
+<Cases_world.pdf, id=155, 794.97pt x 614.295pt>
 File: Cases_world.pdf Graphic file (type pdf)
 <use Cases_world.pdf>
-Package pdftex.def Info: Cases_world.pdf  used on input line 131.
+Package pdftex.def Info: Cases_world.pdf  used on input line 132.
 (pdftex.def)             Requested size: 270.0pt x 208.64194pt.
 
-Overfull \vbox (2.63795pt too high) detected at line 131
+Overfull \vbox (2.63795pt too high) detected at line 132
  []
 
 [10
 
  <./Cases_world.pdf>]
-<Cases_world_log.pdf, id=148, 794.97pt x 614.295pt>
-File: Cases_world_log.pdf Graphic file (type pdf)
-<use Cases_world_log.pdf>
-Package pdftex.def Info: Cases_world_log.pdf  used on input line 139.
-(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+<map_confirmed.pdf, id=167, 597.23125pt x 845.1575pt>
+File: map_confirmed.pdf Graphic file (type pdf)
+<use map_confirmed.pdf>
+Package pdftex.def Info: map_confirmed.pdf  used on input line 138.
+(pdftex.def)             Requested size: 270.0pt x 382.08412pt.
 
-Overfull \vbox (2.63795pt too high) detected at line 139
+Overfull \hbox (39.78882pt too wide) in paragraph at lines 138--138
+ [][] 
+ []
+
+
+Overfull \vbox (64.59602pt too high) detected at line 138
  []
 
 [11
 
- <./Cases_world_log.pdf>]
-<map_confirmed.pdf, id=162, 597.23125pt x 845.1575pt>
-File: map_confirmed.pdf Graphic file (type pdf)
-<use map_confirmed.pdf>
-Package pdftex.def Info: map_confirmed.pdf  used on input line 145.
+ <./map_confirmed.pdf>]
+<map_death.pdf, id=189, 597.23125pt x 845.1575pt>
+File: map_death.pdf Graphic file (type pdf)
+<use map_death.pdf>
+Package pdftex.def Info: map_death.pdf  used on input line 144.
 (pdftex.def)             Requested size: 270.0pt x 382.08412pt.
 
-Overfull \hbox (39.78882pt too wide) in paragraph at lines 145--145
+Overfull \hbox (39.78882pt too wide) in paragraph at lines 144--144
  [][] 
  []
 
 
-Overfull \vbox (64.59602pt too high) detected at line 145
+Overfull \vbox (64.59602pt too high) detected at line 144
  []
 
 [12
 
- <./map_confirmed.pdf>]
-<map_death.pdf, id=184, 597.23125pt x 845.1575pt>
-File: map_death.pdf Graphic file (type pdf)
-<use map_death.pdf>
-Package pdftex.def Info: map_death.pdf  used on input line 151.
-(pdftex.def)             Requested size: 270.0pt x 382.08412pt.
+ <./map_death.pdf>]
+<Cases_cumulative_confirmed.pdf, id=211, 794.97pt x 614.295pt>
+File: Cases_cumulative_confirmed.pdf Graphic file (type pdf)
+<use Cases_cumulative_confirmed.pdf>
+Package pdftex.def Info: Cases_cumulative_confirmed.pdf  used on input line 152
+.
+(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
 
-Overfull \hbox (39.78882pt too wide) in paragraph at lines 151--151
- [][] 
- []
-
-
-Overfull \vbox (64.59602pt too high) detected at line 151
+Overfull \vbox (2.63795pt too high) detected at line 152
  []
 
 [13
 
- <./map_death.pdf>]
-<Cases_cumulative_confirmed.pdf, id=207, 794.97pt x 614.295pt>
-File: Cases_cumulative_confirmed.pdf Graphic file (type pdf)
-<use Cases_cumulative_confirmed.pdf>
-Package pdftex.def Info: Cases_cumulative_confirmed.pdf  used on input line 159
-.
+ <./Cases_cumulative_confirmed.pdf>]
+<Cases_cumulative_deaths.pdf, id=225, 794.97pt x 614.295pt>
+File: Cases_cumulative_deaths.pdf Graphic file (type pdf)
+<use Cases_cumulative_deaths.pdf>
+Package pdftex.def Info: Cases_cumulative_deaths.pdf  used on input line 160.
 (pdftex.def)             Requested size: 270.0pt x 208.64194pt.
 
-Overfull \vbox (2.63795pt too high) detected at line 159
+Overfull \vbox (2.63795pt too high) detected at line 160
  []
 
 [14
 
- <./Cases_cumulative_confirmed.pdf>]
-<Cases_cumulative_deaths.pdf, id=220, 794.97pt x 614.295pt>
-File: Cases_cumulative_deaths.pdf Graphic file (type pdf)
-<use Cases_cumulative_deaths.pdf>
-Package pdftex.def Info: Cases_cumulative_deaths.pdf  used on input line 167.
-(pdftex.def)             Requested size: 270.0pt x 208.64194pt.
+ <./Cases_cumulative_deaths.pdf>] [15
 
-Overfull \vbox (2.63795pt too high) detected at line 167
- []
-
-[15
-
- <./Cases_cumulative_deaths.pdf>] [16
+] [16
 
 ] [17
 
 ] [18
 
-] [19
-
 ]
-<GF_confirmed.pdf, id=267, 794.97pt x 614.295pt>
+<GF_confirmed.pdf, id=271, 794.97pt x 614.295pt>
 File: GF_confirmed.pdf Graphic file (type pdf)
 <use GF_confirmed.pdf>
 Package pdftex.def Info: GF_confirmed.pdf  used on input line 200.
@@ -1029,10 +1029,10 @@ Package pdftex.def Info: GF_confirmed.pdf  used on input line 200.
 Overfull \vbox (2.63795pt too high) detected at line 200
  []
 
-[20
+[19
 
  <./GF_confirmed.pdf>]
-<GF_deaths.pdf, id=280, 794.97pt x 614.295pt>
+<GF_deaths.pdf, id=286, 794.97pt x 614.295pt>
 File: GF_deaths.pdf Graphic file (type pdf)
 <use GF_deaths.pdf>
 Package pdftex.def Info: GF_deaths.pdf  used on input line 208.
@@ -1041,32 +1041,34 @@ Package pdftex.def Info: GF_deaths.pdf  used on input line 208.
 Overfull \vbox (2.63795pt too high) detected at line 208
  []
 
-[21
+[20
 
- <./GF_deaths.pdf>] [22
+ <./GF_deaths.pdf>] [21
+
+] [22
 
 ] [23
 
 ]
-<DT_confirmed.pdf, id=308, 794.97pt x 614.295pt>
+<DT_confirmed.pdf, id=320, 794.97pt x 614.295pt>
 File: DT_confirmed.pdf Graphic file (type pdf)
 <use DT_confirmed.pdf>
-Package pdftex.def Info: DT_confirmed.pdf  used on input line 227.
+Package pdftex.def Info: DT_confirmed.pdf  used on input line 226.
 (pdftex.def)             Requested size: 270.0pt x 208.64194pt.
 
-Overfull \vbox (2.63795pt too high) detected at line 227
+Overfull \vbox (2.63795pt too high) detected at line 226
  []
 
 [24
 
  <./DT_confirmed.pdf>]
-<DT_deaths.pdf, id=321, 794.97pt x 614.295pt>
+<DT_deaths.pdf, id=333, 794.97pt x 614.295pt>
 File: DT_deaths.pdf Graphic file (type pdf)
 <use DT_deaths.pdf>
-Package pdftex.def Info: DT_deaths.pdf  used on input line 235.
+Package pdftex.def Info: DT_deaths.pdf  used on input line 234.
 (pdftex.def)             Requested size: 270.0pt x 208.64194pt.
 
-Overfull \vbox (2.63795pt too high) detected at line 235
+Overfull \vbox (2.63795pt too high) detected at line 234
  []
 
 [25
@@ -1074,18 +1076,24 @@ Overfull \vbox (2.63795pt too high) detected at line 235
  <./DT_deaths.pdf>] [26
 
 ]
-<responses_countries.pdf, id=342, 597.23125pt x 845.1575pt>
+<responses_countries.pdf, id=354, 597.23125pt x 845.1575pt>
 File: responses_countries.pdf Graphic file (type pdf)
 <use responses_countries.pdf>
-Package pdftex.def Info: responses_countries.pdf  used on input line 246.
+Package pdftex.def Info: responses_countries.pdf  used on input line 251.
 (pdftex.def)             Requested size: 270.0pt x 382.08412pt.
 
-Overfull \vbox (164.08014pt too high) detected at line 246
+Overfull \vbox (164.08014pt too high) detected at line 251
  []
 
 [27
 
  <./responses_countries.pdf>] [28
+
+] [29
+
+] [30
+
+] [31
 
 ]
 \tf@nav=\write6
@@ -1097,19 +1105,19 @@ Overfull \vbox (164.08014pt too high) detected at line 246
 \tf@snm=\write8
 \openout8 = `Presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 257.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 257.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 290.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 290.
  (./Presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 257.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 257.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 290.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 290.
 Package rerunfilecheck Info: File `Presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 81BB19FAB620770048BEADCC36DF7246;348.
+(rerunfilecheck)             Checksum: C9EB86D029EBF869997D303AE8755B2E;434.
  ) 
 Here is how much of TeX's memory you used:
- 17318 strings out of 492649
- 331580 string characters out of 6129621
- 406810 words of memory out of 5000000
- 20735 multiletter control sequences out of 15000+600000
+ 17328 strings out of 492649
+ 331577 string characters out of 6129621
+ 408810 words of memory out of 5000000
+ 20739 multiletter control sequences out of 15000+600000
  15358 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,61p,779b,605s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1124,10 +1132,10 @@ r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr
 /local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
 cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Presentation.pdf (28 pages, 722592 bytes).
+Output written on Presentation.pdf (31 pages, 719302 bytes).
 PDF statistics:
- 417 PDF objects out of 1000 (max. 8388607)
- 328 compressed objects within 4 object streams
- 62 named destinations out of 1000 (max. 500000)
- 179 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 451 PDF objects out of 1000 (max. 8388607)
+ 361 compressed objects within 4 object streams
+ 69 named destinations out of 1000 (max. 500000)
+ 182 words of extra memory for PDF output out of 10000 (max. 10000000)
 
