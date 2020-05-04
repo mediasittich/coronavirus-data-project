@@ -284,6 +284,8 @@ INPUT /usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT Presentation.toc
 INPUT Presentation.toc
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
@@ -307,6 +309,12 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathker
 INPUT Cases_world.pdf
 INPUT ./Cases_world.pdf
 INPUT ./Cases_world.pdf
+INPUT map_confirmed.pdf
+INPUT ./map_confirmed.pdf
+INPUT ./map_confirmed.pdf
+INPUT map_death.pdf
+INPUT ./map_death.pdf
+INPUT ./map_death.pdf
 INPUT Cases_cumulative_confirmed.pdf
 INPUT ./Cases_cumulative_confirmed.pdf
 INPUT ./Cases_cumulative_confirmed.pdf
@@ -331,8 +339,6 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
 INPUT GF_confirmed.pdf
 INPUT ./GF_confirmed.pdf
 INPUT ./GF_confirmed.pdf
@@ -345,6 +351,9 @@ INPUT ./DT_confirmed.pdf
 INPUT DT_deaths.pdf
 INPUT ./DT_deaths.pdf
 INPUT ./DT_deaths.pdf
+INPUT responses_countries.pdf
+INPUT ./responses_countries.pdf
+INPUT ./responses_countries.pdf
 OUTPUT Presentation.nav
 OUTPUT Presentation.toc
 OUTPUT Presentation.snm

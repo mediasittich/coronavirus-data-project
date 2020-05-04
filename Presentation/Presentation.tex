@@ -42,9 +42,12 @@
 
 \title[Praxisprojekt: COVID-19]{Analyse der COVID-19 Fallzahlen}
 \subtitle{Praxisprojekt}
+\date{08. Mai 2020}
 \author[R.Galambos, L.Mihatsch]{Regina Galambos, Lorenz Mihatsch\\
 	\includegraphics[width=0.22\textwidth]{LMU.pdf}\\
-	{\small Projektpartner: Andr\'{e} Klima}}
+	{\small Projektpartner: Andr\'{e} Klima}\\
+	{\small 08. Mai 2020}}
+
 %-----------------------------------------------------------------------------------------------------------------
 
 
@@ -66,31 +69,36 @@
  
  % Einführung
  %-----------------------------------------------------------------------------------------------------------------
- \section{Einführung}
+ \section{Einführung und Fragestellung}
  \begin{frame}
  	\frametitle{COVID-19 Pandemie}
  	\begin{enumerate}
  		\item COVID-19 ist ein Erkrankung, die durch das SARS-CoV-2 Virus ausgelöst wird.
- 		\item Die Erkranung ist erstmalig im Dezember 2019 in Wuhan (China) aufgetreten, der genaue Ursprung ist jedoch noch immer unbekannt.
- 		\item Erster Fall in Deutschland am 28. Januar in Stockdorf.
- 		\item Am 11.März wurde die ursprüngliche Epidemie als Pandemie eingestuft.
+ 		\item Die Erkrankung ist erstmalig im Dezember 2019 in Wuhan (China) aufgetreten, der genaue Ursprung des Virus ist jedoch noch immer unbekannt.
+ 		\item Erster Erkrankungsfall in Deutschland am 28. Januar in Stockdorf.
+ 		\item Am 11. März wurde die ursprüngliche Epidemie (\emph{Def.} örtlich begrenztes Auftreten einer ansteckenden Krankheit) von der WHO als Pandemie (\emph{Def.} nicht mehr örtlich begrenztes Auftreten) eingestuft.
  		\item Am 22. März einigten sich Bund und Länder auf eine umfassende Beschränkung sozialer Kontakte.
+ 		\pause
+ 		\item \textbf{Welchen Einfluss hat Einschränkungen sozialer Kontakte auf die Verbreitung der COVID-19 Erkrankung?}
  	\end{enumerate}
  \end{frame}
  \section{Daten}
   
  \begin{frame}
- 	\frametitle{Datesätze}
+ 	\frametitle{Datengrundlage}
  	\begin{enumerate}
- 		\item Falldaten einzelner Länder
+ 		\item Anzahl an Fällen, Todesfällen und Genesenen
  		\begin{itemize}
- 			\item Datensatz des \emph{Centers of Systems Science and Engineering} der John Hopkins University. 
- 			\item Täglich von \emph{RamiKrispin} auf GitHub aktualisiert und als long-Format zu Verfügung gestellt. \url{https://github.com/RamiKrispin/coronavirus}
+ 			\item Datensatz des \emph{Centers of Systems Science and Engineering} der John Hopkins University
+ 			\item Zusammentragung von Daten aus verschiedenen Quellen zu --- Ländern. Bspw. \emph{Italy Ministry of Health}.
+ 			\item Täglich von \emph{RamiKrispin} auf GitHub aktualisiert und zu Verfügung gestellt. \url{https://github.com/RamiKrispin/coronavirus}
+ 	\pause
  		\end{itemize}
- 		\item Demographische Daten
+ 		\item Demographie: Kontinentzugehörigkeit und Populationsdaten von 2018
  		\begin{itemize}
- 			\item Datenbank der Weltbank und der UN. Zugriff über \emph{wbstat}-Package.
+ 			\item Datenbank der Weltbank und der UN. Zugriff über das R-package \emph{wbstat}.
  		\end{itemize}
+ 	\pause
  		\item Politische Maßnahmen
  		\begin{itemize}
  			\item Manuelle Recherche.
@@ -99,18 +107,21 @@
  \end{frame}
 
  \begin{frame}
- 	\frametitle{Anmerkungen}
+ 	\frametitle{Anmerkungen zu den Daten}
  	\begin{enumerate}
- 		\item Es handelt sich ``nur'' um die aufgezeichneten Fälle. Es wird von einer weitaus höheren Dunkelziffer ausgegangen. 
- 		\item Starke Unterschiede in der Aufzeichnungs- und Testpolitik einzelner Länder.
+ 		\item Es handelt sich ``nur'' um die aufgezeichneten Fälle und Todefälle. (max. untere Schranke)
+ 		\item Starke Unterschiede in der Aufzeichnungs- und Testpolitik einzelner Länder, was einen direkten Ländervergleich schwer möglich macht. 
+ 		\item Diamond Princess und MS Zaandam wurden ausgeschlossen, keine Land eindeutig zuortenbar. 
+ 		\item Die Zahlen der Fälle und Todesfälle beziehen sich meist auf 100.000 Personen.
+ 		\item Analyse endet am 15. April 2020.
+ 		\pause
  		\vspace{1cm}
- 		\item Diamond Princess und MS Zaandam wurden ausgeschlossen.
- 		\item Die Anzahl an Cases beziehen sich meist auf 100.000 Personen.
  		\item Programmierung einer Web-Application: url!!!
+ 		\item Abbildungen sind auf Englisch da sie sich an ein ggf. internationales Publikum richten.
  	\end{enumerate}
  \end{frame}
  
- \section{Weltweit}
+ \section{Weltweite Entwicklung der kumulativen Anzahl an Fällen und Todesfällen}
  \begin{frame}
  	\frametitle{COVID-19 weltweit}
 	\begin{figure}
@@ -121,7 +132,14 @@
 
  \begin{frame}
  	\frametitle{COVID-19 weltweit}
-	Kommentar: Hier die Weltkarten.
+		\centering
+		\includegraphics[width = 270pt, angle = -90]{map_confirmed.pdf}
+ \end{frame}
+
+ \begin{frame}
+ 	\frametitle{COVID-19 weltweit}
+		\centering
+		\includegraphics[width = 270pt, angle = -90]{map_death}
  \end{frame}
  
  \begin{frame}
@@ -144,7 +162,7 @@
  	\frametitle{Zwischenergebnis}
  \end{frame}
 
-\section{Wachstumsfaktoren}
+\section{Wachstumsfaktoren der kumulativen Fälle und Todesfälle}
 \begin{frame}
 	\frametitle{Wiederholung: Wachstumsfaktor und geometrisches Mittel}
 	\begin{boxeded}
@@ -215,7 +233,8 @@
 \section{Ländervergleich}
 \begin{frame}
 	\frametitle{Infektionsmaßnahmen}
-	Kommentar: Beispiel Plot von South Korea um Problematik der Zentrierung zu erläutern. Wachstumsraten bzw. Verdoppelungszeit zentriert um die Einführung der Maßnahmen.
+	\centering
+	\includegraphics[width = 270pt]{responses_countries}
 \end{frame}
 
 \begin{frame}
