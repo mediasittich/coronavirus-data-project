@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  4 MAY 2020 21:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  4 MAY 2020 21:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -941,7 +941,7 @@ Overfull \vbox (4.21825pt too high) detected at line 109
 ] [9
 
 ]
-<Cases_world.pdf, id=155, 794.97pt x 614.295pt>
+<Cases_world.pdf, id=157, 794.97pt x 614.295pt>
 File: Cases_world.pdf Graphic file (type pdf)
 <use Cases_world.pdf>
 Package pdftex.def Info: Cases_world.pdf  used on input line 132.
@@ -953,7 +953,7 @@ Overfull \vbox (2.63795pt too high) detected at line 132
 [10
 
  <./Cases_world.pdf>]
-<world_confirmed_mod.pdf, id=167, 1156.32pt x 616.3025pt>
+<world_confirmed_mod.pdf, id=169, 1156.32pt x 616.3025pt>
 File: world_confirmed_mod.pdf Graphic file (type pdf)
 <use world_confirmed_mod.pdf>
 Package pdftex.def Info: world_confirmed_mod.pdf  used on input line 138.
@@ -966,7 +966,7 @@ Overfull \hbox (7.7047pt too wide) in paragraph at lines 138--138
 [11
 
  <./world_confirmed_mod.pdf>]
-<world_death_mod.pdf, id=508, 1156.32pt x 616.31458pt>
+<world_death_mod.pdf, id=510, 1156.32pt x 616.31458pt>
 File: world_death_mod.pdf Graphic file (type pdf)
 <use world_death_mod.pdf>
 Package pdftex.def Info: world_death_mod.pdf  used on input line 144.
@@ -979,7 +979,7 @@ Overfull \hbox (7.7047pt too wide) in paragraph at lines 144--144
 [12
 
  <./world_death_mod.pdf>]
-<Cases_cumulative_confirmed.pdf, id=849, 794.97pt x 614.295pt>
+<Cases_cumulative_confirmed.pdf, id=851, 794.97pt x 614.295pt>
 File: Cases_cumulative_confirmed.pdf Graphic file (type pdf)
 <use Cases_cumulative_confirmed.pdf>
 Package pdftex.def Info: Cases_cumulative_confirmed.pdf  used on input line 152
@@ -992,7 +992,7 @@ Overfull \vbox (2.63795pt too high) detected at line 152
 [13
 
  <./Cases_cumulative_confirmed.pdf>]
-<Cases_cumulative_deaths.pdf, id=863, 794.97pt x 614.295pt>
+<Cases_cumulative_deaths.pdf, id=865, 794.97pt x 614.295pt>
 File: Cases_cumulative_deaths.pdf Graphic file (type pdf)
 <use Cases_cumulative_deaths.pdf>
 Package pdftex.def Info: Cases_cumulative_deaths.pdf  used on input line 160.
@@ -1012,7 +1012,7 @@ Overfull \vbox (2.63795pt too high) detected at line 160
 ] [18
 
 ]
-<GF_confirmed.pdf, id=909, 794.97pt x 614.295pt>
+<GF_confirmed.pdf, id=911, 794.97pt x 614.295pt>
 File: GF_confirmed.pdf Graphic file (type pdf)
 <use GF_confirmed.pdf>
 Package pdftex.def Info: GF_confirmed.pdf  used on input line 200.
@@ -1024,7 +1024,7 @@ Overfull \vbox (2.63795pt too high) detected at line 200
 [19
 
  <./GF_confirmed.pdf>]
-<GF_deaths.pdf, id=923, 794.97pt x 614.295pt>
+<GF_deaths.pdf, id=925, 794.97pt x 614.295pt>
 File: GF_deaths.pdf Graphic file (type pdf)
 <use GF_deaths.pdf>
 Package pdftex.def Info: GF_deaths.pdf  used on input line 208.
@@ -1042,7 +1042,7 @@ Overfull \vbox (2.63795pt too high) detected at line 208
 ] [23
 
 ]
-<DT_confirmed.pdf, id=958, 794.97pt x 614.295pt>
+<DT_confirmed.pdf, id=960, 794.97pt x 614.295pt>
 File: DT_confirmed.pdf Graphic file (type pdf)
 <use DT_confirmed.pdf>
 Package pdftex.def Info: DT_confirmed.pdf  used on input line 226.
@@ -1054,7 +1054,7 @@ Overfull \vbox (2.63795pt too high) detected at line 226
 [24
 
  <./DT_confirmed.pdf>]
-<DT_deaths.pdf, id=971, 794.97pt x 614.295pt>
+<DT_deaths.pdf, id=973, 794.97pt x 614.295pt>
 File: DT_deaths.pdf Graphic file (type pdf)
 <use DT_deaths.pdf>
 Package pdftex.def Info: DT_deaths.pdf  used on input line 234.
@@ -1068,7 +1068,7 @@ Overfull \vbox (2.63795pt too high) detected at line 234
  <./DT_deaths.pdf>] [26
 
 ]
-<responses_countries.pdf, id=992, 597.23125pt x 845.1575pt>
+<responses_countries.pdf, id=994, 597.23125pt x 845.1575pt>
 File: responses_countries.pdf Graphic file (type pdf)
 <use responses_countries.pdf>
 Package pdftex.def Info: responses_countries.pdf  used on input line 251.
@@ -1104,11 +1104,11 @@ Package rerunfilecheck Info: File `Presentation.out' has not changed.
 (rerunfilecheck)             Checksum: D347244030C2DCB84901725B0FE3E197;426.
  ) 
 Here is how much of TeX's memory you used:
- 17326 strings out of 492649
- 331623 string characters out of 6129621
+ 17327 strings out of 492649
+ 331641 string characters out of 6129621
  408810 words of memory out of 5000000
- 20738 multiletter control sequences out of 15000+600000
- 15709 words of font info for 57 fonts, out of 8000000 for 9000
+ 20739 multiletter control sequences out of 15000+600000
+ 15877 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,61p,779b,605s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
@@ -1122,10 +1122,10 @@ r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr
 /local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
 cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Presentation.pdf (30 pages, 22177873 bytes).
+Output written on Presentation.pdf (30 pages, 22178163 bytes).
 PDF statistics:
- 1083 PDF objects out of 1200 (max. 8388607)
- 352 compressed objects within 4 object streams
+ 1085 PDF objects out of 1200 (max. 8388607)
+ 354 compressed objects within 4 object streams
  67 named destinations out of 1000 (max. 500000)
  182 words of extra memory for PDF output out of 10000 (max. 10000000)
 
