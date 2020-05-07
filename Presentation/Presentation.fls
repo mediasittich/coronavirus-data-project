@@ -355,6 +355,12 @@ INPUT ./DT_deaths.pdf
 INPUT korea.pdf
 INPUT ./korea.pdf
 INPUT ./korea.pdf
+INPUT plot_c6_gf.pdf
+INPUT ./plot_c6_gf.pdf
+INPUT ./plot_c6_gf.pdf
+INPUT plot_c6_dt.pdf
+INPUT ./plot_c6_dt.pdf
+INPUT ./plot_c6_dt.pdf
 OUTPUT Presentation.nav
 OUTPUT Presentation.toc
 OUTPUT Presentation.snm
