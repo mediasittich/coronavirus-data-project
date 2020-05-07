@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  7 MAY 2020 18:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  7 MAY 2020 18:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1011,8 +1011,10 @@ Overfull \vbox (2.63795pt too high) detected at line 160
 
 ] [18
 
+] [19
+
 ]
-<GF_confirmed.pdf, id=905, 794.97pt x 614.295pt>
+<GF_confirmed.pdf, id=913, 794.97pt x 614.295pt>
 File: GF_confirmed.pdf Graphic file (type pdf)
 <use GF_confirmed.pdf>
 Package pdftex.def Info: GF_confirmed.pdf  used on input line 200.
@@ -1021,10 +1023,10 @@ Package pdftex.def Info: GF_confirmed.pdf  used on input line 200.
 Overfull \vbox (2.63795pt too high) detected at line 200
  []
 
-[19
+[20
 
  <./GF_confirmed.pdf>]
-<GF_deaths.pdf, id=919, 794.97pt x 614.295pt>
+<GF_deaths.pdf, id=927, 794.97pt x 614.295pt>
 File: GF_deaths.pdf Graphic file (type pdf)
 <use GF_deaths.pdf>
 Package pdftex.def Info: GF_deaths.pdf  used on input line 208.
@@ -1033,16 +1035,16 @@ Package pdftex.def Info: GF_deaths.pdf  used on input line 208.
 Overfull \vbox (2.63795pt too high) detected at line 208
  []
 
-[20
+[21
 
- <./GF_deaths.pdf>] [21
-
-] [22
+ <./GF_deaths.pdf>] [22
 
 ] [23
 
+] [24
+
 ]
-<DT_confirmed.pdf, id=954, 794.97pt x 614.295pt>
+<DT_confirmed.pdf, id=961, 794.97pt x 614.295pt>
 File: DT_confirmed.pdf Graphic file (type pdf)
 <use DT_confirmed.pdf>
 Package pdftex.def Info: DT_confirmed.pdf  used on input line 226.
@@ -1051,10 +1053,10 @@ Package pdftex.def Info: DT_confirmed.pdf  used on input line 226.
 Overfull \vbox (2.63795pt too high) detected at line 226
  []
 
-[24
+[25
 
  <./DT_confirmed.pdf>]
-<DT_deaths.pdf, id=967, 794.97pt x 614.295pt>
+<DT_deaths.pdf, id=975, 794.97pt x 614.295pt>
 File: DT_deaths.pdf Graphic file (type pdf)
 <use DT_deaths.pdf>
 Package pdftex.def Info: DT_deaths.pdf  used on input line 234.
@@ -1063,14 +1065,14 @@ Package pdftex.def Info: DT_deaths.pdf  used on input line 234.
 Overfull \vbox (2.63795pt too high) detected at line 234
  []
 
-[25
+[26
 
- <./DT_deaths.pdf>] [26
+ <./DT_deaths.pdf>] [27
 
-] [27
+] [28
 
 ]
-<korea.pdf, id=994, 690.83522pt x 297.16835pt>
+<korea.pdf, id=1001, 690.83522pt x 297.16835pt>
 File: korea.pdf Graphic file (type pdf)
 <use korea.pdf>
 Package pdftex.def Info: korea.pdf  used on input line 261.
@@ -1080,14 +1082,14 @@ Overfull \hbox (7.7047pt too wide) in paragraph at lines 261--261
  [][] 
  []
 
-[28
+[29
 
- <./korea.pdf>] [29
+ <./korea.pdf>] [30
 
-] [30
+] [31
 
 ]
-<plot_c6_gf.pdf, id=1068, 1228.59pt x 650.43pt>
+<plot_c6_gf.pdf, id=1076, 1228.59pt x 650.43pt>
 File: plot_c6_gf.pdf Graphic file (type pdf)
 <use plot_c6_gf.pdf>
 Package pdftex.def Info: plot_c6_gf.pdf  used on input line 285.
@@ -1101,10 +1103,10 @@ Overfull \hbox (7.7047pt too wide) in paragraph at lines 285--285
 Overfull \vbox (10.8911pt too high) detected at line 285
  []
 
-[31
+[32
 
  <./plot_c6_gf.pdf>]
-<plot_c6_dt.pdf, id=1082, 1228.59pt x 650.43pt>
+<plot_c6_dt.pdf, id=1089, 1228.59pt x 650.43pt>
 File: plot_c6_dt.pdf Graphic file (type pdf)
 <use plot_c6_dt.pdf>
 Package pdftex.def Info: plot_c6_dt.pdf  used on input line 293.
@@ -1118,7 +1120,7 @@ Overfull \hbox (7.7047pt too wide) in paragraph at lines 293--293
 Overfull \vbox (10.8911pt too high) detected at line 293
  []
 
-[32
+[33
 
  <./plot_c6_dt.pdf>]
 \tf@nav=\write6
@@ -1139,8 +1141,8 @@ Package rerunfilecheck Info: File `Presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 79D378F05A89FCA7E314FE25288E690F;340.
  ) 
 Here is how much of TeX's memory you used:
- 17338 strings out of 492649
- 331800 string characters out of 6129621
+ 17340 strings out of 492649
+ 331819 string characters out of 6129621
  408810 words of memory out of 5000000
  20746 multiletter control sequences out of 15000+600000
  15526 words of font info for 57 fonts, out of 8000000 for 9000
@@ -1157,10 +1159,10 @@ r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr
 /local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
 cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Presentation.pdf (32 pages, 22092816 bytes).
+Output written on Presentation.pdf (33 pages, 22094904 bytes).
 PDF statistics:
- 1149 PDF objects out of 1200 (max. 8388607)
- 369 compressed objects within 4 object streams
- 70 named destinations out of 1000 (max. 500000)
+ 1156 PDF objects out of 1200 (max. 8388607)
+ 375 compressed objects within 4 object streams
+ 72 named destinations out of 1000 (max. 500000)
  184 words of extra memory for PDF output out of 10000 (max. 10000000)
 
