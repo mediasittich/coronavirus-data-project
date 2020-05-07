@@ -329,6 +329,19 @@ df_world_death = df_world%>%
   filter(type == "death")
 df_world_recovered = df_world%>%
   filter(type == "recovered")
+### --------------------------------------------------------------------------------------------------------------------
+## Centering Data for C6
+## Data obtained from Regina
+
+df_c6 = read.csv(file = "~/Desktop/Statistik/Corona/c6_start_dates.csv")
+df_c6 = df_c6 %>%
+  rename("ISO3" = "X", "c6.start" = "X0")
+
+df_states = df_states%>%
+  left_join(df_c6, by="ISO3")
+
+df_states = df_states%>%
+  mutate(diff.c6 = difftime(date, as.Date(c6.start), units = "days"))
 
 
 ### -------------------------------------------------------------------------------------------------------------------
@@ -660,6 +673,81 @@ plot_doubling.time_deaths = plot_doubling.time_deaths+
 plot_doubling.time_deaths
 ggsave("DT_deaths.pdf", plot = plot_doubling.time_deaths, width = 11, height = 8.5, units = "in")
 
+### -------------------------------------------------------------------------------------------------------------------
+## Plot growth factor for european countries, since C6
+plot_growth.factor_C6_confirmed = df_states%>%
+  filter(type == "confirmed")%>%
+  filter(diff.c6 >= 0)%>%
+  filter(doubling.time.mean < Inf)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = diff.c6, y = growth.factor.mean))+
+    geom_line(aes(group= Country.Region), color = "blue")+
+    ylim(1, 1.75)+
+    labs(title = "Growth Factor: Recorded European Cases", subtitle = "7-day rolling geometric mean of growth factor of all euorpean countries
+since introducing \"Stay at Home\" - Requirements",
+       x = "Days", y = "growth factor")+
+    theme_bw()+
+    theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
+plot_growth.factor_C6_deaths = df_states%>%
+  filter(type == "death")%>%
+  filter(diff.c6 >= 0)%>%
+  filter(doubling.time.mean < Inf)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = diff.c6, y = growth.factor.mean))+
+  geom_line(aes(group= Country.Region), color = 'red')+
+  ylim(1, 1.75)+
+  labs(title = "Growth Factor: Recorded European Deaths", subtitle = "7-day rolling geometric mean of growth factor of all euorpean countries
+since introducing \"Stay at Home\" - Requirements",
+       x = "Days", y = "growth factor")+
+  theme_bw()+
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
+plot_c6_gf = gridExtra::grid.arrange(plot_growth.factor_C6_confirmed, plot_growth.factor_C6_deaths, ncol=2)
+ggsave("plot_c6_gf.pdf", plot = plot_c6_gf, width = 17, height = 9, units = "in")
+
+plot_doubling.time_C6_confirmed = df_states%>%
+  filter(type == "confirmed")%>%
+  filter(diff.c6 >= 0)%>%
+  filter(doubling.time.mean < Inf)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = diff.c6, y = doubling.time.mean))+
+    geom_line(aes(group= Country.Region), color = 'blue')+
+    ylim(0, 150)+
+    labs(title = "Doubling Time: Recorded European Cases", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
+since introducing \"Stay at Home\" - Requirements",
+       x = "Days", y = "Days")+
+    theme_bw()+
+    theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
+plot_doubling.time_C6_death = df_states%>%
+  filter(type == "death")%>%
+  filter(diff.c6 >= 0)%>%
+  filter(doubling.time.mean < Inf)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = diff.c6, y = doubling.time.mean))+
+  geom_line(aes(group= Country.Region), color = 'red')+
+  ylim(0, 150)+
+  labs(title = "Doubling Time: Recorded European Deaths", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
+since introducing \"Stay at Home\" - Requirements",
+       x = "Days", y = "Days")+
+  theme_bw()+
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
+plot_c6_dt = gridExtra::grid.arrange(plot_doubling.time_C6_confirmed, plot_doubling.time_C6_death, ncol=2)
+ggsave("plot_c6_dt.pdf", plot = plot_c6_dt, width = 17, height = 9, units = "in")
 ### -------------------------------------------------------------------------------------------------------------------
 ## Plot for growth factor of confirmed cases centered at 50 confirmed cases
 plot_growth.rate_confirmed_centered50 = df_states%>%
