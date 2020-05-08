@@ -1,5 +1,5 @@
 \beamer@sectionintoc {1}{Einf\IeC {\"u}hrung und Fragestellung}{3}{0}{1}
-\beamer@sectionintoc {2}{Daten}{5}{0}{2}
-\beamer@sectionintoc {3}{Kumulativen Anzahl an F\IeC {\"a}llen und Todesf\IeC {\"a}llen weltweit}{10}{0}{3}
-\beamer@sectionintoc {4}{Wachstumsfaktoren der kumulativen F\IeC {\"a}lle und Todesf\IeC {\"a}lle}{16}{0}{4}
-\beamer@sectionintoc {5}{Diskussion}{28}{0}{5}
+\beamer@sectionintoc {2}{Daten}{6}{0}{2}
+\beamer@sectionintoc {3}{Kumulativen Anzahl an F\IeC {\"a}llen und Todesf\IeC {\"a}llen weltweit}{12}{0}{3}
+\beamer@sectionintoc {4}{Wachstumsfaktoren der kumulativen F\IeC {\"a}lle und Todesf\IeC {\"a}lle}{19}{0}{4}
+\beamer@sectionintoc {5}{Diskussion}{32}{0}{5}

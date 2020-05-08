@@ -32,7 +32,13 @@
 % 3: Wachstumsraten der Fallzahlen
 % 4: Ländervergleich. Zentrieren um Tag der Abriegelung irgendeiner Art.
 
-
+\AtBeginSection[]
+{
+  \begin{frame}
+  \frametitle{Inhaltsangabe}
+  \tableofcontents[currentsection]
+  \end{frame}
+}
 
 
 
@@ -114,7 +120,7 @@
  		\item Es handelt sich ``nur'' um die aufgezeichneten Fälle und Todefälle. (max. untere Schranke)
  		\item Starke Unterschiede in der Aufzeichnungs- und Testpolitik einzelner Länder, was einen direkten Ländervergleich schwer möglich macht. 
  		\item Die Kreuzfahrtschiffe Diamond Princess, Grand Princess und MS Zaandam wurden ausgeschlossen, da keinem Land eindeutig zuortbar. 
- 		\item Die Zahl der Fälle und Todesfälle beziehen sich meist auf 100.000 Personen.
+ 		\item Die Zahl der Fälle und Todesfälle bezieht sich auf 100.000 Personen.
  		\item Analyse endet am 27. April 2020.
  		\pause
  		\item Programmierung einer Web-Application: \url{https://covid-19-stats-project.herokuapp.com}
@@ -163,9 +169,9 @@
  	\frametitle{Zwischenergebnis}
  	\begin{itemize}
  		\item Aktuell (27. April 2020) sind weltweit etwa 40 Fälle und 3 Todesfälle pro 100k Einwohner gemeldet.
- 		\item Durch logarithmische Darstellung sind zwei Infektionswellen erkennbar. Die erste Infektionswelle ist durch China dominiert.
  		\item Geografisch besonders Europa und die USA betroffen. 
  		\item Für die meisten afrikanischen Staaten sind kaum Fälle gemeldet.
+ 		\item Durch logarithmische Darstellung sind zwei Infektionswellen erkennbar. Die erste Infektionswelle ist durch China dominiert.
  	\end{itemize}
  \end{frame}
 
@@ -258,6 +264,8 @@
 	\frametitle{Ausblick: Infektionsmaßnahmen}
 	\centering
 	\includegraphics[width = 350pt]{korea}
+	\pause
+	Web Applikation: \url{https://covid-19-stats-project.herokuapp.com}
 \end{frame}
 
 \begin{frame}
