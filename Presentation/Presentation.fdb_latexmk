@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1588920988 "Presentation.tex" "Presentation.pdf" "Presentation" 1588921115
+["pdflatex"] 1588920988 "Presentation.tex" "Presentation.pdf" "Presentation" 1588923120
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -197,18 +197,18 @@
   "Presentation.aux" 1588920990 6595 2004c9f67f1e96e831fadeabc5e45009 ""
   "Presentation.nav" 1588920990 4025 b220cf1b9015319ccbd7881ddadb341a ""
   "Presentation.out" 1588920990 340 79d378f05a89fca7e314fe25288e690f ""
-  "Presentation.tex" 1588920988 12099 90650df3cc58202618a8f117899a81b5 ""
+  "Presentation.tex" 1588922628 12099 90650df3cc58202618a8f117899a81b5 ""
   "Presentation.toc" 1588920990 378 2abca4850ae8f078fd22bd5429ef0514 ""
   "korea.pdf" 1588626806 19915 1240fb9b5a5d04d9e0a196bfdc02e614 ""
   "plot_c6_dt.pdf" 1588868588 17704 28a83d624123dee99d82c3e17bfc5412 ""
   "plot_c6_gf.pdf" 1588868529 17995 3063ccb3a9672dc6944be76bf5b58681 ""
-  "world_confirmed_mod.pdf" 1588615916 10842945 74cecc07d31ac94a423f2e29168233c8 ""
-  "world_death_mod.pdf" 1588616032 10835665 b40c8fda9f27c1f18e272dae15b99775 ""
+  "world_confirmed_mod.pdf" 1588922670 10842945 74cecc07d31ac94a423f2e29168233c8 ""
+  "world_death_mod.pdf" 1588922670 10835665 b40c8fda9f27c1f18e272dae15b99775 ""
   (generated)
-  "Presentation.pdf"
+  "Presentation.toc"
+  "Presentation.nav"
   "Presentation.out"
   "Presentation.log"
-  "Presentation.aux"
   "Presentation.snm"
-  "Presentation.nav"
-  "Presentation.toc"
+  "Presentation.pdf"
+  "Presentation.aux"
