@@ -1,0 +1,52 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+
+\usepackage{subcaption}
+\usepackage[version=4]{mhchem}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\begin{document}
+\pagenumbering{arabic}
+
+\begin{titlepage}
+	\centering
+	{\scshape\Large Bericht \par}
+	\vspace{0.5cm}
+	{\scshape Praxisprojekt \par}
+	\vspace{1.0cm}
+	{\scshape\LARGE Analyse der COVID-19 Fallzahlen
+ \par}
+ 	\vspace{2cm}
+	{\Large\itshape Regina Galambos\par}
+	{\Large\itshape Lorenz Mihatsch\par}
+	\vspace{2cm}
+
+	\includegraphics[width=0.5\textwidth]{LMU.pdf}\\
+
+
+	\vspace{1cm}
+	{Projektpartner und Betreuuer\par
+	 Dr.\ And\'{e} Klima\par}
+\end{titlepage}
+
+\section{Einleitung}
+COVID-19 ist eine Atemwegserkrankung, die durch das SARS-CoV-2 Virus verursacht wird und erstmals im Dezember 2019 in Wuhan, China, dokumentiert wurde. Seitdem hat sich das Virus global verbreitet und wurde am 11. März 2020 von der WHO als Pandemie eingestuft. Die vorliegende Analyse widmet sich der Beschreibung der Entwicklung der weltweit dokumentierten Fall- und Todeszahlen zweichen dem 21. Januar und dem 27. April 2020.
+\section{Datengrundlage}
+Die Auswertung beruht auf drei verschiedenen Datequellen. Der Datensatz zu den COVID-19 Fall- und Todeszahlen der einzelnen Länder wird täglich von \emph{RamiKrispin} vom \emph{Centers of Systems Science and Engineering} der Johns Hopkins University abgerufen und in Form eines R-packages zu Verfüung gestellt. (\url{https://github.com/RamiKrispin/coronavirus}) Für die Populationsdaten des Jahres 2018 und die Kontinentzugehörigkeit wurden die Datenbanken der UN und der World Bank genutzt, die mit Hilf der R-packages \emph{wbstat} und \emph{JohnSnowLabs} heruntergeladen wurden.
+Informationen zu politischen Maßnahmen einzelner Länder zur Eindämmung der Infektionen wurden über den \emph{Government Response Tracker} Datesatz der \emph{University of Oxford} bezogen. (\url{https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker})
+
+\section{Ergebnisse}
+Für die Analyse der Fall- und Todeszahlen wurden durchweg die kumulativen Fall- und Todeszahlen pro 100.000 Einwohner verwendet. Weiter sei an dieser Stelle anzumerken, dass es sich ``nur'' um die aufgezeichneten Fälle und Todesfälle handelt. Damit sind die gegebenen Daten stark von der Aufzeichnungs- und Testpolitik der einzelnen Länder abhängig. Ein direkter Ländervergleich ist somit nur eingeschränkt möglich und man muss davon ausgehen, dass hier tendenziell eher eine untere Schanke der tatsächlich vorliegenden Fall- und Todeszahlen analysiert wird. 
+\subsection{Entwicklung der weltweiten kumulativen Fall- und Todeszahlen}
+Zum Endpunkt der Analyse (27. April 2020) zeigen sich weltweit etwa 40 bestätigte kumulative Fälle und etwa 3 Todesfälle pro 100.000 Einwohner. Geographisch scheinen vor allem Westeuropa und die USA besonders schwer betroffen zu sein. In Afrika hingegen sind kaum gemeldete Fälle dokumentiert. Durch eine logarithmische Darstellung sind in der Vergangeheit zwei Infektionswellen erkennbar. Die erste dieser Wellen ging von Begin der Aufzeichung bis etwa Mitte Februar und spielte sich insbesondere in China ab, die Zweite dann, durch eine weltweite Verbreitung, ab etwa Mitte März bis Ende April.
+\subsection{Wachstumsfaktoren und Verdopplungzeit}
+Unter der Annahme eines exponentiellen Wachstums lassen sich die kumulativen Fall- und Todesfallzahlen über die Berechnung von Wachstumsfaktoren und Verdopplungszeiten direkt miteinander vergleichen. Auch hier lassen sich wieder die zwei Infektionswellen erkennen. Zwischen den Infektionswellen trat sowohl bei den kumulativen Fall- als auch bei den Todesfallzahlen ein lokales Minimum der weltweiten Wachstumsfaktoren (bzw. Maximum der Verdopplungszeit) auf. Dieses Minimum (bzw. Maximum) lag bei den Fallzahlen (min. Wachstumsfaktor 1,01; max. Verdopplungszeit 71 Tage) etwa zwei Wochen vor dem Minimum (bzw. Maximum) der kumulativen Todesfälle (min. Wachstumsfaktor 1,02; max. Verdopplungszeit 31 Tage). Die Gipfel der zweiten Infektionswelle trat sowohl bei den kumulativen Fällen als auch bei den Todesfällen zeitgleich Mitte-Ende März auf.
+Zum Ende der Analyse sind die Wachstumsfaktoren der weltweiten kumulativen Fälle und Todesfälle rückläufig und die Verdopplungszeiten steigend. 
+
+\section{Danksagung}
+Wie möchten uns herzlich bei Dr.\ Andr\'{e} Klima für das Projekt und die Betreuung in diesem Projekt bedanken. Weitere (interaktiven) Grafiken sind in unserer Webapplication unter \url{https://covid-19-stats-project.herokuapp.com} zu finden. Wir danken weiterhin \emph{RamiKrispin}, der \emph{Oxford University}, den UN und der World Bank für die öffentliche Bereitstellung der Datensätze. 
+\end{document}
