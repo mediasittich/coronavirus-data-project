@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  13 MAY 2020 14:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.25)  13 MAY 2020 14:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -676,7 +676,7 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
 /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></
 usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Bericht.pdf (3 pages, 138680 bytes).
+Output written on Bericht.pdf (3 pages, 138826 bytes).
 PDF statistics:
  81 PDF objects out of 1000 (max. 8388607)
  67 compressed objects within 1 object stream
