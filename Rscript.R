@@ -1,17 +1,19 @@
+# The Analysis starts at 21.01.2020 and ends at 27.04.2020.
 
-#.................................. Load data from package ..........................................
+###################################### Loading and updating the data package ###########################################
+#........................................... Load data from package ....................................................
 library(coronavirus)
 data("coronavirus")
-data("covid_iran") # not found
-data("covid_south_korea") # not found
+# data("covid_iran") # not found
+# data("covid_south_korea") # not found
 
-#..............................Load data manually from github........................................
+#.......................................Load data manually from github..................................................
 #..................................also adding Italy.................................................
-covid_iran <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/iran/covid_iran_long.csv",
-                            stringsAsFactors = FALSE)
+# covid_iran <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/iran/covid_iran_long.csv",
+#                            stringsAsFactors = FALSE)
 
-covid_south_korea <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/south_korea/covid_south_korea_long.csv",
-                          stringsAsFactors = FALSE)
+# covid_south_korea <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/south_korea/covid_south_korea_long.csv",
+#                         stringsAsFactors = FALSE)
 
 covid_italy <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/italy/covid_italy_long.csv",
                        stringsAsFactors = FALSE)
@@ -99,27 +101,31 @@ update_datasets <- function(silence = FALSE){
   }
   
   
-}
-.rs.restartR()
+} # Function to update the corona data package
+update_datasets()
+.rs.restartR() # Restart is neccessary after updating the 'coronovirus' datapackage
 
+########################################### Loading required Packages ################################################
 # Load Packages after restart of R
-library(dplyr)
-library(tidyr)
-library(lubridate)
-library(plotly)
-library(viridis)
-library(coronavirus)
-library(psych)
-library(zoo)
+{
+  library(dplyr) # Version 0.8.4
+  library(tidyr) # Version 0.2.5
+  library(lubridate) # Version 1.7.4
+  library(plotly) # Version 4.9.2
+  library(viridis) # Version 0.5.1
+  library(coronavirus) # Version 0.2.0
+  library(psych) # Version 1.8.12
+  library(zoo) # Version 1.8-6
+}
 data("coronavirus")
 
-####################################### Inspect dataset ############################################
+############################################ Inspect dataset #################################################
 setwd("/Users/lorenzmihatsch/Desktop/Statistik/Corona/Presentation")
 # copy dataset to working data frame & convert empty cells to NAs
 df_all <- coronavirus %>% mutate_if(is.character, list(~na_if(., "")))
-df_ir <- covid_iran %>% mutate_if(is.character, list(~na_if(., "")))
-df_sk <- covid_south_korea %>% mutate_if(is.character, list(~na_if(., "")))
-df_it <- covid_italy %>% mutate_if(is.character, list(~na_if(., "")))
+# df_ir <- covid_iran %>% mutate_if(is.character, list(~na_if(., "")))
+# df_sk <- covid_south_korea %>% mutate_if(is.character, list(~na_if(., "")))
+# df_it <- covid_italy %>% mutate_if(is.character, list(~na_if(., "")))
 
 # convert Province.State, Country.State, type from character to factor
 #df_all <- mutate_if(df_all, is.character, as.factor)
@@ -135,11 +141,17 @@ missing_col[missing_col > 0]
 rm(missing_col)
 
 ########################### Begin Descriptive Analysis #############################################
-
-# Reason: Australia and China are only given by thier Provinces/Counties
-# Canada is given by its Counties and additionally as Country without provinces
+# For the initial data cleaning procedure, countries are treated differently.
+# Reason: Australia and China are only given by thier Provinces/Counties --> treated in df_provinces
+# Canada is given by its Counties and additionally as Country without provinces --> treated in df_canada
 # Denmark, France, Netherlands and UK are given as Country and as some of their 
-# former/current colonies.
+# former/current colonies. --> treated in df_colonies
+
+# Data contains three ships: Grand Princess, Diamond Princess and MS Zaandam
+# Grand Princess will be excluded from the beginning of the Analysis, Diamond Princess and
+# MS Zaandam will be expluded for the plots later.
+
+df_all = df_all[-which(df_all$Province.State == "Grand Princess"),] # Removing Grand Princess
 
 #df_all = df_all%>%
   # group_by(Province.State, Country.Region, type)%>%
@@ -177,6 +189,7 @@ df_canada = df_all%>%
   mutate(cumulative = cumsum(cases))%>% # cumsum: Variable with cumulative sum.
   ungroup()
 
+# all other states, except for the above stated.
 df_states = df_all %>%
   filter(Country.Region != "Canada")%>%
   filter(is.na(Province.State))%>%
@@ -185,11 +198,12 @@ df_states = df_all %>%
   mutate(cumulative = cumsum(cases))%>% # cumsum: Variable with cumulative sum.
   ungroup()
 
+# merging the datasets back together.
 df_states = df_states%>%
   bind_rows(df_provinces)%>%
   bind_rows(df_colonies)%>%
   bind_rows(df_canada)%>%
-  select(-Lat, -Long)
+  select(-Lat, -Long) # not relevant for analysis
 rm(df_provinces, df_colonies, df_canada, df_all) # tidy up
 
 # This df_world data.frame contains the cumulative world data
@@ -202,45 +216,60 @@ df_world = df_states%>%
   group_by(type)%>%
   mutate(cumulative.world = cumsum(cases.world)) # Cumulative sum over time
 
-
 ###-----------------------------------------------------------------------------------------
+## Get a first impressino by plotting the cumulative cases.
 ## Plot: Cummulative cases and types vs date for all countries
 plot_cumulative_by_time_confirmed = df_states%>%
   group_by(Country.Region, type)%>%
   filter(type == "confirmed")%>%
-  #filter(cumulative >=1)%>%
+  filter(date <= "2020-04-27")%>%
     ggplot(aes(date, cumulative, fill = Country.Region))+
       geom_line()+
-      labs(x = "Cumulative number of confirmed cases")+
-      #scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-      #labels = trans_format("log10", math_format(10^.x)))+
-      #annotation_logticks(side="l") +
-      theme_bw()
+      labs(x = "Date", y="cumulative cases", 
+           title = "Confirmed cases", subtitle = "Absolute number of cumulative cases for each country")+
+      theme_bw()+
+      theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
 plot_cumulative_by_time_confirmed
 
 plot_cumulative_by_time_death = df_states%>%
   group_by(Country.Region, type)%>%
   filter(type == "death")%>%
+  filter(date <= "2020-04-27")%>%
     ggplot(aes(date, cumulative, fill = Country.Region))+
       geom_line()+
-      labs(x = "Cumulative number of death cases")+
-      theme_bw()
+      labs(x = "Date", y="cumulative deaths", 
+       title = "Confirmed deaths", subtitle = "Absolute number of cumulative deaths for each country")+
+      theme_bw()+
+      theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
 plot_cumulative_by_time_death
 
 plot_cumulative_by_time_recovered = df_states%>%
   group_by(Country.Region, type)%>%
   filter(type == "recovered")%>%
+  filter(date <= "2020-04-27")%>%
     ggplot(aes(date, cumulative, fill = Country.Region))+
       geom_line()+
-      labs(x = "Cumulative number of recovered cases")+
-      theme_bw()
+      labs(x = "Date", y="cumulative recovered", 
+       title = "Confirmed recovered", subtitle = "Absolute number of cumulative recovered for each country")+
+      theme_bw()+
+      theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
 plot_cumulative_by_time_recovered
 
-## Plot: by continent
+##---------------------------------------------------------------------------------------------------------
+## Get Demographic information and Country Code
 countries <- unique(df_states$Country.Region) # Countries from the corona dataframe.
 geo_data <- data.frame(country = countries) # as data.frane
 
-library(countrycode) # to get the iso2c code
+library(countrycode) # to get the iso2c/iso3c code
 library(raster) # to merge the iso2c to the continent from ccodes()
 
 geo_data$ISO3 <- countrycode(sourcevar = countries, origin = "country.name", destination = "iso3c") # get iso3c
@@ -269,7 +298,7 @@ geo_data$Continent[which(geo_data$Country.Region == "St Martin")] = "North Ameri
 
 df_states = df_states%>%
   left_join(geo_data, by = "Country.Region") # Warning message can be ignored
-rm(geo_data)
+rm(geo_data) # tidy up
 
 ## Getting the Population data for each country by ISO§
 library("wbstats") # to get population data from Worldbank
@@ -331,7 +360,7 @@ df_world_recovered = df_world%>%
   filter(type == "recovered")
 ### --------------------------------------------------------------------------------------------------------------------
 ## Centering Data for C6
-## Data obtained from Regina
+## Data C6 contains the date at which 'C6: Stay at home requirements' were introduced in European countries.
 
 df_c6 = read.csv(file = "~/Desktop/Statistik/Corona/c6_start_dates.csv")
 df_c6 = df_c6 %>%
@@ -345,7 +374,8 @@ df_states = df_states%>%
 
 
 ### -------------------------------------------------------------------------------------------------------------------
-## Plot for World Data:
+## Cumulative Number of confirmed cases/deaths and recovered world wide.
+# on a linear scale
 plot_world = ggplot()+
   geom_line(data = df_world_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
   geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
@@ -364,10 +394,11 @@ plot_world = ggplot()+
 plot_world
 ggsave("Cases_world.pdf", plot = plot_world, width = 11, height = 8.5, units = "in")
 
+# on a log scale
 plot_world_log = ggplot()+
-  geom_line(data = df_world_confirmed, aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
-  geom_line(data = df_world_death, aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
-  geom_line(data = df_world_recovered, aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
+  geom_line(data = df_world_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
+  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
+  geom_line(data = df_world_recovered%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'grey50')+
   labs(title = "World", subtitle = "Cumulative number of recorded cases per 100k people on log scale", 
        x = "Date", y = "Cumulative Cases per 100k")+
   theme_bw()+
@@ -380,11 +411,14 @@ plot_world_log = ggplot()+
         axis.text = element_text(size = 15))+
   
   geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'blue', size = 7)+
-  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'grey', size = 7)+
+  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'grey50', size = 7)+
   geom_text(aes(x = as.Date("2020-04-15"), y = 3.5, label = "Deaths"), color = 'red', size = 7)
 plot_world_log
 ggsave("Cases_world_log.pdf", plot = plot_world_log, width = 11, height = 8.5, units = "in")
 
+### From now on the analysis focuses on Cases and Deaths. 
+
+## Cumulative Cases for individual countries an log Scales
 plot_cumulative_confirmed = df_states%>%
   group_by(Country.Region, type, Continent)%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
@@ -422,6 +456,7 @@ plot_cumulative_confirmed = plot_cumulative_confirmed+
 plot_cumulative_confirmed
 ggsave("Cases_cumulative_confirmed.pdf", plot = plot_cumulative_confirmed, width = 11, height = 8.5, units = "in")
 
+## Cumulative Deaths for individual countries an log Scales
 plot_cumulative_death = df_states%>%
   group_by(Country.Region, type, Continent)%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
@@ -480,14 +515,15 @@ rm(time_days, dt2, dt4, dt8, dt16, dt32, dt64)
 plot_days_to_double_confirmed = df_states%>%
   group_by(Country.Region, type)%>%
   filter(cumulative >= 100)%>%
+  filter(date <= "2020-04-27")%>%
   mutate(days = difftime(date, min(date), units = "days"))%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
   filter(type == "confirmed")%>%
     ggplot()+
       geom_path(aes(days, cumulative, group = Country.Region), lineend = "round", color='grey50', na.rm = TRUE)+
-      xlim(0, 30)+
-      scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                    labels = trans_format("log10", math_format(10^.x)))+
+      xlim(0, 50)+
+      scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x)))+
       annotation_logticks(side="l") +
       labs(x =" Days since 100 confirmed cases", y ="Cumulative number of confirmed cases",
            titel = "Confirmed Cases") +
@@ -605,23 +641,29 @@ plot_growth.fractor_death
 ggsave("GF_deaths.pdf", plot = plot_growth.fractor_death, width = 11, height = 8.5, units = "in")
 
 ## Plot for growth factor of recovered cases
-{
 plot_growth.fractor_recovered = df_states%>%
-    filter(type == "recovered")%>%
-    filter(cumulative >= 30)%>%
-    filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" )%>%
-    filter(growth.factor.mean >= .8)%>%
-    ggplot(aes(x = date, y = growth.factor.mean))+
-    geom_line(aes(group = Country.Region), color = 'grey50')+
-    theme_bw()+
-    labs(x = "Date", y = "day-to-day growth rate")
-  plot_growth.fractor_death
-  
+  filter(type == "recovered")%>%
+  filter(cumulative >= 20)%>%
+  filter(growth.factor.mean<=1.75)%>%
+  filter(date <= "2020-04-27")%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" )%>%
+  ggplot(aes(x = date, y = growth.factor.mean))+
+  geom_line(aes(group = Country.Region), color = 'grey50')+
+  labs(title = "Growth factors: Recorded Recovered", subtitle = "7-day rolling geometric mean of growth factors of all countries with more than 20 recovered cases", 
+       x = "Date", y = "growth factor")+
+  theme_bw()+
+  ylim(0.95, 1.75)+
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
 # adding World growth.factor to the plot
-  plot_growth.fractor_recovered = plot_growth.fractor_recovered+ 
-    geom_line(data = df_world_recovered, aes(x = date, y = growth.factor.mean), 
-              color = 'blue', size = 1.5)
-}
+plot_growth.fractor_recovered = plot_growth.fractor_recovered+ 
+  geom_line(data = df_world_recovered%>%filter(date <= "2020-04-27"), aes(x = date, y = growth.factor.mean), 
+            color = 'black', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'black', size = 7)
+plot_growth.fractor_recovered
 
 #### -------------------------------------------------------------------------------------------------------------------
 ### Plots of DOUBLING TIMES
@@ -673,8 +715,32 @@ plot_doubling.time_deaths = plot_doubling.time_deaths+
 plot_doubling.time_deaths
 ggsave("DT_deaths.pdf", plot = plot_doubling.time_deaths, width = 11, height = 8.5, units = "in")
 
+## Plot for Doubling Times of confirmed death
+plot_doubling.time_recovered = df_states%>%
+  filter(type == "recovered")%>%
+  filter(cumulative >= 20)%>%
+  filter(date <= "2020-04-27")%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = date, y = doubling.time.mean))+
+  geom_line(aes(group= Country.Region), color = 'grey50')+
+  ylim(0, 150)+
+  labs(title = "Doubling Times: Recovered Cases", subtitle = "7-day rolling geometric mean of doubling time of all countries with more than 20 recovered cases", 
+       x = "Date", y = "Days")+
+  theme_bw()+
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+
+plot_doubling.time_recovered = plot_doubling.time_recovered+
+  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = doubling.time.mean), 
+            color = 'black', size = 1.5)+
+  geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'black', size = 7)
+plot_doubling.time_recovered
+
+
 ### -------------------------------------------------------------------------------------------------------------------
-## Plot growth factor for european countries, since C6
+## Plot growth factor for european countries, since C6: Introduction of Stay at Home Requirements
 plot_growth.factor_C6_confirmed = df_states%>%
   filter(type == "confirmed")%>%
   filter(diff.c6 >= 0)%>%
@@ -682,10 +748,10 @@ plot_growth.factor_C6_confirmed = df_states%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
   ggplot(aes(x = diff.c6, y = growth.factor.mean))+
     geom_line(aes(group= Country.Region), color = "blue")+
-    ylim(1, 1.75)+
+    ylim(0.95, 1.75)+
     labs(title = "Growth Factor: Recorded European Cases", subtitle = "7-day rolling geometric mean of growth factor of all euorpean countries
 since introducing \"Stay at Home\" - Requirements",
-       x = "Days", y = "growth factor")+
+       x = "Days since C6", y = "growth factor")+
     theme_bw()+
     theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
@@ -699,10 +765,10 @@ plot_growth.factor_C6_deaths = df_states%>%
   filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
   ggplot(aes(x = diff.c6, y = growth.factor.mean))+
   geom_line(aes(group= Country.Region), color = 'red')+
-  ylim(1, 1.75)+
+  ylim(0.95, 1.75)+
   labs(title = "Growth Factor: Recorded European Deaths", subtitle = "7-day rolling geometric mean of growth factor of all euorpean countries
 since introducing \"Stay at Home\" - Requirements",
-       x = "Days", y = "growth factor")+
+       x = "Days since C6", y = "growth factor")+
   theme_bw()+
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
@@ -711,6 +777,26 @@ since introducing \"Stay at Home\" - Requirements",
 
 plot_c6_gf = gridExtra::grid.arrange(plot_growth.factor_C6_confirmed, plot_growth.factor_C6_deaths, ncol=2)
 ggsave("plot_c6_gf.pdf", plot = plot_c6_gf, width = 17, height = 9, units = "in")
+
+plot_growth.factor_C6_recovered = df_states%>%
+  filter(type == "recovered")%>%
+  filter(diff.c6 >= 0)%>%
+  filter(doubling.time.mean < Inf)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = diff.c6, y = growth.factor.mean))+
+  geom_line(aes(group= Country.Region), color = 'black')+
+  ylim(0.95, 1.75)+
+  labs(title = "Growth Factor: Recorded European Recovered", subtitle = "7-day rolling geometric mean of growth factor of all euorpean countries
+since introducing \"Stay at Home\" - Requirements",
+       x = "Days since C6", y = "growth factor")+
+  theme_bw()+
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+plot_growth.factor_C6_recovered
+
+## Plot doubling time for european countries, since C6: Introduction of Stay at Home Requirements
 
 plot_doubling.time_C6_confirmed = df_states%>%
   filter(type == "confirmed")%>%
@@ -722,7 +808,7 @@ plot_doubling.time_C6_confirmed = df_states%>%
     ylim(0, 150)+
     labs(title = "Doubling Time: Recorded European Cases", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
 since introducing \"Stay at Home\" - Requirements",
-       x = "Days", y = "Days")+
+       x = "Days since C6", y = "Days to double")+
     theme_bw()+
     theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
@@ -739,7 +825,7 @@ plot_doubling.time_C6_death = df_states%>%
   ylim(0, 150)+
   labs(title = "Doubling Time: Recorded European Deaths", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
 since introducing \"Stay at Home\" - Requirements",
-       x = "Days", y = "Days")+
+       x = "Days since C6", y = "Days to double")+
   theme_bw()+
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
@@ -748,47 +834,21 @@ since introducing \"Stay at Home\" - Requirements",
 
 plot_c6_dt = gridExtra::grid.arrange(plot_doubling.time_C6_confirmed, plot_doubling.time_C6_death, ncol=2)
 ggsave("plot_c6_dt.pdf", plot = plot_c6_dt, width = 17, height = 9, units = "in")
-### -------------------------------------------------------------------------------------------------------------------
-## Plot for growth factor of confirmed cases centered at 50 confirmed cases
-plot_growth.rate_confirmed_centered50 = df_states%>%
-  group_by(Country.Region, type)%>%
-  filter(cumulative >= 50)%>%
-  mutate(days = difftime(date, min(date), units = "days"))%>%
-  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" & Country.Region != "China")%>%
-  filter(type == "confirmed")%>%
-    ggplot(aes(x = days, y = growth.factor.mean))+
-    geom_line(aes(group = Country.Region), color = 'grey50')+
-    theme_bw()+
-    labs(x = "Date", y = "day-to-day growth rate")
 
-plot_growth.rate_death_centered20 = df_states%>%
-  group_by(Country.Region, type)%>%
-  filter(cumulative >= 20)%>%
-  mutate(days = difftime(date, min(date), units = "days"))%>%
-  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" & Country.Region != "China")%>%
-  filter(type == "death")%>%
-  ggplot(aes(x = days, y = growth.factor.mean))+
-  geom_line(aes(group = Country.Region), color = 'grey50')+
-  theme_bw()+
-  labs(x = "Date", y = "day-to-day growth rate")
-
-plot_growth.rate_recovered_centered20 = df_states%>%
-  group_by(Country.Region, type)%>%
-  filter(cumulative >= 20)%>%
-  mutate(days = difftime(date, min(date), units = "days"))%>%
-  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess" & Country.Region != "China")%>%
+plot_doubling.time_C6_recovered = df_states%>%
   filter(type == "recovered")%>%
-  ggplot(aes(x = days, y = growth.factor.mean))+
-  geom_line(aes(group = Country.Region), color = 'grey50')+
+  filter(diff.c6 >= 0)%>%
+  filter(doubling.time.mean < Inf)%>%
+  filter(Country.Region != "MS Zaandam" & Country.Region != "Diamond Princess")%>%
+  ggplot(aes(x = diff.c6, y = doubling.time.mean))+
+  geom_line(aes(group= Country.Region), color = 'black')+
+  ylim(0, 150)+
+  labs(title = "Doubling Time: Recorded European Recovered", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
+since introducing \"Stay at Home\" - Requirements",
+       x = "Days since C6", y = "Days to double")+
   theme_bw()+
-  labs(x = "Date", y = "day-to-day growth rate")
-
-
-
-plot_cases_germany = df_states%>%
-  filter(Country.Region == "Germany")%>%
-    ggplot(aes(x = date, y = cases))+
-    geom_bar(stat = "identity")
-
-
-
+  theme(plot.title = element_text(size = 25),
+        plot.subtitle = element_text(size = 15),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 15))
+plot_doubling.time_C6_recovered
