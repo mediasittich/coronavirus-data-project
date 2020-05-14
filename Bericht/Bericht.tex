@@ -8,6 +8,7 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{cleveref}
+\usepackage{xurl}
 
 \begin{document}
 \pagenumbering{arabic}
@@ -29,15 +30,15 @@
 
 
 	\vspace{1cm}
-	{Projektpartner und Betreuuer\par
+	{Projektpartner und Betreuer\par
 	 Dr.\ And\'{e} Klima\par}
 \end{titlepage}
 
 \section{Einleitung}
-COVID-19 ist eine Atemwegserkrankung, die durch das SARS-CoV-2 Virus verursacht wird und erstmals im Dezember 2019 in Wuhan, China, dokumentiert wurde. Seitdem hat sich das Virus global verbreitet und wurde am 11. März 2020 von der WHO als Pandemie eingestuft. Die vorliegende Analyse widmet sich der Beschreibung der Entwicklung der weltweit dokumentierten Fall- und Todeszahlen zweichen dem 21. Januar und dem 27. April 2020.
+COVID-19 ist eine Atemwegserkrankung, die durch das SARS-CoV-2 Virus verursacht wird und erstmals im Dezember 2019 in Wuhan, China, dokumentiert wurde. Seitdem hat sich das Virus global verbreitet und wurde am 11. März 2020 von der WHO als Pandemie eingestuft. Die vorliegende Analyse widmet sich der Beschreibung der Entwicklung der weltweit dokumentierten Fall- und Todeszahlen weichen dem 21. Januar und dem 27. April 2020.
 \section{Datengrundlage}
-Die Auswertung beruht auf drei verschiedenen Datequellen. Der Datensatz zu den COVID-19 Fall- und Todeszahlen der einzelnen Länder wird täglich von \emph{RamiKrispin} vom \emph{Centers of Systems Science and Engineering} der Johns Hopkins University abgerufen und in Form eines R-packages zu Verfügung gestellt. (\url{https://github.com/RamiKrispin/coronavirus}) Für die Populationsdaten des Jahres 2018 und die Kontinentzugehörigkeit wurden die Datenbanken der UN und der World Bank genutzt, die mit Hilfe der R-packages \emph{wbstat} und \emph{JohnSnowLabs} heruntergeladen wurden.
-Informationen zu politischen Maßnahmen einzelner Länder zur Eindämmung der Infektionen wurden über den \emph{Government Response Tracker} Datesatz der \emph{University of Oxford} bezogen. (\url{https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker})
+Die Auswertung beruht auf drei verschiedenen Datenquellen. Der Datensatz zu den COVID-19 Fall- und Todeszahlen der einzelnen Länder wird täglich von \emph{RamiKrispin} vom \emph{Center of Systems Science and Engineering} der Johns Hopkins University abgerufen und in Form eines R-packages zu Verfügung gestellt. (\url{https://github.com/RamiKrispin/coronavirus}) Für die Populationsdaten des Jahres 2018 und die Kontinentzugehörigkeit wurden die Datenbanken der UN und der World Bank genutzt, die mit Hilfe der R-packages \emph{wbstat} heruntergeladen wurden, sowie ein Datensatz von \emph{JohnSnowLabs} verfügbar auf DataHub.io (\url{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}).
+Informationen zu politischen Maßnahmen einzelner Länder zur Eindämmung der Infektionen wurden über den \emph{Government Response Tracker} Datensatz der \emph{University of Oxford} bezogen. (\url{https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker})
 
 \section{Ergebnisse}
 Für die Analyse der Fall- und Todeszahlen wurden durchweg die kumulativen Fall- und Todeszahlen pro 100.000 Einwohner verwendet. Weiter sei an dieser Stelle anzumerken, dass es sich ``nur'' um die aufgezeichneten Fälle und Todesfälle handelt. Damit sind die gegebenen Daten stark von der Aufzeichnungs- und Testpolitik der einzelnen Länder abhängig. Ein direkter Ländervergleich ist somit nur eingeschränkt möglich und man muss davon ausgehen, dass hier tendenziell eher eine untere Schranke der tatsächlich vorliegenden Fall- und Todeszahlen analysiert wird. 
