@@ -3,7 +3,14 @@
 ###################################### Loading and updating the data package ###########################################
 #........................................... Load data from package ....................................................
 library(coronavirus)
+
+update_dataset()
+.rs.restartR() # Restart is neccessary after updating the 'coronovirus' datapackage
+library(coronavirus)
 data("coronavirus")
+
+####### NEXT: load other libraries (skip update_datasets function) #######
+
 # data("covid_iran") # not found
 # data("covid_south_korea") # not found
 
@@ -362,7 +369,10 @@ df_world_recovered = df_world%>%
 ## Centering Data for C6
 ## Data C6 contains the date at which 'C6: Stay at home requirements' were introduced in European countries.
 
-df_c6 = read.csv(file = "~/Desktop/Statistik/Corona/c6_start_dates.csv")
+# Set working directory relative to current file location
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+# Load dataset from directory 'data'
+df_c6 = read.csv(file = "data/c6_start_dates.csv")
 df_c6 = df_c6 %>%
   rename("ISO3" = "X", "c6.start" = "X0")
 
@@ -852,3 +862,4 @@ since introducing \"Stay at Home\" - Requirements",
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 plot_doubling.time_C6_recovered
+
