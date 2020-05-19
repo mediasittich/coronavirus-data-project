@@ -111,7 +111,6 @@ update_datasets()
   library(dplyr) # Version 0.8.4
   library(tidyr) # Version 0.2.5
   library(lubridate) # Version 1.7.4
-  library(plotly) # Version 4.9.2
   library(viridis) # Version 0.5.1
   library(coronavirus) # Version 0.2.0
   library(psych) # Version 1.8.12

@@ -10,14 +10,20 @@
 \usepackage{cleveref}
 \usepackage{xurl}
 
+\usepackage{multibib}
+\newcites{Urls}{Datenquellen}
+\newcites{RPackages}{Verwendete R Pakete}
+\newcites{PythonPackages}{Verwendete Python Pakete}
+
 \begin{document}
 \pagenumbering{arabic}
 
 \begin{titlepage}
 	\centering
-	{\scshape\Large Bericht \par}
+	{\scshape\Large Zusammenfassung \par}
 	\vspace{0.5cm}
 	{\scshape Praxisprojekt \par}
+	{Statistik Bachelor, LMU München, Institut für Statistik\par}
 	\vspace{1.0cm}
 	{\scshape\LARGE Analyse der COVID-19 Fallzahlen
  \par}
@@ -26,9 +32,11 @@
 	{\Large\itshape Lorenz Mihatsch\par}
 	\vspace{2cm}
 
-	\includegraphics[width=0.5\textwidth]{LMU.pdf}\\
+	\includegraphics[width=0.4\textwidth]{LMU.pdf}\\
 
 
+	\vspace{1cm}
+	{München, den 08.05.2020\par}
 	\vspace{1cm}
 	{Projektpartner und Betreuer\par
 	 Dr.\ And\'{e} Klima\par}
@@ -37,8 +45,9 @@
 \section{Einleitung}
 COVID-19 ist eine Atemwegserkrankung, die durch das SARS-CoV-2 Virus verursacht wird und erstmals im Dezember 2019 in Wuhan, China, dokumentiert wurde. Seitdem hat sich das Virus global verbreitet und wurde am 11. März 2020 von der WHO als Pandemie eingestuft. Die vorliegende Analyse widmet sich der Beschreibung der Entwicklung der weltweit dokumentierten Fall- und Todeszahlen weichen dem 21. Januar und dem 27. April 2020.
 \section{Datengrundlage}
-Die Auswertung beruht auf drei verschiedenen Datenquellen. Der Datensatz zu den COVID-19 Fall- und Todeszahlen der einzelnen Länder wird täglich von \emph{RamiKrispin} vom \emph{Center of Systems Science and Engineering} der Johns Hopkins University abgerufen und in Form eines R-packages zu Verfügung gestellt. (\url{https://github.com/RamiKrispin/coronavirus}) Für die Populationsdaten des Jahres 2018 und die Kontinentzugehörigkeit wurden die Datenbanken der UN und der World Bank genutzt, die mit Hilfe der R-packages \emph{wbstat} heruntergeladen wurden, sowie ein Datensatz von \emph{JohnSnowLabs} verfügbar auf DataHub.io (\url{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}).
-Informationen zu politischen Maßnahmen einzelner Länder zur Eindämmung der Infektionen wurden über den \emph{Government Response Tracker} Datensatz der \emph{University of Oxford} bezogen. (\url{https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker})
+Die Auswertung beruht auf drei verschiedenen Datenquellen. Der Datensatz zu den COVID-19 Fall- und Todeszahlen der einzelnen Länder wird täglich von \emph{RamiKrispin} vom \emph{Center of Systems Science and Engineering} der Johns Hopkins University abgerufen und in Form eines R-packages zu Verfügung gestellt \cite{COVID}.
+Für die Populationsdaten des Jahres 2018 und die Kontinentzugehörigkeit wurden die Datenbanken der UN und der World Bank genutzt, die mit Hilfe der R-packages \emph{wbstat} heruntergeladen wurden, sowie ein Datensatz von \emph{JohnSnowLabs} \cite{GEO} verfügbar auf DataHub.io.
+Informationen zu politischen Maßnahmen einzelner Länder zur Eindämmung der Infektionen wurden über den \emph{Government Response Tracker} Datensatz der \emph{University of Oxford} \cite{OxGRT} bezogen.
 
 \section{Ergebnisse}
 Für die Analyse der Fall- und Todeszahlen wurden durchweg die kumulativen Fall- und Todeszahlen pro 100.000 Einwohner verwendet. Weiter sei an dieser Stelle anzumerken, dass es sich ``nur'' um die aufgezeichneten Fälle und Todesfälle handelt. Damit sind die gegebenen Daten stark von der Aufzeichnungs- und Testpolitik der einzelnen Länder abhängig. Ein direkter Ländervergleich ist somit nur eingeschränkt möglich und man muss davon ausgehen, dass hier tendenziell eher eine untere Schranke der tatsächlich vorliegenden Fall- und Todeszahlen analysiert wird. 
@@ -50,4 +59,22 @@ Zum Ende der Analyse sind die Wachstumsfaktoren der weltweiten kumulativen Fäll
 
 \section{Danksagung}
 Wie möchten uns herzlich bei Dr.\ Andr\'{e} Klima für das Projekt und die Betreuung in diesem Projekt bedanken. Weitere (interaktiven) Grafiken sind in unserer Webapplication unter \url{https://covid-19-stats-project.herokuapp.com} zu finden. Wir danken weiterhin \emph{RamiKrispin}, der \emph{Oxford University}, den UN und der World Bank für die öffentliche Bereitstellung der Datensätze. 
+
+\newpage
+
+\bibliographystyleUrls{plain}   % Erstes Beispiel
+%\bibliographystyleUrls{urls}   % Zweites Beispiel
+\bibliographystyleRPackages{plain}
+\bibliographystylePythonPackages{plain}
+
+\nociteUrls{*}
+\nociteRPackages{*}
+\nocitePythonPackages{*}
+
+\bibliographyUrls{BibliographyUrls}
+\bibliographyRPackages{RPackages}
+\bibliographyPythonPackages{PythonPackages}
+
+
 \end{document}
+

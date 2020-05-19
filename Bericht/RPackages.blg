@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: RPackages.aux
+The style file: plain.bst
+Database file #1: RPackages.bib
+You've used 11 entries,
+            2118 wiz_defined-function locations,
+            555 strings with 5293 characters,
+and the built_in function-call counts, 2698 in all, are:
+= -- 261
+> -- 122
+< -- 0
++ -- 49
+- -- 38
+* -- 157
+:= -- 484
+add.period$ -- 34
+call.type$ -- 11
+change.case$ -- 44
+chr.to.int$ -- 0
+cite$ -- 11
+duplicate$ -- 108
+empty$ -- 220
+format.name$ -- 38
+if$ -- 544
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 5
+newline$ -- 59
+num.names$ -- 22
+pop$ -- 49
+preamble$ -- 1
+purify$ -- 41
+quote$ -- 0
+skip$ -- 74
+stack$ -- 0
+substring$ -- 96
+swap$ -- 18
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 42
+warning$ -- 0
+while$ -- 27
+width$ -- 13
+write$ -- 119

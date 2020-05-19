@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{Hunter:2007}
+J.~D. Hunter.
+\newblock Matplotlib: A 2d graphics environment.
+\newblock {\em Computing in Science \& Engineering}, 9(3):90--95, 2007.
+
+\bibitem{kelsey_jordahl_2019_2585849}
+Kelsey Jordahl, Joris~Van den Bossche, Jacob Wasserman, James McBride, Jeffrey
+  Gerard, Jeff Tratner, Matthew Perry, Carson Farmer, Micah Cochran, Sean
+  Gillies, Matt Bartos, Lucas Culbertson, Nick Eubank, maxalbert, Martin
+  Fleischmann, Geir~Arne Hjelle, Dani Arribas-Bel, Christopher Ren, Sergio Rey,
+  Martin Journois, Levi~John Wolf, Aleksey Bilogur, Nick Grue, Joshua Wilson,
+  YuichiNotoya, Leah Wasser, Filipe, Chris Holdgraf, Adam Greenhall, and John
+  Trengrove.
+\newblock geopandas/geopandas: v0.4.1, March 2019.
+
+\bibitem{reback2020pandas}
+The pandas~development team.
+\newblock pandas-dev/pandas: Pandas (version 0.25.3), February 2020.
+
+\bibitem{5725236}
+S.~{van der Walt}, S.~C. {Colbert}, and G.~{Varoquaux}.
+\newblock The numpy array: A structure for efficient numerical computation.
+\newblock {\em Computing in Science Engineering}, 13(2):22--30, 2011.
+
+\end{thebibliography}

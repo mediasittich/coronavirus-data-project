@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{COVID}
+Rami{K}rispin {G}it{H}ub.
+\newblock \url{https://github.com/RamiKrispin/coronavirus}.
+\newblock Eingesehen am 07.02.2013.
+
+\bibitem{GEO}
+John{S}now{L}abs.
+\newblock
+  \url{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}.
+\newblock Eingesehen am 07.02.2013.
+
+\bibitem{OxGRT}
+Government {R}esponse {T}racker.
+\newblock
+  \url{https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker}.
+\newblock Eingesehen am 07.02.2013.
+
+\end{thebibliography}

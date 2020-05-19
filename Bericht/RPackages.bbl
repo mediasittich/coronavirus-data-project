@@ -1,0 +1,61 @@
+\begin{thebibliography}{10}
+
+\bibitem{countrycode}
+Vincent Arel-Bundock, Nils Enevoldsen, and CJ~Yetman.
+\newblock countrycode: An r package to convert country names and country codes.
+\newblock {\em Journal of Open Source Software}, 3(28):848, 2018.
+
+\bibitem{viridis}
+Simon Garnier.
+\newblock {\em viridis: Default Color Maps from 'matplotlib'}, 2018.
+\newblock R package version 0.5.1.
+
+\bibitem{lubridate}
+Garrett Grolemund and Hadley Wickham.
+\newblock Dates and times made easy with {lubridate}.
+\newblock {\em Journal of Statistical Software}, 40(3):1--25, 2011.
+
+\bibitem{raster}
+Robert~J. Hijmans.
+\newblock {\em raster: Geographic Data Analysis and Modeling}, 2020.
+\newblock R package version 3.0-12.
+
+\bibitem{coronavirus}
+Rami Krispin.
+\newblock {\em coronavirus: The 2019 Novel Coronavirus COVID-19 (2019-nCoV)
+  Dataset}, 2020.
+\newblock R package version 0.2.0.
+
+\bibitem{wbstats}
+Jesse Piburn.
+\newblock {\em wbstats: Programmatic Access to the World Bank API}.
+\newblock Oak Ridge National Laboratory, Oak Ridge, Tennessee, 2018.
+
+\bibitem{psych}
+William Revelle.
+\newblock {\em psych: Procedures for Psychological, Psychometric, and
+  Personality Research}.
+\newblock Northwestern University, Evanston, Illinois, 2019.
+\newblock R package version 1.9.12.
+
+\bibitem{ggplot2}
+Hadley Wickham.
+\newblock {\em ggplot2: Elegant Graphics for Data Analysis}.
+\newblock Springer-Verlag New York, 2016.
+
+\bibitem{dplyr}
+Hadley Wickham, Romain François, Lionel Henry, and Kirill Müller.
+\newblock {\em dplyr: A Grammar of Data Manipulation}, 2020.
+\newblock R package version 0.8.5.
+
+\bibitem{tidyr}
+Hadley Wickham and Lionel Henry.
+\newblock {\em tidyr: Tidy Messy Data}, 2020.
+\newblock R package version 1.0.2.
+
+\bibitem{zoo}
+Achim Zeileis and Gabor Grothendieck.
+\newblock zoo: S3 infrastructure for regular and irregular time series.
+\newblock {\em Journal of Statistical Software}, 14(6):1--27, 2005.
+
+\end{thebibliography}
