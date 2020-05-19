@@ -58,5 +58,5 @@ Activate the environment with: `conda activate PROJECT_NAME`
 ### Installing development requirements
 
 ```{python}
-pip install -r requiremenst.txt
+pip install -r requirements.txt
 ```
