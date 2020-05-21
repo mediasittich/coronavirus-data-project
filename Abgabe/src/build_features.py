@@ -331,7 +331,10 @@ covid_data_world['Country'] = 'World'
 
 
 def calculate_cumsum(df, group_vars):
+    # Reset index on dataframe for grouping
     df.reset_index(inplace=True)
+    # Group data by list of valiables (function parameters)
+    # Calculate cumulative sums for each country and each case type
     df['CumulativeReportedCases'] = df.groupby(
         group_vars)['DailyReportedCases'].apply(lambda x: x.cumsum())
     return df
@@ -340,13 +343,17 @@ def calculate_cumsum(df, group_vars):
 
 
 def calculate_per_100K(n, popTotal):
+    # Calculate relative number of cases with provided country population
     return (n / popTotal) * 100000
 
 #  ------------ Calculate Growth Factors ------------
 
 
 def calculate_growth_factors(df, group_vars):
+    # Reset index of dataframe for grouping
     df.reset_index(inplace=True)
+    # Group data by provided variables
+    # Calculate growth factor from percentage change in cumulative case numbers between previous and current date
     df['GrowthFactor'] = df.groupby(group_vars)['CumulativeReportedCases'].apply(
         lambda x: x.pct_change() + 1)
     return df
@@ -355,8 +362,11 @@ def calculate_growth_factors(df, group_vars):
 
 
 def calculate_roll_geom_mean(df, group_vars):
+    # Group data
     grp = pd.DataFrame(df.groupby(group_vars)['GrowthFactor'].sum())
+    # Calculate 7-day rolling geometric mean
     grp['GF_RollingGeomMean'] = grp.rolling(7).apply(gmean, raw=True)
+    # Reset index of dataframe
     grp.reset_index(inplace=True)
     df = grp
     return df
@@ -365,6 +375,7 @@ def calculate_roll_geom_mean(df, group_vars):
 
 
 def calculate_doubling_time(geom_mean):
+    # Calculate current doubling time
     return ln(2)/ln(geom_mean)
 
 
@@ -400,9 +411,9 @@ def add_statistics(df, group_vars):
     d = {}
 
     for case_type in case_types:
+        # Create temporary dataframe for selected case type
         df_temp = df[df['CaseType'] == case_type]
-        # Reset index (drop current index)
-        # df = df.reset_index(drop=True)
+
         # Calculate cumsum
         df_temp = calculate_cumsum(df_temp, group_vars[0])
 
@@ -423,7 +434,7 @@ def add_statistics(df, group_vars):
         df_temp['DoublingTime'] = df_temp['GF_RollingGeomMean'].apply(
             lambda x: calculate_doubling_time(x))
 
-        # Add df to dict
+        # Add dataframe to dictionary
         d['df_{}'.format(case_type)] = df_temp
 
     # Join data frames in d
@@ -431,7 +442,7 @@ def add_statistics(df, group_vars):
 
     return df_new
 
-
+# Apply sttistical calculations on world & countries dataframes
 covid_data_world = add_statistics(covid_data_world, group_vars['world'])
 covid_data_countries = add_statistics(
     covid_data_countries, group_vars['countries'])
@@ -439,9 +450,10 @@ covid_data_countries = add_statistics(
 # ========================================
 #     GOVERNMENT RESPONSE START-DATES
 # ========================================
+# Assign response dataframe
 response_data_all = GOVERNMENT_RESPONSE_LATEST
 
-# Convert column to string object
+# Convert 'Date' column to string object
 response_data_all['Date'] = response_data_all['Date'].astype(str)
 # Convert indicator coding into integer
 indicators_list = ['C1_School closing', 'C1_Flag',
