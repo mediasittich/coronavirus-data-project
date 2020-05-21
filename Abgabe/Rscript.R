@@ -266,22 +266,6 @@ df_world_death = df_world %>%
 df_world_recovered = df_world %>%
   filter(type == "recovered")
 
-############################################ Response: Centering Data for C6 #################################################
-
-## Centering Data for C6
-## Data C6 contains the date at which 'C6: Stay at home requirements' were introduced in European countries.
-
-# Load dataset from directory 'data'
-df_c6 = read.csv(file = "data/c6_start_dates.csv")
-df_c6 = df_c6 %>%
-  rename("ISO3" = "X", "c6.start" = "X0")
-
-df_states = df_states%>%
-  left_join(df_c6, by="ISO3")
-
-df_states = df_states%>%
-  mutate(diff.c6 = difftime(date, as.Date(c6.start), units = "days"))
-
 ############################################ Plots: Relative Cumulative Cases World-Wide #################################################
 
 ## Cumulative Number of confirmed cases/deaths and recovered world wide.
@@ -400,7 +384,7 @@ plot_cumulative_death = plot_cumulative_death +
 plot_cumulative_death
 ggsave("figures/Cases_cumulative_deaths.pdf", plot = plot_cumulative_death, width = 11, height = 8.5, units = "in")
 
-############################################ Plots:  #################################################
+############################################ Generate Doubling Times Data Frame  #################################################
 
 ## Plot: from 100 confirmed cases on. Replication rate.
 # generating a Dataframe for doubeling times
@@ -413,59 +397,63 @@ dt32 = 100*2^(time_days/32)
 dt64 = 100*2^(time_days/64)
 
 df_doubling_time = data.frame(time_days, dt2, dt4, dt8, dt16, dt32, dt64)
-df_doubling_time = df_doubling_time%>%
-    pivot_longer(dt2:dt64, names_to="Days to double")
+df_doubling_time = df_doubling_time %>%
+    pivot_longer(dt2:dt64, names_to = "Days to double")
 df_doubling_time$`Days to double` = factor(df_doubling_time$`Days to double`, levels = c("dt2", "dt4", "dt8", "dt16", "dt32", "dt64"),
-                             labels=c("2", "4", "8", "16", "32", "64"))
+                             labels = c("2", "4", "8", "16", "32", "64"))
 rm(time_days, dt2, dt4, dt8, dt16, dt32, dt64)
 
-plot_days_to_double_confirmed = df_states%>%
-  group_by(country, type)%>%
-  filter(cumulative >= 100)%>%
-  filter(date <= "2020-04-27")%>%
-  mutate(days = difftime(date, min(date), units = "days"))%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  filter(type == "confirmed")%>%
-    ggplot()+
-      geom_path(aes(days, cumulative, group = country), lineend = "round", color='grey50', na.rm = TRUE)+
-      xlim(0, 50)+
+############################################ Plots: Doubling Times for Countries by Continent #################################################
+
+plot_days_to_double_confirmed = df_states %>%
+  group_by(country, type) %>%
+  filter(cumulative >= 100) %>%
+  filter(date <= "2020-04-27") %>%
+  mutate(days = difftime(date, min(date), units = "days")) %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  filter(type == "confirmed") %>%
+    ggplot() +
+      geom_path(aes(days, cumulative, group = country), lineend = "round", color = 'grey50', na.rm = TRUE) +
+      xlim(0, 50) +
       scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)))+
-      annotation_logticks(side="l") +
-      labs(x =" Days since 100 confirmed cases", y ="Cumulative number of confirmed cases",
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+      annotation_logticks(side = "l") +
+      labs(x = " Days since 100 confirmed cases", y = "Cumulative number of confirmed cases",
            titel = "Confirmed Cases") +
-      theme_bw()+
-      geom_line(data = df_doubling_time, aes(time_days, value, group = `Days to double`, color=`Days to double`),
-              size = 1.5, linetype = 5)+
-      scale_color_viridis_d()+
+      theme_bw() +
+      geom_line(data = df_doubling_time, aes(time_days, value, group = `Days to double`, color = `Days to double`),
+              size = 1.5, linetype = 5) +
+      scale_color_viridis_d() +
       facet_grid(cols = vars(Continent))
 
 plot_days_to_double_confirmed 
-### -------------------------------------------------------------------------------------------------------------------
+
+############################################ Calculate Growth Factors  #################################################
+
 ## Calculate growth factor on a day-to-day basis for df_states
-df_states_wider = df_states%>%
-  select(country, date, type, cumulative)%>%
+df_states_wider = df_states %>%
+  select(country, date, type, cumulative) %>%
   pivot_wider(names_from = c(country, type), values_from = cumulative)
 
-growth.factor = matrix(data = NA, nrow = (dim(df_states_wider)[1]-1), ncol=(dim(df_states_wider)[2]-1))
+growth.factor = matrix(data = NA, nrow = (dim(df_states_wider)[1] - 1), ncol = (dim(df_states_wider)[2] - 1))
 dim(growth.factor)
 
-for (i in 1:ncol(growth.factor)){
-  i = i+1
-  for (j in 1:nrow(growth.factor)){
-    k = j+1
+for (i in 1:ncol(growth.factor)) {
+  i = i + 1
+  for (j in 1:nrow(growth.factor)) {
+    k = j + 1
     gf = as.numeric(df_states_wider[k,i]/df_states_wider[j,i])
-    growth.factor[j, (i-1)] = gf
+    growth.factor[j, (i - 1)] = gf
   }
 }
 rm(i, j, k, gf)
 
-last_date = matrix(data = NA, nrow = 1, ncol=(dim(df_states_wider)[2]-1)) # for the last date, there is no doubling time calculable 
+last_date = matrix(data = NA, nrow = 1, ncol = (dim(df_states_wider)[2] - 1)) # for the last date, there is no doubling time calculable 
 growth.factor = rbind(last_date, growth.factor)
 rm(last_date)
 
-dates =  df_states_wider%>%
-  select(date)%>%
+dates =  df_states_wider %>%
+  select(date) %>%
   as.vector()
 growth.factor = cbind(dates, growth.factor)
 
@@ -475,10 +463,10 @@ rm(colnames.df_states_wider, df_states_wider)
 
 df_growth.factor = as.data.frame(growth.factor)
 
-df_growth.factor = df_growth.factor%>%
+df_growth.factor = df_growth.factor %>%
   pivot_longer(-date, names_to = c("country", "type"), names_sep = "_", values_to = "gf")
   
-df_states = df_states%>%
+df_states = df_states %>%
   left_join(y = df_growth.factor, by = c("country", "type", "date"))
 rm(df_growth.factor)
 
@@ -487,12 +475,12 @@ rm(df_growth.factor)
 df_states$gf[which(is.nan(df_states$gf))] = NA
 df_states$gf[which(is.infinite(df_states$gf))] = NA
 
-df_states = df_states%>%
-  group_by(country, type)%>%
-  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right"))%>% # geometric rolling mean of past 7 days.
+df_states = df_states %>%
+  group_by(country, type) %>%
+  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill = NA, align = "right")) %>% # geometric rolling mean of past 7 days.
   mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
 
-
+############################################ Plots: Growth Factors  #################################################
 #### -------------------------------------------------------------------------------------------------------------------
 ### Plots of GROWTH FACTORS
 ## Plot for growth factor of confirmed cases
@@ -572,6 +560,8 @@ plot_growth.fractor_recovered = plot_growth.fractor_recovered+
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'black', size = 7)
 plot_growth.fractor_recovered
 
+############################################ Plots: Dobling Times  #################################################
+
 #### -------------------------------------------------------------------------------------------------------------------
 ### Plots of DOUBLING TIMES
 ## Plot for Doubling Times of confirmed cases
@@ -644,6 +634,28 @@ plot_doubling.time_recovered = plot_doubling.time_recovered+
             color = 'black', size = 1.5)+
   geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'black', size = 7)
 plot_doubling.time_recovered
+
+
+############################################ OUTLOOK  #################################################
+
+############################################ Response: Centering Data for C6 #################################################
+
+## Centering Data for C6
+## Data C6 contains the date at which 'C6: Stay at home requirements' were introduced in European countries.
+
+# Load dataset from directory 'data'
+df_c6 = read.csv(file = "data/c6_start_dates.csv")
+df_c6 = df_c6 %>%
+  rename("ISO3" = "X", "c6.start" = "X0")
+
+df_states = df_states%>%
+  left_join(df_c6, by="ISO3")
+
+df_states = df_states%>%
+  mutate(diff.c6 = difftime(date, as.Date(c6.start), units = "days"))
+
+############################################ Plots: Goverment Response Data  #################################################
+
 
 
 ### -------------------------------------------------------------------------------------------------------------------
