@@ -35,11 +35,13 @@ library(zoo) # Version 1.8-7
 # copy dataset to working data frame & convert empty cells to NAs
 df_all <- coronavirus %>% mutate_if(is.character, list(~na_if(., "")))
 
+# Inspect data frame
 str(df_all)
 summary(df_all)
 
+# Check for missing values in columns
 missing_col <- sapply(df_all, function(x) sum(is.na(x) )) / nrow(df_all)
-missing_col[missing_col > 0]
+missing_col[missing_col > 0] # 0.7082803: 70.8% of values in 'province' column missing
 rm(missing_col)
 
 ########################### Begin Descriptive Analysis #############################################
@@ -56,62 +58,64 @@ rm(missing_col)
 
 df_all = df_all[-which(df_all$province == "Grand Princess"),] # Removing Grand Princess
 
-df_provinces = df_all%>%
-  na.omit(cols="province")%>%
-  filter(country == "China" | country == "Australia")%>% # Provinces of Canada not included
-  group_by(country, date, type)%>%
-  summarise(cases = sum(cases))%>% # by summarizing all other variables are lost.
-  ungroup()%>%
-  group_by(country, type)%>%
-  mutate(cumulative = cumsum(cases))%>% # cumsum: Variable with cumulative sum.
+df_provinces = df_all %>%
+  na.omit(cols = "province") %>%
+  filter(country == "China" | country == "Australia") %>% # Provinces of Canada not included
+  group_by(country, date, type) %>%
+  summarise(cases = sum(cases)) %>% # by summarizing all other variables are lost.
+  ungroup() %>%
+  group_by(country, type) %>%
+  mutate(cumulative = cumsum(cases)) %>% # cumsum: Variable with cumulative sum.
   ungroup()
   
-df_colonies = df_all%>%
-  na.omit(cols="province")%>%
-  filter(country != "China" & country != "Australia" & country != "Canada")%>%
-  select(-country)%>%
-  rename("country"="province")%>%
-  group_by(country, type)%>%
-  mutate(cumulative = cumsum(cases))%>% # cumsum: Variable with cumulative sum.
+df_colonies = df_all %>%
+  na.omit(cols = "province") %>%
+  filter(country != "China" & country != "Australia" & country != "Canada") %>%
+  select(-country) %>%
+  rename("country" = "province") %>%
+  group_by(country, type) %>%
+  mutate(cumulative = cumsum(cases)) %>% # cumsum: Variable with cumulative sum.
   ungroup()
 
-df_canada = df_all%>%
-  filter(country == "Canada")%>%
-  group_by(country, date, type)%>%
-  summarise(cases = sum(cases))%>% # by summarizing all other variables are lost.
-  ungroup()%>%
-  group_by(country, type)%>%
-  mutate(cumulative = cumsum(cases))%>% # cumsum: Variable with cumulative sum.
+df_canada = df_all %>%
+  filter(country == "Canada") %>%
+  group_by(country, date, type) %>%
+  summarise(cases = sum(cases)) %>% # by summarizing all other variables are lost.
+  ungroup() %>%
+  group_by(country, type) %>%
+  mutate(cumulative = cumsum(cases)) %>% # cumsum: Variable with cumulative sum.
   ungroup()
 
 # all other states, except for the above stated.
 df_states = df_all %>%
-  filter(country != "Canada")%>%
-  filter(is.na(province))%>%
-  select(-province)%>%
-  group_by(country, type)%>%
-  mutate(cumulative = cumsum(cases))%>% # cumsum: Variable with cumulative sum.
+  filter(country != "Canada") %>%
+  filter(is.na(province)) %>%
+  select(-province) %>%
+  group_by(country, type) %>%
+  mutate(cumulative = cumsum(cases)) %>% # cumsum: Variable with cumulative sum.
   ungroup()
 
 # merging the datasets back together.
-df_states = df_states%>%
-  bind_rows(df_provinces)%>%
-  bind_rows(df_colonies)%>%
-  bind_rows(df_canada)%>%
+df_states = df_states %>%
+  bind_rows(df_provinces) %>%
+  bind_rows(df_colonies) %>%
+  bind_rows(df_canada) %>%
   select(-lat, -long) # not relevant for analysis
 rm(df_provinces, df_colonies, df_canada, df_all) # tidy up
 
 # This df_world data.frame contains the cumulative world data
-df_world = df_states%>%
-  select(country, date, cases, type)%>%
-  pivot_wider(names_from = c(country), values_from = cases)%>% #changing country to Variables
-  ungroup()%>%
-  mutate(cases.world = rowSums(.[3:ncol(.)]))%>% #Sum above all countries
-  select(date, type, cases.world)%>%
-  group_by(type)%>%
+df_world = df_states %>%
+  select(country, date, cases, type) %>%
+  pivot_wider(names_from = c(country), values_from = cases) %>% #changing country to Variables
+  ungroup() %>%
+  mutate(cases.world = rowSums(.[3:ncol(.)])) %>% #Sum above all countries
+  select(date, type, cases.world) %>%
+  group_by(type) %>%
   mutate(cumulative.world = cumsum(cases.world)) # Cumulative sum over time
 
-###-----------------------------------------------------------------------------------------
+
+############################################ Visualize Cumulative Total Cases #################################################
+
 ## Get a first impressino by plotting the cumulative cases.
 ## Plot: Cummulative cases and types vs date for all countries
 plot_cumulative_by_time_confirmed = df_states%>%
