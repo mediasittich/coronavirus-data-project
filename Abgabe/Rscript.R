@@ -481,82 +481,81 @@ df_states = df_states %>%
   mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
 
 ############################################ Plots: Growth Factors  #################################################
-#### -------------------------------------------------------------------------------------------------------------------
-### Plots of GROWTH FACTORS
+
 ## Plot for growth factor of confirmed cases
-plot_growth.fractor_confirmed = df_states%>%
-  filter(type == "confirmed")%>%
-  filter(cumulative >= 50)%>%
-  filter(growth.factor.mean<=1.75)%>%
-  filter(date <= "2020-04-27")%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess" )%>%
-    ggplot(aes(x = date, y = growth.factor.mean))+
-    ylim(0.95, 1.75)+
-    geom_line(aes(group = country), color = 'grey50')+
+plot_growth.fractor_confirmed = df_states %>%
+  filter(type == "confirmed") %>%
+  filter(cumulative >= 50) %>%
+  filter(growth.factor.mean <= 1.75) %>%
+  filter(date <= "2020-04-27") %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess" ) %>%
+    ggplot(aes(x = date, y = growth.factor.mean)) +
+    ylim(0.95, 1.75) +
+    geom_line(aes(group = country), color = 'grey50') +
     labs(title = "Growth factors: Recorded Cases", subtitle = "7-day rolling geometric mean growth factors of all countries with more than 50 cases recorded", 
-         x = "Date", y = "growth factor")+
-    theme_bw()+
+         x = "Date", y = "growth factor") +
+    theme_bw() +
     theme(plot.title = element_text(size = 25),
           plot.subtitle = element_text(size = 15),
           axis.title = element_text(size = 15),
           axis.text = element_text(size = 15))
 
 # adding World growth.factor to the plot
-plot_growth.fractor_confirmed = plot_growth.fractor_confirmed+ 
-  geom_line(data = df_world_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = growth.factor.mean), 
-            color = 'blue', size = 1.5)+
+plot_growth.fractor_confirmed = plot_growth.fractor_confirmed + 
+  geom_line(data = df_world_confirmed %>% filter(date <= "2020-04-27"), aes(x = date, y = growth.factor.mean), 
+            color = 'blue', size = 1.5) +
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.5, label = "World"), color = 'blue', size = 7)
 plot_growth.fractor_confirmed
-ggsave("GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 11, height = 8.5, units = "in")
+ggsave("figures/GF_confirmed.pdf", plot = plot_growth.fractor_confirmed, width = 11, height = 8.5, units = "in")
 
 ## Plot for growth factor of death cases
-plot_growth.fractor_death = df_states%>%
-  filter(type == "death")%>%
-  filter(cumulative >= 20)%>%
-  filter(growth.factor.mean<=1.75)%>%
-  filter(date <= "2020-04-27")%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess" )%>%
-  ggplot(aes(x = date, y = growth.factor.mean))+
-  geom_line(aes(group = country), color = 'grey50')+
+plot_growth.fractor_death = df_states %>%
+  filter(type == "death") %>%
+  filter(cumulative >= 20) %>%
+  filter(growth.factor.mean <= 1.75) %>%
+  filter(date <= "2020-04-27") %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess" ) %>%
+  ggplot(aes(x = date, y = growth.factor.mean)) +
+  geom_line(aes(group = country), color = 'grey50') +
     labs(title = "Growth factors: Recorded Deaths", subtitle = "7-day rolling geometric mean of growth factors of all countries with more than 20 deaths recorded", 
-         x = "Date", y = "growth factor")+
-    theme_bw()+
-    ylim(0.95, 1.75)+
+         x = "Date", y = "growth factor") +
+    theme_bw() +
+    ylim(0.95, 1.75) +
     theme(plot.title = element_text(size = 25),
           plot.subtitle = element_text(size = 15),
           axis.title = element_text(size = 15),
           axis.text = element_text(size = 15))
 
 # adding World growth.factor to the plot
-plot_growth.fractor_death = plot_growth.fractor_death+ 
-  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = growth.factor.mean), 
-            color = 'red', size = 1.5)+
+plot_growth.fractor_death = plot_growth.fractor_death + 
+  geom_line(data = df_world_death %>% filter(date <= "2020-04-27"), aes(x = date, y = growth.factor.mean), 
+            color = 'red', size = 1.5) +
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'red', size = 7)
 plot_growth.fractor_death
-ggsave("GF_deaths.pdf", plot = plot_growth.fractor_death, width = 11, height = 8.5, units = "in")
+ggsave("figures/GF_deaths.pdf", plot = plot_growth.fractor_death, width = 11, height = 8.5, units = "in")
 
 ## Plot for growth factor of recovered cases
-plot_growth.fractor_recovered = df_states%>%
-  filter(type == "recovered")%>%
-  filter(cumulative >= 20)%>%
-  filter(growth.factor.mean<=1.75)%>%
-  filter(date <= "2020-04-27")%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess" )%>%
-  ggplot(aes(x = date, y = growth.factor.mean))+
-  geom_line(aes(group = country), color = 'grey50')+
+plot_growth.fractor_recovered = df_states %>%
+  filter(type == "recovered") %>%
+  filter(cumulative >= 20) %>%
+  filter(growth.factor.mean <= 1.75) %>%
+  filter(date <= "2020-04-27") %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess" ) %>%
+  ggplot(aes(x = date, y = growth.factor.mean)) +
+  geom_line(aes(group = country), color = 'grey50') +
   labs(title = "Growth factors: Recorded Recovered", subtitle = "7-day rolling geometric mean of growth factors of all countries with more than 20 recovered cases", 
-       x = "Date", y = "growth factor")+
-  theme_bw()+
-  ylim(0.95, 1.75)+
+       x = "Date", y = "growth factor") +
+  theme_bw() +
+  ylim(0.95, 1.75) +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 
 # adding World growth.factor to the plot
-plot_growth.fractor_recovered = plot_growth.fractor_recovered+ 
-  geom_line(data = df_world_recovered%>%filter(date <= "2020-04-27"), aes(x = date, y = growth.factor.mean), 
-            color = 'black', size = 1.5)+
+plot_growth.fractor_recovered = plot_growth.fractor_recovered + 
+  geom_line(data = df_world_recovered %>% filter(date <= "2020-04-27"), aes(x = date, y = growth.factor.mean), 
+            color = 'black', size = 1.5) +
   geom_text(aes(x = as.Date("2020-01-28"), y = 1.45, label = "World"), color = 'black', size = 7)
 plot_growth.fractor_recovered
 
