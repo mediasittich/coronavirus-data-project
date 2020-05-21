@@ -206,16 +206,18 @@ rm(geo_data) # tidy up
 ## Getting the Population data for each country by ISO§
 library("wbstats") # to get population data from Worldbank
 
+# Use previously added ISO3 codes to search countries in wbstats package
 countries_iso3 = unique(as.vector(df_states$ISO3))
 pop_data = wb(country = countries_iso3, indicator = "SP.POP.TOTL", startdate = 2018, enddate = 2018) 
 # Population data from 2018 is being used. 2019 is not available, yet.
 # Not Information is available for the following ISO3: VAT,ESH,AIA,BES,FLK,GUF,GLP,MTQ,MYT,MSR,REU,BLM,SPM
-pop_data = pop_data%>% 
-  select(iso3c, value)%>%
+pop_data = pop_data %>% 
+  select(iso3c, value) %>%
   rename("ISO3" = "iso3c",
          "Population" = "value")
 
-pop_data = pop_data%>%
+# Add values that are not contained in wbstats manually
+pop_data = pop_data %>%
   add_row(ISO3 = "VAT", Population = 453) %>% # https://de.wikipedia.org/wiki/Vatikanstadt#Bevölkerung; abgerufen am 25.04.2019
   add_row(ISO3 = "ESH", Population = 597000) %>% # https://de.wikipedia.org/wiki/Westsahara; abgerufen am 25.04.2019
   add_row(ISO3 = "AIA", Population = 13572) %>% # https://de.wikipedia.org/wiki/Anguilla; abgerufen am 25.04.2019
@@ -231,14 +233,17 @@ pop_data = pop_data%>%
   add_row(ISO3 = "SPM", Population = 5997) %>% # https://de.wikipedia.org/wiki/Saint-Pierre_und_Miquelon; abgerufen am 25.04.2019
   add_row(ISO3 = NA, Population = NA) # for Diamond Princess and MS Zaandam
 
-df_states = df_states%>%
+# Add population data to states data frame
+df_states = df_states %>%
   left_join(pop_data, by = "ISO3") # Warning message can be ignored
 
-detach("package:wbstats", unload=TRUE) # cleaning
+detach("package:wbstats", unload = TRUE) # cleaning
 rm(countries_iso3, pop_data) # cleaning
 
+############################################ Add Statistics #################################################
+
 #calculate cumulative cases per 100k population.
-df_states = df_states%>%
+df_states = df_states %>%
   mutate(cumulative100k = (cumulative/Population)*100000)
 
 ### -------------------------------------------------------------------------------------------------------------------
