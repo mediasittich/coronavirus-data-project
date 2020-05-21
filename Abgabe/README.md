@@ -24,6 +24,8 @@
     │
     └── script.py           <- Main Python script for analysis.
 
+_Used datasets (version 21.05.2020) are also available in the 'data' folder, although the scripts import the latest available datasets via provided URLs_
+
 ---
 
 ## Python Scripts
