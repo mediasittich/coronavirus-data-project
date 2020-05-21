@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1589354085 "Presentation.tex" "Presentation.pdf" "Presentation" 1589354086
+["pdflatex"] 1590045345 "Presentation.tex" "Presentation.pdf" "Presentation" 1590045347
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -194,11 +194,11 @@
   "GF_confirmed.pdf" 1588607149 35402 d03390bc5e69c4d52ab9c363aa5408ce ""
   "GF_deaths.pdf" 1588607152 18033 1750ccc127ee965f1489d118e4aa547f ""
   "LMU.pdf" 1579005866 64386 aa2d4c17f53b267aaabe2486800109ca ""
-  "Presentation.aux" 1589354086 6595 2004c9f67f1e96e831fadeabc5e45009 ""
-  "Presentation.nav" 1589354086 4025 b220cf1b9015319ccbd7881ddadb341a ""
-  "Presentation.out" 1589354086 340 79d378f05a89fca7e314fe25288e690f ""
-  "Presentation.tex" 1589354084 12114 171874f8c27c120b5b7d9e11ec048696 ""
-  "Presentation.toc" 1589354086 378 2abca4850ae8f078fd22bd5429ef0514 ""
+  "Presentation.aux" 1590045347 6595 2004c9f67f1e96e831fadeabc5e45009 ""
+  "Presentation.nav" 1590045347 4025 b220cf1b9015319ccbd7881ddadb341a ""
+  "Presentation.out" 1590045347 340 79d378f05a89fca7e314fe25288e690f ""
+  "Presentation.tex" 1589371210 12168 43ce54f6ffa779b453d0f2da7f87067d ""
+  "Presentation.toc" 1590045347 378 2abca4850ae8f078fd22bd5429ef0514 ""
   "korea.pdf" 1588626806 19915 1240fb9b5a5d04d9e0a196bfdc02e614 ""
   "plot_c6_dt.pdf" 1588868588 17704 28a83d624123dee99d82c3e17bfc5412 ""
   "plot_c6_gf.pdf" 1588868529 17995 3063ccb3a9672dc6944be76bf5b58681 ""
@@ -206,9 +206,9 @@
   "world_death_27042020.pdf" 1589353993 720730 6881ad958fb51cfd4e61dfc689f9ec48 ""
   (generated)
   "Presentation.snm"
-  "Presentation.aux"
   "Presentation.out"
-  "Presentation.pdf"
-  "Presentation.nav"
   "Presentation.log"
+  "Presentation.pdf"
   "Presentation.toc"
+  "Presentation.aux"
+  "Presentation.nav"
