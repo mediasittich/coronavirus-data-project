@@ -9,7 +9,7 @@ from numpy import log as ln
 from iso3166 import countries, countries_by_name  # ISO data for countries
 import datetime
 
-from src.make_dataset import CORONA_DATA, CONTINENTS_DATA, POPULATION_DATA
+from src.make_dataset import CORONA_DATA, CONTINENTS_DATA, POPULATION_DATA, GOVERNMENT_RESPONSE_LATEST, GOVERNMENT_RESPONSE_C6
 
 ##################################
 # Constants
@@ -426,6 +426,26 @@ def add_statistics(df, group_vars):
 covid_data_world = add_statistics(covid_data_world, group_vars['world'])
 covid_data_countries = add_statistics(
     covid_data_countries, group_vars['countries'])
+
+# ========================================
+#     GOVERNMENT RESPONSE START-DATES
+# ========================================
+response_data_all = GOVERNMENT_RESPONSE_LATEST
+
+# Convert column to string object
+response_data_all['Date'] = response_data_all['Date'].astype(str)
+# Convert indicator coding into integer
+indicators_list = ['C1_School closing', 'C1_Flag',
+       'C2_Workplace closing', 'C2_Flag', 'C3_Cancel public events', 'C3_Flag',
+       'C4_Restrictions on gatherings', 'C4_Flag', 'C5_Close public transport',
+       'C5_Flag', 'C6_Stay at home requirements', 'C6_Flag',
+       'C7_Restrictions on internal movement', 'C7_Flag',
+       'C8_International travel controls', 'E1_Income support', 'E1_Flag',
+       'E2_Debt/contract relief', 'H1_Public information campaigns',
+       'H1_Flag', 'H2_Testing policy', 'H3_Contact tracing']
+
+# Replace NaN with -1 and convert all other to integer
+response_data_all[indicators_list] = response_data_all[indicators_list].fillna(-1).astype(int)
 
 # ========================================
 #           PROCESSED DATAFRAMES
