@@ -31,6 +31,11 @@ Jesse Piburn.
 \newblock {\em wbstats: Programmatic Access to the World Bank API}.
 \newblock Oak Ridge National Laboratory, Oak Ridge, Tennessee, 2018.
 
+\bibitem{}
+{R Core Team}.
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria, 2019.
+
 \bibitem{psych}
 William Revelle.
 \newblock {\em psych: Procedures for Psychological, Psychometric, and

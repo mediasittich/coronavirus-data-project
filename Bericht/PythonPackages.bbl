@@ -24,4 +24,9 @@ S.~{van der Walt}, S.~C. {Colbert}, and G.~{Varoquaux}.
 \newblock The numpy array: A structure for efficient numerical computation.
 \newblock {\em Computing in Science Engineering}, 13(2):22--30, 2011.
 
+\bibitem{van1995python}
+Guido Van~Rossum and Fred~L Drake~Jr.
+\newblock {\em Python reference manual}.
+\newblock Centrum voor Wiskunde en Informatica Amsterdam, 1995.
+
 \end{thebibliography}
