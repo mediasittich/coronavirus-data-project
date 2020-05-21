@@ -2,7 +2,7 @@
 
 ## Project Organization
 
-------------
+---
 
     ├── README.md          <- The top-level README for developers using this project.
     ├── data               <- Data raw or processed used in this project.
@@ -19,14 +19,14 @@
     ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
-    │   │          
+    │   │
     │   └── make_dataset.py     <- Scripts to download or generate data
     │   │
     │   └── build_features.py   <- Scripts to turn raw data into features for modeling
-    │   │ 
+    │   │
     │   └── visualize.py        <- Scripts to create exploratory and results oriented visualizations
 
-------------
+---
 
 ## Python Scripts
 
@@ -36,14 +36,13 @@ Create a virtual environment to run Python code with one of the following option
 
 With the built-in Python module `venv`
 
-On UNIX  system (Linux, MacOS):
+On UNIX system (Linux, MacOS):
+
 ```
 python3 -m venv /path/to/new/virtual/environment
 ```
 
 On Windows:
-
-
 
 Activate the environment with: `source /path/to/new/virtual/environment/bin/activate`
 
@@ -57,6 +56,12 @@ Activate the environment with: `conda activate PROJECT_NAME`
 
 ### Installing development requirements
 
-```{python}
+```
 pip install -r requirements.txt
+```
+
+### Run script to print plots
+
+```
+python script.py
 ```
