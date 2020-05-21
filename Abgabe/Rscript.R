@@ -282,50 +282,51 @@ df_states = df_states%>%
 df_states = df_states%>%
   mutate(diff.c6 = difftime(date, as.Date(c6.start), units = "days"))
 
-############################################  #################################################
+############################################ Plots: Relative Cumulative Cases World-Wide #################################################
 
 ## Cumulative Number of confirmed cases/deaths and recovered world wide.
 # on a linear scale
-plot_world = ggplot()+
-  geom_line(data = df_world_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
-  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
-  geom_line(data = df_world_recovered%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'grey50')+
+plot_world = ggplot() +
+  geom_line(data = df_world_confirmed %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue') +
+  geom_line(data = df_world_death %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red') +
+  geom_line(data = df_world_recovered %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'grey50') +
   labs(title = "World", subtitle = "Cumulative number of recorded cases per 100k people on linear scale", 
-       x = "Date", y = "Cumulative Cases per 100k")+
-  theme_bw()+
+       x = "Date", y = "Cumulative Cases per 100k") +
+  theme_bw() +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
-        axis.text = element_text(size = 15))+
+        axis.text = element_text(size = 15)) +
   
-  geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'blue', size = 7)+
-  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'grey50', size = 7)+
+  geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'blue', size = 7) +
+  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'grey50', size = 7) +
   geom_text(aes(x = as.Date("2020-04-15"), y = 3.5, label = "Deaths"), color = 'red', size = 7)
 plot_world
 ggsave("figures/Cases_world.pdf", plot = plot_world, width = 11, height = 8.5, units = "in")
 
 # on a log scale
-plot_world_log = ggplot()+
-  geom_line(data = df_world_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
-  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
-  geom_line(data = df_world_recovered%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'grey50')+
+plot_world_log = ggplot() +
+  geom_line(data = df_world_confirmed %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue') +
+  geom_line(data = df_world_death %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red') +
+  geom_line(data = df_world_recovered %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'grey50') +
   labs(title = "World", subtitle = "Cumulative number of recorded cases per 100k people on log scale", 
-       x = "Date", y = "Cumulative Cases per 100k")+
-  theme_bw()+
+       x = "Date", y = "Cumulative Cases per 100k") +
+  theme_bw() +
   scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)))+
-  annotation_logticks(side="l") +
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+  annotation_logticks(side = "l") +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
-        axis.text = element_text(size = 15))+
+        axis.text = element_text(size = 15)) +
   
-  geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'blue', size = 7)+
-  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'grey50', size = 7)+
+  geom_text(aes(x = as.Date("2020-04-15"), y = 35, label = "Confirmed"), color = 'blue', size = 7) +
+  geom_text(aes(x = as.Date("2020-04-15"), y = 10, label = "Recovered"), color = 'grey50', size = 7) +
   geom_text(aes(x = as.Date("2020-04-15"), y = 3.5, label = "Deaths"), color = 'red', size = 7)
 plot_world_log
 ggsave("figures/Cases_world_log.pdf", plot = plot_world_log, width = 11, height = 8.5, units = "in")
 
+############################################ Plots: Relative Cumulative Cases with Log Scale #################################################
 ### From now on the analysis focuses on Cases and Deaths. 
 
 ## Cumulative Cases for individual countries an log Scales
@@ -404,6 +405,8 @@ plot_cumulative_death = plot_cumulative_death+
 
 plot_cumulative_death
 ggsave("figures/Cases_cumulative_deaths.pdf", plot = plot_cumulative_death, width = 11, height = 8.5, units = "in")
+
+############################################ Plots:  #################################################
 
 ## Plot: from 100 confirmed cases on. Replication rate.
 # generating a Dataframe for doubeling times
