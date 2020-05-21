@@ -6,67 +6,114 @@ from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 import pandas as pd
 import geopandas as gpd
+import datetime
 
-from make_dataset import DATA_PATH
-from build_features import covid_data_countries
+from src.make_dataset import DATA_PATH, PROJECT_PATH
+# from src.build_features import covid_data_countries
+
+FIGURES_PATH = os.path.join(PROJECT_PATH, 'figures')
 
 SHAPEFILE = os.path.join(DATA_PATH, 'ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp')
-
-COLORS = 9
-cmap = ''
-figsize = (16, 10)
-start = '2020-01-22'
-end = '2020-04-27'
-confirmed = 'confirmed'
-death = 'death'
-
-plot_date = end
-case_type = confirmed
-if case_type == 'confirmed':
-    cmap = 'Blues'
-else:
-    cmap = 'Reds'
-title = 'Cumulative COVID-19 {} Cases (per 100K) by {}'.format(case_type.capitalize(), plot_date)
-
 gdf = gpd.read_file(SHAPEFILE)[['ADM0_A3', 'geometry']].to_crs('+proj=robin')
-df = covid_data_countries #[['DisplayName','ISO3Code', 'Continent', 'Date',
-       #'CaseType', 'CumulativeReportedCases', 'CumulativeReportedCasesPer100K']]
 
-# Select case type
-df = df[df['CaseType'] == case_type]
+def plot_choropleth_map(df, case_type, plot_date):
+    COLORS = 9
+    cmap = ''
+    figsize = (16, 10)
 
-# Select date
-df = df[df['Date'] == plot_date]
+    if case_type == 'confirmed':
+        cmap = 'Blues'
+    else:
+        cmap = 'Reds'
 
-merged = gdf.merge(df, left_on='ADM0_A3', right_on='ISO3Code')
+    # Set title for plot
+    title = 'Cumulative COVID-19 {} Cases (per 100K) by {}'.format(case_type.capitalize(), plot_date)
 
-limited_merged = merged[merged['CumulativeReportedCasesPer100K'] < merged['CumulativeReportedCases']]
+    # Select case type
+    df = df[df['CaseType'] == case_type]
 
-# set range for the choropleth values
-vmin, vmax = limited_merged['CumulativeReportedCasesPer100K'].min(), limited_merged['CumulativeReportedCasesPer100K'].max()
+    # Select date
+    df = df[df['Date'] == plot_date]
 
-# Mapping the data
-fig, ax = plt.subplots(1,1, figsize=figsize)
+    merged = gdf.merge(df, left_on='ADM0_A3', right_on='ISO3Code')
 
-ax = merged.dropna().plot(column='CumulativeReportedCasesPer100K', categorical=True, cmap=cmap, 
-                          edgecolor='white',
-                          k=colors,
-                         legend=False,
-                          ax=ax,
-                          missing_kwds={'color': 'lightgrey'},
-                          rasterized=True
-                         )
+    limited_merged = merged[merged['CumulativeReportedCasesPer100K'] < merged['CumulativeReportedCases']]
 
-# Create colorbar legend
-sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=320))
-cbr = fig.colorbar(sm, orientation='horizontal', fraction=0.05, pad=0.04)#)#, pad=0.2, aspect=30)
-cbr.ax.tick_params(labelsize=16) 
-cbr.set_label('Cumulative {} Cases per 100K'.format(case_type.capitalize()), fontsize=14)
-ax.set_axis_off()
+    # set range for the choropleth values
+    vmin, vmax = limited_merged['CumulativeReportedCasesPer100K'].min(), limited_merged['CumulativeReportedCasesPer100K'].max()
 
+    # Mapping the data
+    # Create figure object and axes
+    fig, ax = plt.subplots(1,1, figsize=figsize)
 
-plt.title(title, fontsize=20)
-plt.tight_layout()
-plt.savefig('world_{}_27042020.pdf'.format(case_type), dpi=150)
-plt.close(fig)
-ax.get_figure()
+    ax = merged.dropna().plot(
+        column='CumulativeReportedCasesPer100K', categorical=True, cmap=cmap, 
+        edgecolor='white',
+        k=COLORS,
+        legend=False,
+        ax=ax,
+        missing_kwds={'color': 'lightgrey'},
+        rasterized=True
+    )
+
+    # Create colorbar legend
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=320))
+    cbr = fig.colorbar(sm, orientation='horizontal', fraction=0.05, pad=0.04) #)#, pad=0.2, aspect=30)
+    cbr.ax.tick_params(labelsize=16) 
+    cbr.set_label('Cumulative {} Cases per 100K'.format(case_type.capitalize()), fontsize=14)
+    ax.set_axis_off()
+
+    plt.title(title, fontsize=20)
+    plt.tight_layout()
+    filename = 'world_{}_27042020.pdf'.format(case_type)
+    plt.savefig(os.path.join(FIGURES_PATH, filename), dpi=150)
+    plt.close(fig)
+    ax.get_figure()
+
+    return fig
+
+def plot_responses(korea_covid_df, korea_dates, korea_responses):
+    fig, ax = plt.subplots(figsize=(12,9))
+
+    # Plot Cumulative Cases
+    ax.plot(korea_covid_df['CumulativeReportedCasesPer100K'])
+
+    # Add horizontal lines
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+
+    for idx, i in enumerate(korea_responses):
+        plt.axvline(
+            korea_dates[idx],
+            label = i + ': ' + datetime.datetime.strftime(korea_dates[idx], "%Y-%m-%d"),
+            c = colors[idx]
+        )
+
+    # Set axis limits
+    start = datetime.datetime.strptime('2020-01-22', '%Y-%m-%d')
+    end = datetime.datetime.strptime('2020-04-27', '%Y-%m-%d')
+    ax.set_xlim(start, end)
+
+    # Format ticks
+    plt.tick_params(
+        axis='both',          # changes apply to the x-axis
+        which='major',      # both major and minor ticks are affected
+        bottom=True,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        left=True,
+        right=False,
+        labelbottom=True) # labels along the bottom edge are off
+
+    ax.set_xlabel('Date', fontsize=16)
+    ax.set_ylabel('Cumulative Reported Cases per 100K', fontsize=16)
+    plt.title('South Korea - Cumulative Reported Cases (per 100K) with Government Policies', fontsize=16)
+
+    plt.tight_layout()
+    plt.legend(bbox_to_anchor=(1.04,0.5), loc="center left", borderaxespad=0)
+    fig.autofmt_xdate()
+        
+    filename = 'south_korea_example.pdf'
+    plt.savefig(os.path.join(FIGURES_PATH, filename), dpi=150, bbox_inches='tight')
+    plt.close(fig)
+    ax.get_figure()
+    
+    return fig
