@@ -326,80 +326,74 @@ plot_world_log = ggplot() +
 plot_world_log
 ggsave("figures/Cases_world_log.pdf", plot = plot_world_log, width = 11, height = 8.5, units = "in")
 
-############################################ Plots: Relative Cumulative Cases with Log Scale #################################################
+############################################ Plots: Relative Cumulative Cases by Country (Log Scale) #################################################
+
 ### From now on the analysis focuses on Cases and Deaths. 
 
 ## Cumulative Cases for individual countries an log Scales
-plot_cumulative_confirmed = df_states%>%
-  group_by(country, type, Continent)%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  filter(type == "confirmed")%>%
-  filter(date <= "2020-04-27")%>%
-  #filter(country != "US")%>%
-  #filter(Continent == "Africa" | Continent == "Europe")%>%
-  filter(cumulative >= 1)%>%
-    ggplot(aes(date, cumulative100k, group = country))+
-      geom_line(color = 'grey50')+
+plot_cumulative_confirmed = df_states %>%
+  group_by(country, type, Continent) %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  filter(type == "confirmed") %>%
+  filter(date <= "2020-04-27") %>%
+  filter(cumulative >= 1) %>%
+    ggplot(aes(date, cumulative100k, group = country)) +
+      geom_line(color = 'grey50') +
       scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                    labels = scales::trans_format("log10", scales::math_format(10^.x)))+
-      annotation_logticks(side="l") +
+                    labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+      annotation_logticks(side = "l") +
       labs(title = "Confirmed Cases", subtitle = "Cumulative number of recorded cases per 100k people with min. of 1 case recorded", 
-       x = "Date", y = "Cumulative Cases per 100k")+
-      theme_bw()+
+       x = "Date", y = "Cumulative Cases per 100k") +
+      theme_bw() +
       theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
-  #facet_grid(cols = vars(Continent))
 
-df_china_confirmed = df_states%>%
-  filter(country == "China")%>%
-  filter(type == "confirmed")%>%
+df_china_confirmed = df_states %>%
+  filter(country == "China") %>%
+  filter(type == "confirmed") %>%
   filter(cumulative >= 1)
  
-plot_cumulative_confirmed = plot_cumulative_confirmed+
-  geom_line(data = df_china_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 5, label = "China"), color = 'black', size = 7)+
-  geom_line(data = df_world_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue')+
+plot_cumulative_confirmed = plot_cumulative_confirmed +
+  geom_line(data = df_china_confirmed %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'black') +
+  geom_text(aes(x = as.Date("2020-02-03"), y = 5, label = "China"), color = 'black', size = 7) +
+  geom_line(data = df_world_confirmed %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'blue') +
   geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "World"), color = 'blue', size = 7)
-  
   
 plot_cumulative_confirmed
 ggsave("figures/Cases_cumulative_confirmed.pdf", plot = plot_cumulative_confirmed, width = 11, height = 8.5, units = "in")
 
 ## Cumulative Deaths for individual countries an log Scales
-plot_cumulative_death = df_states%>%
-  group_by(country, type, Continent)%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  filter(type == "death")%>%
-  filter(date <= "2020-04-27")%>%
-  #filter(country != "US")%>%
-  #filter(Continent == "Africa" | Continent == "Europe")%>%
-  filter(cumulative >= 1)%>%
-  ggplot(aes(date, cumulative100k, group = country))+
-  geom_line(color = 'grey50')+
+plot_cumulative_death = df_states %>%
+  group_by(country, type, Continent) %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  filter(type == "death") %>%
+  filter(date <= "2020-04-27") %>%
+  filter(cumulative >= 1) %>%
+  ggplot(aes(date, cumulative100k, group = country)) +
+  geom_line(color = 'grey50') +
   scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)))+
-  annotation_logticks(side="l") +
-  theme_bw()+
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+  annotation_logticks(side = "l") +
+  theme_bw() +
   labs(title = "Confirmed Deaths", subtitle = "Cumulative number of recorded deaths per 100k people with min. of 1 case recorded", 
-       x = "Date", y = "Cumulative Cases per 100k")+
-  theme_bw()+
+       x = "Date", y = "Cumulative Cases per 100k") +
+  theme_bw() +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
-#facet_grid(cols = vars(Continent))
 
-df_china_confirmed = df_states%>%
-  filter(country == "China")%>%
-  filter(type == "death")%>%
+df_china_death = df_states %>%
+  filter(country == "China") %>%
+  filter(type == "death") %>%
   filter(cumulative >= 1)
 
-plot_cumulative_death = plot_cumulative_death+
-  geom_line(data = df_china_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'black')+
-  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "China"), color = 'black', size = 7)+
-  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red')+
+plot_cumulative_death = plot_cumulative_death +
+  geom_line(data = df_china_death %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'black') +
+  geom_text(aes(x = as.Date("2020-02-03"), y = 10^(-1), label = "China"), color = 'black', size = 7) +
+  geom_line(data = df_world_death %>% filter(date <= "2020-04-27"), aes(x = date, y = cumulative100k), size = 1.5, color = 'red') +
   geom_text(aes(x = as.Date("2020-02-03"), y = 2*10^(-3), label = "World"), color = 'red', size = 7)
   
 
