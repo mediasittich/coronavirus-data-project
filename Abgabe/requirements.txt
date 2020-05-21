@@ -5,9 +5,15 @@ pandas #==1.0.3
 numpy
 scipy
 
+# ------ Geographics ------
 iso3166
+geopandas
+descartes # for plotting polygons in geopandas
+
+# ------ Datetime ------
 datetime
 
 # ========================================
 #               DATA VIZ
 # ========================================
+matplotlib
