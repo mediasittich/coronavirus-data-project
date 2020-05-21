@@ -1,3 +1,4 @@
+# Import libraries
 import os
 from pathlib import Path
 
@@ -9,11 +10,16 @@ from numpy import log as ln
 from iso3166 import countries, countries_by_name  # ISO data for countries
 import datetime
 
+# Import datasets from custom module 'src'
 from src.make_dataset import CORONA_DATA, CONTINENTS_DATA, POPULATION_DATA, GOVERNMENT_RESPONSE_LATEST, GOVERNMENT_RESPONSE_C6
 
 ##################################
-# Constants
+#           Constants
 ##################################
+
+# List of official country names for countries in dataset
+# Ensures that additional data, e.g. ISO code can be found in different data sources by searching for country name
+# Names from different sources mainly wikipedia pages, CIA World Factbook
 OFFICIAL_COUNTRY_NAMES = [
     'Bolivia, Plurinational State of',  # Bolivia
     'Brunei Darussalam',  # Brunei
@@ -42,6 +48,8 @@ OFFICIAL_COUNTRY_NAMES = [
     'Saint Martin (French part)'  # St Martin
 ]
 
+# List of country names for countries with long official names
+# For displaying in plots
 DISPLAY_NAMES_DICT = {
     'Bolivia': 'Bolivia, Plurinational State of',
     'Brunei': 'Brunei Darussalam',
@@ -74,7 +82,7 @@ DISPLAY_NAMES_DICT = {
 
 
 def remove_ships(df):
-    # Cruise ships
+    # Cruise ships list
     ships = ['Diamond Princess', 'MS Zaandam', 'Grand Princess']
 
     # Remove cruise ship data from dataset
@@ -87,7 +95,7 @@ def remove_ships(df):
 
     return df
 
-
+# Remove ships from COVID dataset
 covid_data_no_ships = remove_ships(CORONA_DATA)
 
 # ------------ Clean up Province.State ------------
@@ -187,6 +195,7 @@ def add_display_names(df):
     # Add column from Country.Region, but for countries not found use keys in missing_countries_dict
     df['DisplayName'] = df['Country.Region']
 
+    # Update DisplayNames of countries with long names from DISPLAY_NAMES_DICT
     for key, value in DISPLAY_NAMES_DICT.items():
         df.loc[(df['Country.Region'] == value), 'DisplayName'] = key
 
