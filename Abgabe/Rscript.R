@@ -713,55 +713,55 @@ plot_growth.factor_C6_recovered
 
 ## Plot doubling time for european countries, since C6: Introduction of Stay at Home Requirements
 
-plot_doubling.time_C6_confirmed = df_states%>%
-  filter(type == "confirmed")%>%
-  filter(diff.c6 >= 0)%>%
-  filter(doubling.time.mean < Inf)%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  ggplot(aes(x = diff.c6, y = doubling.time.mean))+
-    geom_line(aes(group= country), color = 'blue')+
-    ylim(0, 150)+
+plot_doubling.time_C6_confirmed = df_states %>%
+  filter(type == "confirmed") %>%
+  filter(diff.c6 >= 0) %>%
+  filter(doubling.time.mean < Inf) %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  ggplot(aes(x = diff.c6, y = doubling.time.mean)) +
+    geom_line(aes(group = country), color = 'blue') +
+    ylim(0, 150) +
     labs(title = "Doubling Time: Recorded European Cases", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
 since introducing \"Stay at Home\" - Requirements",
-       x = "Days since C6", y = "Days to double")+
-    theme_bw()+
+       x = "Days since C6", y = "Days to double") +
+    theme_bw() +
     theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 
-plot_doubling.time_C6_death = df_states%>%
-  filter(type == "death")%>%
-  filter(diff.c6 >= 0)%>%
-  filter(doubling.time.mean < Inf)%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  ggplot(aes(x = diff.c6, y = doubling.time.mean))+
-  geom_line(aes(group= country), color = 'red')+
-  ylim(0, 150)+
+plot_doubling.time_C6_death = df_states %>%
+  filter(type == "death") %>%
+  filter(diff.c6 >= 0) %>%
+  filter(doubling.time.mean < Inf) %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  ggplot(aes(x = diff.c6, y = doubling.time.mean)) +
+  geom_line(aes(group = country), color = 'red') +
+  ylim(0, 150) +
   labs(title = "Doubling Time: Recorded European Deaths", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
 since introducing \"Stay at Home\" - Requirements",
-       x = "Days since C6", y = "Days to double")+
-  theme_bw()+
+       x = "Days since C6", y = "Days to double") +
+  theme_bw() +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 
-plot_c6_dt = gridExtra::grid.arrange(plot_doubling.time_C6_confirmed, plot_doubling.time_C6_death, ncol=2)
-ggsave("plot_c6_dt.pdf", plot = plot_c6_dt, width = 17, height = 9, units = "in")
+plot_c6_dt = gridExtra::grid.arrange(plot_doubling.time_C6_confirmed, plot_doubling.time_C6_death, ncol = 2)
+ggsave("figures/plot_c6_dt.pdf", plot = plot_c6_dt, width = 17, height = 9, units = "in")
 
-plot_doubling.time_C6_recovered = df_states%>%
-  filter(type == "recovered")%>%
-  filter(diff.c6 >= 0)%>%
-  filter(doubling.time.mean < Inf)%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  ggplot(aes(x = diff.c6, y = doubling.time.mean))+
-  geom_line(aes(group= country), color = 'black')+
-  ylim(0, 150)+
+plot_doubling.time_C6_recovered = df_states %>%
+  filter(type == "recovered") %>%
+  filter(diff.c6 >= 0) %>%
+  filter(doubling.time.mean < Inf) %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  ggplot(aes(x = diff.c6, y = doubling.time.mean)) +
+  geom_line(aes(group = country), color = 'black') +
+  ylim(0, 150) +
   labs(title = "Doubling Time: Recorded European Recovered", subtitle = "7-day rolling geometric mean of doubling time of all euorpean countries
 since introducing \"Stay at Home\" - Requirements",
-       x = "Days since C6", y = "Days to double")+
-  theme_bw()+
+       x = "Days since C6", y = "Days to double") +
+  theme_bw() +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
