@@ -1,8 +1,22 @@
 \begin{thebibliography}{1}
 
+\bibitem{scipy}
+SciPy Developers.
+\newblock Scipy: Scientific library for python.
+
+\bibitem{DateTime}
+Zope Foundation and Contributors.
+\newblock Datetime: This package provides a datetime data type, as known from
+  zope. unless you need to communicate with zope apis, you're probably better
+  off using python's built-in datetime module.
+
+\bibitem{descartes}
+Sean Gillies.
+\newblock descartes: Use geometric objects as matplotlib paths and patches.
+
 \bibitem{Hunter:2007}
 J.~D. Hunter.
-\newblock Matplotlib: A 2d graphics environment.
+\newblock Matplotlib: A {2D} graphics environment.
 \newblock {\em Computing in Science \& Engineering}, 9(3):90--95, 2007.
 
 \bibitem{kelsey_jordahl_2019_2585849}
@@ -18,6 +32,10 @@ Kelsey Jordahl, Joris~Van den Bossche, Jacob Wasserman, James McBride, Jeffrey
 \bibitem{reback2020pandas}
 The pandas~development team.
 \newblock pandas-dev/pandas: Pandas (version 0.25.3), February 2020.
+
+\bibitem{iso3166}
+Mike Spindel.
+\newblock iso3166: Self-contained iso 3166-1 country definitions.
 
 \bibitem{5725236}
 S.~{van der Walt}, S.~C. {Colbert}, and G.~{Varoquaux}.
