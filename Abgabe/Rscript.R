@@ -114,56 +114,57 @@ df_world = df_states %>%
   mutate(cumulative.world = cumsum(cases.world)) # Cumulative sum over time
 
 
-############################################ Visualize Cumulative Total Cases #################################################
+############################################ Visualize Cumulative Total Cases By Country #################################################
 
-## Get a first impressino by plotting the cumulative cases.
+## Get a first impression by plotting the cumulative cases.
 ## Plot: Cummulative cases and types vs date for all countries
-plot_cumulative_by_time_confirmed = df_states%>%
-  group_by(country, type)%>%
-  filter(type == "confirmed")%>%
-  filter(date <= "2020-04-27")%>%
-    ggplot(aes(date, cumulative, fill = country))+
-      geom_line()+
-      labs(x = "Date", y="cumulative cases", 
-           title = "Confirmed cases", subtitle = "Absolute number of cumulative cases for each country")+
-      theme_bw()+
+plot_cumulative_by_time_confirmed = df_states %>%
+  group_by(country, type) %>%
+  filter(type == "confirmed") %>%
+  filter(date <= "2020-04-27") %>%
+    ggplot(aes(date, cumulative, fill = country)) +
+      geom_line() +
+      labs(x = "Date", y = "cumulative cases", 
+           title = "Confirmed cases", subtitle = "Absolute number of cumulative cases for each country") +
+      theme_bw() +
       theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 plot_cumulative_by_time_confirmed
 
-plot_cumulative_by_time_death = df_states%>%
-  group_by(country, type)%>%
-  filter(type == "death")%>%
-  filter(date <= "2020-04-27")%>%
-    ggplot(aes(date, cumulative, fill = country))+
-      geom_line()+
-      labs(x = "Date", y="cumulative deaths", 
-       title = "Confirmed deaths", subtitle = "Absolute number of cumulative deaths for each country")+
-      theme_bw()+
+plot_cumulative_by_time_death = df_states %>%
+  group_by(country, type) %>%
+  filter(type == "death") %>%
+  filter(date <= "2020-04-27") %>%
+    ggplot(aes(date, cumulative, fill = country)) +
+      geom_line() +
+      labs(x = "Date", y = "cumulative deaths", 
+       title = "Confirmed deaths", subtitle = "Absolute number of cumulative deaths for each country") +
+      theme_bw() +
       theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 plot_cumulative_by_time_death
 
-plot_cumulative_by_time_recovered = df_states%>%
-  group_by(country, type)%>%
-  filter(type == "recovered")%>%
-  filter(date <= "2020-04-27")%>%
-    ggplot(aes(date, cumulative, fill = country))+
-      geom_line()+
-      labs(x = "Date", y="cumulative recovered", 
-       title = "Confirmed recovered", subtitle = "Absolute number of cumulative recovered for each country")+
-      theme_bw()+
+plot_cumulative_by_time_recovered = df_states %>%
+  group_by(country, type) %>%
+  filter(type == "recovered") %>%
+  filter(date <= "2020-04-27") %>%
+    ggplot(aes(date, cumulative, fill = country)) +
+      geom_line() +
+      labs(x = "Date", y = "cumulative recovered", 
+       title = "Confirmed recovered", subtitle = "Absolute number of cumulative recovered for each country") +
+      theme_bw() +
       theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 plot_cumulative_by_time_recovered
 
-##---------------------------------------------------------------------------------------------------------
+############################################  #################################################
+
 ## Get Demographic information and Country Code
 countries <- unique(df_states$country) # Countries from the corona dataframe.
 geo_data <- data.frame(country = countries) # as data.frane
