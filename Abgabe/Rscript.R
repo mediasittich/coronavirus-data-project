@@ -163,7 +163,7 @@ plot_cumulative_by_time_recovered = df_states %>%
         axis.text = element_text(size = 15))
 plot_cumulative_by_time_recovered
 
-############################################  #################################################
+############################################ Adding Geographic Information (Country Codes) #################################################
 
 ## Get Demographic information and Country Code
 countries <- unique(df_states$country) # Countries from the corona dataframe.
@@ -183,22 +183,25 @@ geo_data$ISO2[which(geo_data$country == "St Martin")] = "MF"
 # ISO for Channel Islands does not exist.
 # Warning message will be taken care of.
 
-geo_data = merge(geo_data, ccodes()[,c(2, 10)], by.x="ISO3", by.y="ISO3", all.x=T) # merge with ccodes()
-detach("package:raster", unload=TRUE) # need to unload, otherwise dplyr::select will not work.
+geo_data = merge(geo_data, ccodes()[,c(2, 10)], by.x = "ISO3", by.y = "ISO3", all.x = T) # merge with ccodes()
+detach("package:raster", unload = TRUE) # need to unload, otherwise dplyr::select will not work.
 rm(countries)
 # Information does not exist for: Channel Islands, Diamond Princess, Kosovo, MS Zaandam, St Martin.
 # Get information manually: Channel Islands = Europe, Diamond Princess = NA, Kosovo = Europe, 
 # MS Zaandam = NA (Kreuzfahrtschiff), St Martin = North America.
-geo_data = geo_data%>%
+geo_data = geo_data %>%
   rename("country" = "country",
          "Continent" = "continent")
 geo_data$Continent[which(geo_data$country == "Channel Islands")] = "Europe"
 geo_data$Continent[which(geo_data$country == "Kosovo")] = "Europe"
 geo_data$Continent[which(geo_data$country == "St Martin")] = "North America"
 
-df_states = df_states%>%
+# Join geo data to states data frame
+df_states = df_states %>%
   left_join(geo_data, by = "country") # Warning message can be ignored
 rm(geo_data) # tidy up
+
+############################################ Adding Population Data to Countries #################################################
 
 ## Getting the Population data for each country by ISO§
 library("wbstats") # to get population data from Worldbank
