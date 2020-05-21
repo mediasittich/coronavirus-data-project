@@ -645,17 +645,16 @@ df_c6 = read.csv(file = "data/c6_start_dates.csv")
 df_c6 = df_c6 %>%
   rename("ISO3" = "X", "c6.start" = "X0")
 
-df_states = df_states%>%
-  left_join(df_c6, by="ISO3")
+# Add Response data frame to states data frame
+df_states = df_states %>%
+  left_join(df_c6, by = "ISO3")
 
-df_states = df_states%>%
+# Calculate time differences to start date of response
+df_states = df_states %>%
   mutate(diff.c6 = difftime(date, as.Date(c6.start), units = "days"))
 
 ############################################ Plots: Goverment Response Data  #################################################
 
-
-
-### -------------------------------------------------------------------------------------------------------------------
 ## Plot growth factor for european countries, since C6: Introduction of Stay at Home Requirements
 plot_growth.factor_C6_confirmed = df_states%>%
   filter(type == "confirmed")%>%
