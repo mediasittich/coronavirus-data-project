@@ -38,6 +38,7 @@ CONTINENTS_DATA = pd.read_csv(CONTINENTS_URL)
 # ============= Continents Data =============
 # Government Response Data
 GOVERNMENT_RESPONSE_DATA_BASEURL = 'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/'
-#GOVERNMENT_RESPONSE_TIMESERIES_BASEURL = GOVERNMENT_RESPONSE_DATA_BASEURL + 'timeseries/'
+GOVERNMENT_RESPONSE_TIMESERIES_BASEURL = GOVERNMENT_RESPONSE_DATA_BASEURL + 'timeseries/'
 
-GOVERNMENT_RESPONSE_C6 = ''  # Social distancing
+GOVERNMENT_RESPONSE_LATEST = pd.read_csv(GOVERNMENT_RESPONSE_DATA_BASEURL + 'OxCGRT_latest.csv')
+GOVERNMENT_RESPONSE_C6 = pd.read_csv(GOVERNMENT_RESPONSE_TIMESERIES_BASEURL + 'c6_stayathomerequirements.csv')  # Social distancing
