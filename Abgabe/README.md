@@ -69,6 +69,8 @@ To activate the virtual environment use:
 - for **_Conda_**:  
   `conda activate PROJECT_NAME`
 
+To deactivate a virtual environment by typing `deactivate` or `conda deactivate` for a Conda environment in your shell.
+
 ### Installing development requirements
 
 ```
