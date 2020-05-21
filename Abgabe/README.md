@@ -34,25 +34,40 @@
 
 Create a virtual environment to run Python code with one of the following options:
 
-With the built-in Python module `venv`
+#### With the built-in Python module `venv`
 
-On UNIX system (Linux, MacOS):
+On **_UNIX systems_** (Linux, MacOS):
 
 ```
 python3 -m venv /path/to/new/virtual/environment
 ```
 
-On Windows:
+On **_Windows_**, invoke the venv command as follows:
 
-Activate the environment with: `source /path/to/new/virtual/environment/bin/activate`
+```
+c:\>c:\Python35\python -m venv c:\path\to\myenv
+```
 
-Or with Conda
+Alternatively, if you configured the PATH and PATHEXT variables for your Python installation:
+
+```
+c:\>python -m venv c:\path\to\myenv
+```
+
+#### With Conda
 
 ```
 conda create --name PROJECT_NAME python=3
 ```
 
-Activate the environment with: `conda activate PROJECT_NAME`
+### Activating the environment
+
+To activate the virtual environment use:
+
+- for **_built-in Python_** module:  
+  `source /path/to/new/virtual/environment/bin/activate`
+- for **_Conda_**:  
+  `conda activate PROJECT_NAME`
 
 ### Installing development requirements
 
@@ -60,7 +75,7 @@ Activate the environment with: `conda activate PROJECT_NAME`
 pip install -r requirements.txt
 ```
 
-### Run script to print plots
+### Run script
 
 ```
 python script.py
