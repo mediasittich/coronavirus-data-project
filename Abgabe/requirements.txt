@@ -1,19 +1,19 @@
 # ========================================
 #               DATA ANALYSIS
 # ========================================
-pandas #==1.0.3
-numpy
-scipy
+pandas==1.0.3
+numpy==1.18.4
+scipy==1.4.1
 
 # ------ Geographics ------
-iso3166
-geopandas
-descartes # for plotting polygons in geopandas
+iso3166==1.0.1
+geopandas==0.7.0
+descartes==1.1.0 # for plotting polygons in geopandas
 
 # ------ Datetime ------
-datetime
+DateTime==4.3
 
 # ========================================
 #               DATA VIZ
 # ========================================
-matplotlib
+matplotlib==3.2.1
