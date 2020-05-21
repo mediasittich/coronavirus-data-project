@@ -246,27 +246,28 @@ rm(countries_iso3, pop_data) # cleaning
 df_states = df_states %>%
   mutate(cumulative100k = (cumulative/Population)*100000)
 
-### -------------------------------------------------------------------------------------------------------------------
 # Calculating growth factor for df_world
-df_world = df_world%>%
-  group_by(type)%>%
-  mutate(gf = cumulative.world/lag(cumulative.world, n=1))%>%
-  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill=NA, align="right"))%>% # geometric rolling mean of past 7 days.
+df_world = df_world %>%
+  group_by(type) %>%
+  mutate(gf = cumulative.world/lag(cumulative.world, n = 1)) %>%
+  mutate(growth.factor.mean = zoo::rollapply(gf, 7, geometric.mean, fill = NA, align = "right")) %>% # geometric rolling mean of past 7 days.
   mutate(doubling.time.mean = log(2)/log(growth.factor.mean)) # calculates mean doubling time of past 7 days
 df_world$country = "World" # necessary for adding to a plot that contains country as variable
 
-# Weltbevölkerung im Jahr 2018: 7,594 Mrd.; https://data.worldbank.org/region/world; abgerufen am 25.04,2019
-df_world = df_world%>%
+# World population in 2018: 7,594 Mrd.; https://data.worldbank.org/region/world; abgerufen am 25.04,2019
+df_world = df_world %>%
   mutate(cumulative100k = cumulative.world/(7.594*10^9)*100000)
 
 # subbsetting the data.frame df_world by type
-df_world_confirmed = df_world%>%
+df_world_confirmed = df_world %>%
   filter(type == "confirmed")
-df_world_death = df_world%>%
+df_world_death = df_world %>%
   filter(type == "death")
-df_world_recovered = df_world%>%
+df_world_recovered = df_world %>%
   filter(type == "recovered")
-### --------------------------------------------------------------------------------------------------------------------
+
+############################################ Response: Centering Data for C6 #################################################
+
 ## Centering Data for C6
 ## Data C6 contains the date at which 'C6: Stay at home requirements' were introduced in European countries.
 
@@ -281,8 +282,8 @@ df_states = df_states%>%
 df_states = df_states%>%
   mutate(diff.c6 = difftime(date, as.Date(c6.start), units = "days"))
 
+############################################  #################################################
 
-### -------------------------------------------------------------------------------------------------------------------
 ## Cumulative Number of confirmed cases/deaths and recovered world wide.
 # on a linear scale
 plot_world = ggplot()+
