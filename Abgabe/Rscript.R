@@ -561,76 +561,74 @@ plot_growth.fractor_recovered
 
 ############################################ Plots: Dobling Times  #################################################
 
-#### -------------------------------------------------------------------------------------------------------------------
-### Plots of DOUBLING TIMES
 ## Plot for Doubling Times of confirmed cases
-plot_doubling.time_confirmed = df_states%>%
-  filter(type == "confirmed")%>%
-  filter(cumulative >= 50)%>%
-  filter(date <= "2020-04-27")%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-    ggplot(aes(x = date, y = doubling.time.mean))+
-      geom_line(aes(group= country), color = 'grey50')+
-      ylim(0, 150)+
+plot_doubling.time_confirmed = df_states %>%
+  filter(type == "confirmed") %>%
+  filter(cumulative >= 50) %>%
+  filter(date <= "2020-04-27") %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+    ggplot(aes(x = date, y = doubling.time.mean)) +
+      geom_line(aes(group = country), color = 'grey50') +
+      ylim(0, 150) +
       labs(title = "Doubling Times: Recorded Cases", subtitle = "7-day rolling geometric mean of doubling time of all countries with more than 50 cases recorded", 
-         x = "Date", y = "Days")+
-      theme_bw()+
+         x = "Date", y = "Days") +
+      theme_bw() +
       theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 
-plot_doubling.time_confirmed = plot_doubling.time_confirmed+
-  geom_line(data = df_world_confirmed%>%filter(date <= "2020-04-27"), aes(x = date, y = doubling.time.mean), 
-            color = 'blue', size = 1.5)+
+plot_doubling.time_confirmed = plot_doubling.time_confirmed +
+  geom_line(data = df_world_confirmed %>% filter(date <= "2020-04-27"), aes(x = date, y = doubling.time.mean), 
+            color = 'blue', size = 1.5) +
   geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'blue', size = 7)
 plot_doubling.time_confirmed
-ggsave("DT_confirmed.pdf", plot = plot_doubling.time_confirmed, width = 11, height = 8.5, units = "in")
+ggsave("figures/DT_confirmed.pdf", plot = plot_doubling.time_confirmed, width = 11, height = 8.5, units = "in")
 
 ## Plot for Doubling Times of confirmed death
-plot_doubling.time_deaths = df_states%>%
-  filter(type == "death")%>%
-  filter(cumulative >= 20)%>%
-  filter(date <= "2020-04-27")%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  ggplot(aes(x = date, y = doubling.time.mean))+
-  geom_line(aes(group= country), color = 'grey50')+
-  ylim(0, 150)+
+plot_doubling.time_deaths = df_states %>%
+  filter(type == "death") %>%
+  filter(cumulative >= 20) %>%
+  filter(date <= "2020-04-27") %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  ggplot(aes(x = date, y = doubling.time.mean)) +
+  geom_line(aes(group = country), color = 'grey50') +
+  ylim(0, 150) +
   labs(title = "Doubling Times: Recorded Deaths", subtitle = "7-day rolling geometric mean of doubling time of all countries with more than 20 deaths recorded", 
-       x = "Date", y = "Days")+
-  theme_bw()+
+       x = "Date", y = "Days") +
+  theme_bw() +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 
-plot_doubling.time_deaths = plot_doubling.time_deaths+
-  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = doubling.time.mean), 
-            color = 'red', size = 1.5)+
+plot_doubling.time_deaths = plot_doubling.time_deaths +
+  geom_line(data = df_world_death %>% filter(date <= "2020-04-27"), aes(x = date, y = doubling.time.mean), 
+            color = 'red', size = 1.5) +
   geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'red', size = 7)
 plot_doubling.time_deaths
-ggsave("DT_deaths.pdf", plot = plot_doubling.time_deaths, width = 11, height = 8.5, units = "in")
+ggsave("figures/DT_deaths.pdf", plot = plot_doubling.time_deaths, width = 11, height = 8.5, units = "in")
 
 ## Plot for Doubling Times of confirmed death
-plot_doubling.time_recovered = df_states%>%
-  filter(type == "recovered")%>%
-  filter(cumulative >= 20)%>%
-  filter(date <= "2020-04-27")%>%
-  filter(country != "MS Zaandam" & country != "Diamond Princess")%>%
-  ggplot(aes(x = date, y = doubling.time.mean))+
-  geom_line(aes(group= country), color = 'grey50')+
-  ylim(0, 150)+
+plot_doubling.time_recovered = df_states %>%
+  filter(type == "recovered") %>%
+  filter(cumulative >= 20) %>%
+  filter(date <= "2020-04-27") %>%
+  filter(country != "MS Zaandam" & country != "Diamond Princess") %>%
+  ggplot(aes(x = date, y = doubling.time.mean)) +
+  geom_line(aes(group = country), color = 'grey50') +
+  ylim(0, 150) +
   labs(title = "Doubling Times: Recovered Cases", subtitle = "7-day rolling geometric mean of doubling time of all countries with more than 20 recovered cases", 
-       x = "Date", y = "Days")+
-  theme_bw()+
+       x = "Date", y = "Days") +
+  theme_bw() +
   theme(plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 15),
         axis.title = element_text(size = 15),
         axis.text = element_text(size = 15))
 
-plot_doubling.time_recovered = plot_doubling.time_recovered+
-  geom_line(data = df_world_death%>%filter(date <= "2020-04-27"), aes(x = date, y = doubling.time.mean), 
-            color = 'black', size = 1.5)+
+plot_doubling.time_recovered = plot_doubling.time_recovered +
+  geom_line(data = df_world_death %>% filter(date <= "2020-04-27"), aes(x = date, y = doubling.time.mean), 
+            color = 'black', size = 1.5) +
   geom_text(aes(x = as.Date("2020-01-28"), y = 12.5, label = "World"), color = 'black', size = 7)
 plot_doubling.time_recovered
 
