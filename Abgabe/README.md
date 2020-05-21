@@ -39,13 +39,13 @@ Create a virtual environment to run Python code with one of the following option
 On **_UNIX systems_** (Linux, MacOS):
 
 ```
-python3 -m venv /path/to/new/virtual/environment
+python3 -m venv /path/to/myenv
 ```
 
 On **_Windows_**, invoke the venv command as follows:
 
 ```
-c:\>c:\Python35\python -m venv c:\path\to\myenv
+c:\>c:\Python38\python -m venv c:\path\to\myenv
 ```
 
 Alternatively, if you configured the PATH and PATHEXT variables for your Python installation:
@@ -57,7 +57,7 @@ c:\>python -m venv c:\path\to\myenv
 #### With Conda
 
 ```
-conda create --name PROJECT_NAME python=3
+conda create --name myenv python=3
 ```
 
 ### Activating the environment
@@ -65,19 +65,25 @@ conda create --name PROJECT_NAME python=3
 To activate the virtual environment use:
 
 - for **_built-in Python_** module:  
-  `source /path/to/new/virtual/environment/bin/activate`
+  `source /path/to/myenv/bin/activate`
 - for **_Conda_**:  
-  `conda activate PROJECT_NAME`
+  `conda activate myenv`
 
-To deactivate a virtual environment by typing `deactivate` or `conda deactivate` for a Conda environment in your shell.
+To deactivate a virtual environment type
 
-### Installing development requirements
+- `deactivate` for the built-in Python module `venv`
+  or
+- `conda deactivate` for a Conda environment
+
+in your shell.
+
+### Installing required packages
 
 ```
 pip install -r requirements.txt
 ```
 
-### Run script
+### Run Python script
 
 ```
 python script.py
