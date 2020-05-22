@@ -1,48 +1,36 @@
 # Coronavirus Data Project
 
-Dataset: https://github.com/RamiKrispin/coronavirus
+This repository contains a statistical analysis of COVID-19 data which was created as a practice project during the course _'Praxisprojekt'_ in the winter semester 2019/2020 at the [Department of Statistics, LMU Munich](https://www.en.statistik.uni-muenchen.de/index.html).
 
-Additional public datasets:
+In the scope of the project we analysed timeseries data of COVID-19 cases world-wide.
+
+Different data sources were used to enhance the main dataset with additional features, e.g. population or geographic data.
+
+As the main datasource the dataset compiled by RamiKrispin was used, which can be found here: [https://github.com/RamiKrispin/coronavirus](https://github.com/RamiKrispin/coronavirus)
+
+Our final presentation and a summary of the project can also be found in this repository. Latter contains a detailed list of our data sources.
+
+These additional public datasets were consulted for gathering ideas:
 
 - global: https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
 - Germany: https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/data
 
-**Ideas:**
+We used the R and Python programming languages to conduct the analysis and generate all figures.
 
-- Describe data with maps
-- Inspect trends in different countries **global**/Germany/... (death rates, etc)
-- Economics
-- Data about different countries form UN
-- Check for anomalies
-- Time series/development
-- Comparison of effects of different actions/policies on basis of 3 - 4 countries (e.g. US federal states)
-- socio-demographics: population number, population density...
-- consider time delay in data publications
-- also possible: scrape own additional data from e.g. Robert Koch Institut
-
-**TODO**
-
-- Konkrete Fragen formulieren
-- Welche Daten brauchen wir, um Fragen zu beantworten?
-- Aufgabenteilung
-- Infektionsraten berechnen
-
-**GitHub Basics**
-
-https://uoftcoders.github.io/studyGroup/lessons/git/collaboration/lesson/
-
-**Project Structure**
+## Project Structure
 
 ```
 .
-├── R
-│   ├── data <- downloaded datasets
-│   ├── munge <- pre-processed data
-│   ├── plots <- image files
-│   └── src <- R scripts
+├── Abgabe      <- Contains code for analysis, datasets, figures, presentation slides & summary.
+├── Bericht     <- TeX files for report & bibliography.
+├── Presentation      <- TeX files for presentation slides (original version 08.05.2020).
+├── Presentation_latest    <- TeX files for presentation slides (revised version).
 └── README.md
 ```
 
+## To reproduce our analysis
 
-
-
+- clone this repo with `git clone https://github.com/mediasittich/coronavirus-data-project.git`
+- change to the directory _Abgabe_ by typing `cd Abgabe`
+- To run the R script open the file `Rscript.R` in RStudio
+- To run the Python scripts follow the instructions in the `README.md` file in the _Abgabe_ directory
