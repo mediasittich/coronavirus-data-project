@@ -6,9 +6,10 @@ In the scope of the project we analysed timeseries data of COVID-19 cases world-
 
 Different data sources were used to enhance the main dataset with additional features, e.g. population or geographic data.
 
-As the main datasource the dataset compiled by RamiKrispin was used, which can be found here: [https://github.com/RamiKrispin/coronavirus](https://github.com/RamiKrispin/coronavirus)
+As the main datasource the dataset compiled by RamiKrispin was used, which can be found here: [https://github.com/RamiKrispin/coronavirus](https://github.com/RamiKrispin/coronavirus)  
+List and description of additional datasets used can be found in the `README.md`in subdirectory _Abgabe_.
 
-Our final presentation and a summary of the project can also be found in this repository. Latter contains a detailed list of our data sources.
+Our final presentation and a summary of the project can also be found in this repository. Latter also contains a detailed list of our data sources.
 
 These additional public datasets were consulted for gathering ideas:
 
