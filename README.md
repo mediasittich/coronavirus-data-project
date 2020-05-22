@@ -26,6 +26,7 @@ We used the R and Python programming languages to conduct the analysis and gener
 ├── Bericht     <- TeX files for report & bibliography.
 ├── Presentation      <- TeX files for presentation slides (original version 08.05.2020).
 ├── Presentation_latest    <- TeX files for presentation slides (revised version).
+├── .gitignore          <- Ignore file to exclude unnecessary files from Git tracking.
 └── README.md
 ```
 

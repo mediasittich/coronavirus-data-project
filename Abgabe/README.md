@@ -17,7 +17,6 @@
     │   │
     │   └── visualize.py        <- Scripts to create exploratory and results oriented
     │
-    ├── .gitignore          <- Ignore file to exclude unnecessary files from Git tracking.
     ├── Rscript.R           <- Main R script for analysis.
     ├── requirements.txt    <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
