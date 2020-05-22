@@ -34,3 +34,10 @@ We used the R and Python programming languages to conduct the analysis and gener
 - change to the directory _Abgabe_ by typing `cd Abgabe`
 - To run the R script open the file `Rscript.R` in RStudio
 - To run the Python scripts follow the instructions in the `README.md` file in the _Abgabe_ directory
+
+---
+
+## _Bonus_
+
+During this project we started working on a web application to display our analysis interactively. The app project is currently a work in progress and may also contain additional data resources not used in this analysis.  
+The current live version of the app can be found [here](https://covid-19-stats-project.herokuapp.com/). The corresponding repository [here](https://github.com/mediasittich/covid19-dash-app).
